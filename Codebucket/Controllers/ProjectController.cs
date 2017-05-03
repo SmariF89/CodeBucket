@@ -23,14 +23,16 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult createNewProject()
         {
-            return null;
+            ProjectViewModel model = new ProjectViewModel();
+            return View(model);
         }
 
         // POST: CreateNewProject
         [HttpPost]
         public ActionResult createNewProject(ProjectViewModel model)
         {
-            return null;
+            _projectService.addProject(model);
+            return RedirectToAction("Index", "Home");   
         }
 
 

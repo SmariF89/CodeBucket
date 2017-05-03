@@ -8,6 +8,7 @@
 *.pdb
 *.dll.config
 *.cache
+*.vs/
 *.suo
 *.Web.config
 # Include dlls if they’re in the NuGet packages directory
