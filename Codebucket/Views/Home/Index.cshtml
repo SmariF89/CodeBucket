@@ -3,8 +3,7 @@
 }
 
 @{Html.RenderPartial("~/Views/UserInterface/AceEditor.cshtml");}
-@{Html.RenderPartial("~/Views/ProjectFile/createNewProjectFile.cshtml");}
+@{Html.RenderPartial("~/Views/ProjectFile/createNewProjectFile.cshtml", new Codebucket.Models.ViewModels.ProjectFileViewModel());}
 @{Html.RenderPartial("~/Views/UserInterface/Project.cshtml");}
 @{Html.RenderPartial("~/Views/UserInterface/User.cshtml");}
 @{Html.RenderPartial("~/Views/UserInterface/UserLogOut.cshtml");}
-

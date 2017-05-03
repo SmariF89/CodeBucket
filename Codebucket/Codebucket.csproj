@@ -654,6 +654,8 @@
     <Content Include="Views\UserInterface\UserLogOut.cshtml" />
     <Content Include="Views\UserInterface\AceEditor.cshtml" />
     <Content Include="Views\Project\Project.cshtml" />
+    <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
+    <Content Include="Views\UserInterface\Project.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
