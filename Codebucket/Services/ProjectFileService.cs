@@ -26,13 +26,12 @@ namespace Codebucket.Services
         {
             if (id.HasValue)
             {
-
-                var projectFile = _db._projectFiles.Find(id);
+                ProjectFile newProjectFile = _db._projectFiles.Find(id);
 
                 ProjectFileViewModel viewModel = new ProjectFileViewModel();
-                viewModel._projectFileData = projectFile._projectFileData.ToString();
-                viewModel._projectFileName = projectFile._projectFileName.ToString();
-                viewModel._projectFileType = projectFile._projectFileType.ToString();
+                viewModel._projectFileData = newProjectFile._projectFileData.ToString();
+                viewModel._projectFileName = newProjectFile._projectFileName.ToString();
+                viewModel._projectFileType = newProjectFile._projectFileType.ToString();
 
                 return viewModel;
             }
