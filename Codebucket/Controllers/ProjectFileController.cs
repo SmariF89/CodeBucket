@@ -23,7 +23,6 @@ namespace Codebucket.Controllers
         public ActionResult createNewProjectFile()
         {
             ProjectFileViewModel model = new ProjectFileViewModel();
-
             return View(model);
         }
 
@@ -32,7 +31,6 @@ namespace Codebucket.Controllers
         public ActionResult createNewProjectFile(ProjectFileViewModel model)
         {
             _projectFileService.addProjectFile(model);
-
             return RedirectToAction("Index", "Home");
         }
 
