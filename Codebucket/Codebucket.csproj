@@ -279,16 +279,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\UserInterface\ProjectFile.cshtml" />
     <Content Include="Views\UserInterface\Project.cshtml" />
     <Content Include="Views\UserInterface\User.cshtml" />
     <Content Include="Views\UserInterface\UserLogOut.cshtml" />
     <Content Include="Views\UserInterface\AceEditor.cshtml" />
+    <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\ApplicationUser\" />
-    <Folder Include="Views\ProjectFile\" />
     <Folder Include="Views\Project\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
