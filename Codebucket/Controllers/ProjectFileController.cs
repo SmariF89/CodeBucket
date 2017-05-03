@@ -22,14 +22,18 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult createNewProjectFile()
         {
-            return null;
+            ProjectFileViewModel model = new ProjectFileViewModel();
+
+            return View(model);
         }
 
         // POST: createNewProjectFile
         [HttpPost]
         public ActionResult createNewProjectFile(ProjectFileViewModel model)
         {
-            return null;
+            _projectFileService.addProjectFile(model);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: updateProjectFile
