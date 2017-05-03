@@ -21,11 +21,25 @@ namespace Codebucket.Services
         {
             return null;
         }
-        
+
         public ProjectFileViewModel getProjectFileById(int? id)
         {
+            if (id.HasValue)
+            {
+
+                var projectFile = _db._projectFiles.Find(id);
+
+                ProjectFileViewModel viewModel = new ProjectFileViewModel();
+                viewModel._projectFileData = projectFile._projectFileData.ToString();
+                viewModel._projectFileName = projectFile._projectFileName.ToString();
+                viewModel._projectFileType = projectFile._projectFileType.ToString();
+
+                return viewModel;
+            }
+
             return null;
         }
+
 
         public void addProjectFile(ProjectFileViewModel model)
         {
