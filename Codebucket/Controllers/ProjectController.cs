@@ -24,23 +24,29 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult listAllProjects()
         {
-            ProjectViewModel model = new ProjectViewModel();
-            return View();
-        }
-
-        // POST: getAllProjectsByApplicationUserId
-        [HttpPost]
-        public ActionResult listAllProjects(ProjectViewModel model)
-        {
             ApplicationUser user = new ApplicationUser
             {
                 UserName = User.Identity.Name
             };
 
-            _projectService.getAllProjectsByApplicationUserId(user);
+            ProjectViewModel model = new ProjectViewModel();
 
-            return View();
+
+
+
+            return View(_projectService.getAllProjectsByApplicationUserId(user));
         }
+
+        // POST: getAllProjectsByApplicationUserId
+        //[HttpPost]
+        //public ActionResult listAllProjects(ProjectViewModel model)
+        //{
+            
+
+            
+
+        //    return View();
+        //}
 
 
         // GET: CreateNewProject

@@ -21,60 +21,25 @@ namespace Codebucket.Services
         //TODO: Check if this works after implementing more important stuff.
         public List<ProjectViewModel> getAllProjectsByApplicationUserId(ApplicationUser user)
         {
-            //var projectIds = (from i in _db._projectMembers
-            //                  where (i._userName == userName)
-            //                  select i._projectID);
+            List<ProjectViewModel> ownedProjectViewModel = new List<ProjectViewModel>();
+            var ownedProjects = _db._projectOwners.ToList();
 
-            //List<Project> projects = new List<Project>();
-            //foreach (int i in projectIds)
-            //{
-            //    projects = (from j in _db._projects
-            //                where j.ID == projectIds.ElementAt(i)
-            //                select j).ToList();
-            //}
+            //item._projectID;
 
-            //List<ProjectViewModel> projectViewModels = new List<ProjectViewModel>();
-            //foreach (Project i in projects)
-            //{
-            //    projectViewModels.Add(new ProjectViewModel
-            //    {
-            //        _projectName = i._projectName,
-            //        _projectFiles = _fileService.getProjectFilesByProjectID,
-            //        _projectMembers = _userService.getProjectMembersByUserID
-            //    });
-            //}
+            foreach (var item in ownedProjects)
+            {
+                ownedProjectViewModel.Add(new ProjectViewModel
+                {
+                    //_project = item
+                    //,
+                    _projectName = (from j in _db._projects
+                                    where j.ID == item._projectID
+                                    select j._projectName).FirstOrDefault()
+                }
+                );
+            }
+            return ownedProjectViewModel;
 
-            //return projectViewModels;
-
-
-            // -------------
-            //ProjectViewModel newProjectViewModel = new ProjectViewModel();
-            //List<ProjectViewModel> newProjectViewModelList = new List<ProjectViewModel>();
-
-
-            
-
-            //ApplicationUser User = new ApplicationUser ();
-
-
-            //string username = user.UserName; // username of current user
-            //string userId = user.Id; // userid of current user
-
-            //var projectIds = (from i in _db._projectMembers
-            //                  where (i._userName == userName)
-            //                  select i._projectID);
-
-
-
-
-            //newProjectViewModel._projectName = ValueType; // string 
-            //newProjectViewModel._projectFiles = ValueType; // List<ProjectFileViewModel>
-            //newProjectViewModel._projectMembers = ValueType; // List<ApplicationUserViewModel>
-
-
-
-            //return newProjectViewModelList;
-            return null;
         }
 
         public ProjectViewModel getProjectById(int? id)
