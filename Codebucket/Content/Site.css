@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Ace editor*/
+#editor {
+	position: absolute;
+	width: 600px;
+	height: 600px;
+	right: 0;
+}
