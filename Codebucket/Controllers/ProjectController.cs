@@ -50,6 +50,7 @@ namespace Codebucket.Controllers
             return null;
         }
 
+        // GET: AddProjectMember
         [HttpGet]
         public ActionResult addProjectMember()
         {
@@ -57,11 +58,16 @@ namespace Codebucket.Controllers
             return View(model);
         }
 
+        // POST: AddProjectMember
         [HttpPost]
-        public ActionResult addProjectMember(AddMemberViewModel model) // IN PROGRESS - THORIR
+        public ActionResult addProjectMember(AddMemberViewModel model)
         {
-            _projectService.addProjectMember(model); 
-            return RedirectToAction("Index", "Home");
+            if(ModelState.IsValid)
+            {
+                _projectService.addProjectMember(model);
+                return RedirectToAction("Index", "Home");
+            }
+            return HttpNotFound();
         }
     }
 }
