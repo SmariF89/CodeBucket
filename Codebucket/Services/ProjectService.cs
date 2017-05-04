@@ -21,9 +21,9 @@ namespace Codebucket.Services
         //TODO: Check if this works after implementing more important stuff.
         public List<ProjectViewModel> getAllProjectsByApplicationUserId(string userName)
         {
-			//var projectIds = (from i in _db._projectMembers
-			//              where (i._userName == userName)
-			//              select i._projectID);
+            //var projectIds = (from i in _db._projectMembers
+            //                  where (i._userName == userName)
+            //                  select i._projectID);
 
 			//List<Project> projects = new List<Project>();
 			//foreach (int i in projectIds)
