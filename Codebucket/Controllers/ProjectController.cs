@@ -20,6 +20,29 @@ namespace Codebucket.Controllers
             return View();
         }
 
+        // GET: getAllProjectsByApplicationUserId
+        [HttpGet]
+        public ActionResult listAllProjects()
+        {
+            ProjectViewModel model = new ProjectViewModel();
+            return View();
+        }
+
+        // POST: getAllProjectsByApplicationUserId
+        [HttpPost]
+        public ActionResult listAllProjects(ProjectViewModel model)
+        {
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = User.Identity.Name
+            };
+
+            _projectService.getAllProjectsByApplicationUserId(user);
+
+            return View();
+        }
+
+
         // GET: CreateNewProject
         [HttpGet]
         public ActionResult createNewProject()

@@ -19,33 +19,62 @@ namespace Codebucket.Services
         }
 
         //TODO: Check if this works after implementing more important stuff.
-        public List<ProjectViewModel> getAllProjectsByApplicationUserId(string userName)
+        public List<ProjectViewModel> getAllProjectsByApplicationUserId(ApplicationUser user)
         {
             //var projectIds = (from i in _db._projectMembers
             //                  where (i._userName == userName)
             //                  select i._projectID);
 
-			//List<Project> projects = new List<Project>();
-			//foreach (int i in projectIds)
-			//{
-			//    projects = (from j in _db._projects
-			//                where j.ID == projectIds.ElementAt(i)
-			//                select j).ToList();
-			//}
+            //List<Project> projects = new List<Project>();
+            //foreach (int i in projectIds)
+            //{
+            //    projects = (from j in _db._projects
+            //                where j.ID == projectIds.ElementAt(i)
+            //                select j).ToList();
+            //}
 
-			//List<ProjectViewModel> projectViewModels = new List<ProjectViewModel>();
-			//foreach (Project i in projects)
-			//{
-			//    projectViewModels.Add(new ProjectViewModel
-			//    {
-			//        _projectName = i._projectName,
-			//        _projectFiles = _fileService.getProjectFilesByProjectID,
-			//        _projectMembers = _userService.getProjectMembersByUserID
-			//    });
-			//}
+            //List<ProjectViewModel> projectViewModels = new List<ProjectViewModel>();
+            //foreach (Project i in projects)
+            //{
+            //    projectViewModels.Add(new ProjectViewModel
+            //    {
+            //        _projectName = i._projectName,
+            //        _projectFiles = _fileService.getProjectFilesByProjectID,
+            //        _projectMembers = _userService.getProjectMembersByUserID
+            //    });
+            //}
 
-			//return projectViewModels;
-			return null;
+            //return projectViewModels;
+
+
+            // -------------
+            //ProjectViewModel newProjectViewModel = new ProjectViewModel();
+            //List<ProjectViewModel> newProjectViewModelList = new List<ProjectViewModel>();
+
+
+            
+
+            //ApplicationUser User = new ApplicationUser ();
+
+
+            //string username = user.UserName; // username of current user
+            //string userId = user.Id; // userid of current user
+
+            //var projectIds = (from i in _db._projectMembers
+            //                  where (i._userName == userName)
+            //                  select i._projectID);
+
+
+
+
+            //newProjectViewModel._projectName = ValueType; // string 
+            //newProjectViewModel._projectFiles = ValueType; // List<ProjectFileViewModel>
+            //newProjectViewModel._projectMembers = ValueType; // List<ApplicationUserViewModel>
+
+
+
+            //return newProjectViewModelList;
+            return null;
         }
 
         public ProjectViewModel getProjectById(int? id)
@@ -83,21 +112,29 @@ namespace Codebucket.Services
         {
             ProjectMember newProjectMember = new ProjectMember();
 
-            Project project = _db._projects.Find(model._project);
-            var user = _db.Users.Find(model._userName);
+            // Select project from db that corresponds to user selected/entered project
+            var project = from p in _db._projects
+                          where p._projectName == model._project
+                          select p;
 
-            if(project != null && user != null)
+            // Select username from db that corresponds to user selected/entered username
+            var user = from u in _db.Users
+                       where u.UserName == model._userName
+                       select u;
+
+            if (project.FirstOrDefault() != null && user.FirstOrDefault() != null)
             {
-                newProjectMember._projectID = project.ID;
-                newProjectMember._userName = user.UserName;
+                newProjectMember._projectID = project.FirstOrDefault().ID;
+                newProjectMember._userName = user.FirstOrDefault().UserName;
 
                 _db._projectMembers.Add(newProjectMember);
                 _db.SaveChanges();
             }
-                
-
+            // TODO :: THOW EXCEPTION, else {if project or user was not found.}
         }
-
-
     }
 }
+
+
+
+
