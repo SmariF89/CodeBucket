@@ -60,7 +60,7 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult addProjectMember(AddMemberViewModel model) // IN PROGRESS - THORIR
         {
-            //_projectService.addProjectMember(model); 
+            _projectService.addProjectMember(model); 
             return RedirectToAction("Index", "Home");
         }
     }
