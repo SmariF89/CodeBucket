@@ -49,6 +49,19 @@ namespace Codebucket.Controllers
         {
             return null;
         }
-        
+
+        [HttpGet]
+        public ActionResult addProjectMember()
+        {
+            AddMemberViewModel model = new AddMemberViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult addProjectMember(AddMemberViewModel model) // IN PROGRESS - THORIR
+        {
+            //_projectService.addProjectMember(model); 
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
