@@ -39,7 +39,25 @@ namespace Codebucket.Services
 
         public void updateProject(ProjectViewModel model)
         {
+           
+        }
+
+        public void addProjectMember(AddMemberViewModel model) // IN WORK
+        {
+            //ProjectMember newProjectMember = new ProjectMember();
+
+            
+
+
+            //newProjectMember._projectID = model
+            //newProjectMember._userName = newProject.
+
+
+            //_db._projectMembers.Add(newProjectMember);
+            //_db.SaveChanges();
 
         }
+
+
     }
 }
