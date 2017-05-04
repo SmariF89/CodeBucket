@@ -227,6 +227,7 @@
     <Compile Include="Models\Entities\ProjectOwner.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\AddMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\ApplicationUserViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ProjectFileViewModel.cs" />
@@ -656,6 +657,7 @@
     <Content Include="Views\Project\Project.cshtml" />
     <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
     <Content Include="Views\UserInterface\Project.cshtml" />
+    <Content Include="Views\Project\addProjectMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
