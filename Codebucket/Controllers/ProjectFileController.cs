@@ -8,7 +8,8 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-    public class ProjectFileController : Controller
+	[ValidateInput(false)]
+	public class ProjectFileController : Controller
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
 
@@ -20,7 +21,7 @@ namespace Codebucket.Controllers
 
         // GET: createNewProjectFile
         [HttpGet]
-        public ActionResult createNewProjectFile()
+		public ActionResult createNewProjectFile()
         {
             ProjectFileViewModel model = new ProjectFileViewModel();
             return View(model);
