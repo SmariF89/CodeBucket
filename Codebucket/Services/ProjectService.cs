@@ -17,9 +17,33 @@ namespace Codebucket.Services
             _db = new ApplicationDbContext();
         }
 
-        public List<ProjectViewModel> getAllProjectsByApplicationUserId(int? id)
+        //TODO: Check if this works after implementing more important stuff.
+        public List<ProjectViewModel> getAllProjectsByApplicationUserId(string userName)
         {
-            return null;
+            //var projectIds = (from i in _db._projectMembers
+            //              where (i._userName == userName)
+            //              select i._projectID);
+
+            //List<Project> projects = new List<Project>();
+            //foreach (int i in projectIds)
+            //{
+            //    projects = (from j in _db._projects
+            //                where j.ID == projectIds.ElementAt(i)
+            //                select j).ToList();
+            //}
+
+            //List<ProjectViewModel> projectViewModels = new List<ProjectViewModel>();
+            //foreach (Project i in projects)
+            //{
+            //    projectViewModels.Add(new ProjectViewModel
+            //    {
+            //        _projectName = i._projectName,
+            //        _projectFiles = _fileService.getProjectFilesByProjectID,
+            //        _projectMembers = _userService.getProjectMembersByUserID
+            //    });
+            //}
+
+            //return projectViewModels;
         }
 
         public ProjectViewModel getProjectById(int? id)
@@ -39,7 +63,28 @@ namespace Codebucket.Services
 
         public void updateProject(ProjectViewModel model)
         {
+           
+        }
+
+        public void addProjectMember(AddMemberViewModel model)
+        {
+            ProjectMember newProjectMember = new ProjectMember();
+
+            Project project = _db._projects.Find(model._project);
+            var user = _db.Users.Find(model._userName);
+
+            if(project != null && user != null)
+            {
+                newProjectMember._projectID = project.ID;
+                newProjectMember._userName = user.UserName;
+
+                _db._projectMembers.Add(newProjectMember);
+                _db.SaveChanges();
+            }
+                
 
         }
+
+
     }
 }
