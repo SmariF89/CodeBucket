@@ -61,6 +61,10 @@ namespace Codebucket.Services
 
             _db._projects.Add(newProject);
             _db.SaveChanges();
+
+            ProjectFile defaultFile = new ProjectFile();
+            defaultFile._projectFileName = 
+            defaultFile._projectFileData
         }
 
         public void updateProject(ProjectViewModel model)
