@@ -1,4 +1,5 @@
-﻿using Codebucket.Models.ViewModels;
+﻿using Codebucket.Models;
+using Codebucket.Models.ViewModels;
 using Codebucket.Services;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,17 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult createNewProject(ProjectViewModel model)
         {
-            _projectService.addProject(model);
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = User.Identity.Name
+            };
+
+            _projectService.addProject(model, user);
+            //Senda current user inní töflu
+
+            
+            
+
             return RedirectToAction("Index", "Home");   
         }
 
@@ -50,6 +61,7 @@ namespace Codebucket.Controllers
             return null;
         }
 
+        // GET: AddProjectMember
         [HttpGet]
         public ActionResult addProjectMember()
         {
@@ -57,11 +69,16 @@ namespace Codebucket.Controllers
             return View(model);
         }
 
+        // POST: AddProjectMember
         [HttpPost]
-        public ActionResult addProjectMember(AddMemberViewModel model) // IN PROGRESS - THORIR
+        public ActionResult addProjectMember(AddMemberViewModel model)
         {
-            _projectService.addProjectMember(model); 
-            return RedirectToAction("Index", "Home");
+            if(ModelState.IsValid)
+            {
+                _projectService.addProjectMember(model);
+                return RedirectToAction("Index", "Home");
+            }
+            return HttpNotFound();
         }
     }
 }
