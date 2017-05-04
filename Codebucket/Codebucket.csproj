@@ -617,6 +617,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -630,7 +631,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -654,10 +654,9 @@
     <Content Include="Views\UserInterface\User.cshtml" />
     <Content Include="Views\UserInterface\UserLogOut.cshtml" />
     <Content Include="Views\UserInterface\AceEditor.cshtml" />
-    <Content Include="Views\Project\Project.cshtml" />
     <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
-    <Content Include="Views\UserInterface\Project.cshtml" />
     <Content Include="Views\Project\addProjectMember.cshtml" />
+    <Content Include="Views\Project\createNewProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
