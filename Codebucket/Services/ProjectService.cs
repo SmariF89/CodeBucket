@@ -44,6 +44,7 @@ namespace Codebucket.Services
             //}
 
             //return projectViewModels;
+            return null;
         }
 
         public ProjectViewModel getProjectById(int? id)

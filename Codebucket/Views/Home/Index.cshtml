@@ -5,6 +5,6 @@
 @{Html.RenderPartial("~/Views/UserInterface/AceEditor.cshtml");}
 @{Html.RenderPartial("~/Views/ProjectFile/createNewProjectFile.cshtml", new Codebucket.Models.ViewModels.ProjectFileViewModel());}
 @{Html.RenderPartial("~/Views/Project/addProjectMember.cshtml", new Codebucket.Models.ViewModels.AddMemberViewModel());}
-@{Html.RenderPartial("~/Views/UserInterface/Project.cshtml");}
+@{ Html.RenderPartial("~/Views/Project/createNewProject.cshtml", new Codebucket.Models.ViewModels.ProjectViewModel());}
 @{Html.RenderPartial("~/Views/UserInterface/User.cshtml");}
 @{Html.RenderPartial("~/Views/UserInterface/UserLogOut.cshtml");}
