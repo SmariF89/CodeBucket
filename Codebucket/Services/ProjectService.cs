@@ -1,6 +1,7 @@
 ﻿using Codebucket.Models;
 using Codebucket.Models.Entities;
 using Codebucket.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,13 +53,24 @@ namespace Codebucket.Services
             return null;
         }
 
-        public void addProject(ProjectViewModel model)
+        public void addProject(ProjectViewModel model, ApplicationUser user)
         {
             Project newProject = new Project();
 
             newProject._projectName = model._projectName;
+            
 
             _db._projects.Add(newProject);
+            _db.SaveChanges();
+
+            ProjectOwner owner = new ProjectOwner();
+            owner._projectID = newProject.ID;
+            owner._userName = user.UserName;
+            
+            //owner._projectID = 2;
+            //owner._userName = "Snorri";
+
+            _db._projectOwners.Add(owner);
             _db.SaveChanges();
         }
 

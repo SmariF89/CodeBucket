@@ -1,4 +1,5 @@
-﻿using Codebucket.Models.ViewModels;
+﻿using Codebucket.Models;
+using Codebucket.Models.ViewModels;
 using Codebucket.Services;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,17 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult createNewProject(ProjectViewModel model)
         {
-            _projectService.addProject(model);
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = User.Identity.Name
+            };
+
+            _projectService.addProject(model, user);
+            //Senda current user inní töflu
+
+            
+            
+
             return RedirectToAction("Index", "Home");   
         }
 
