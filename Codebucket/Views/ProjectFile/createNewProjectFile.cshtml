@@ -31,6 +31,16 @@
                 @Html.ValidationMessageFor(model => model._projectFileData, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model._projectFile._projectID, new SelectList(Model.project, "ID", "_projectName", Model.ProjectID), "-- Select Project --", new { @class = "form-control" })
+
+
+            </div>
+
+        </div>
         
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

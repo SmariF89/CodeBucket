@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Codebucket.Services
 {
@@ -47,7 +48,7 @@ namespace Codebucket.Services
             newProjectFile._projectFileName = model._projectFileName;
             newProjectFile._projectFileData = model._projectFileData;
             newProjectFile._projectFileType = model._projectFileType;
-            newProjectFile._projectID = 1;
+            newProjectFile._projectID = model.ProjectID;
 
             _db._projectFiles.Add(newProjectFile);
             _db.SaveChanges();
@@ -57,5 +58,17 @@ namespace Codebucket.Services
         {
             
         }
+
+        public List<Project> getAllProjects()
+        {
+           
+            return _db._projects.ToList();
+            
+            
+        }
+
+        
+
+        
     }
 }

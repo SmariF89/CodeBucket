@@ -35,7 +35,11 @@ namespace Codebucket.Controllers
             ApplicationUser user = new ApplicationUser
             {
                 UserName = User.Identity.Name
+                
             };
+
+            
+            
 
             _projectService.addProject(model, user);
             //Senda current user inní töflu
