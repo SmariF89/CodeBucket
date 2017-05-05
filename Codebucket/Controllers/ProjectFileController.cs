@@ -58,11 +58,11 @@ namespace Codebucket.Controllers
                     //model.project = _projectFileService.getAllProjects();
 
                    _projectFileService.addProjectFile(model);
-				    return RedirectToAction("Index", "Home");
 			    }
                // model.project = _projectFileService.getAllProjects();
-                return RedirectToAction("Index", "Home");
-		    }
+                return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
+
+            }
 
 		// GET: updateProjectFile
 		[HttpGet]
@@ -85,6 +85,7 @@ namespace Codebucket.Controllers
             currentProjectId = id;
 
             return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
+           
 		}
 
 
