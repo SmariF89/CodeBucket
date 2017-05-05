@@ -36,7 +36,7 @@ namespace Codebucket.Controllers
 
             //var model = new ProjectFileViewModel();
 
-            var db = _projectFileService;
+            //var db = _projectFileService;
 
             //ViewBag.Files = new SelectList(db.getAllProjects, "ID", );
 
