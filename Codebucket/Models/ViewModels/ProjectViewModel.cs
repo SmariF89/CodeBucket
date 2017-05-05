@@ -14,5 +14,6 @@ namespace Codebucket.Models.ViewModels
         public List<SelectListItem> projectType { get; set; }
         public List<ProjectFileViewModel> _projectFiles { get; set; }
         public List<ApplicationUserViewModel> _projectMembers { get; set; }
+        public int projectTypeId { get; set; }
     }
 }

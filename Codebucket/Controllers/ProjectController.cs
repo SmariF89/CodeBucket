@@ -62,10 +62,15 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult createNewProject(ProjectViewModel model)
         {
-            string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
-            _projectService.addProject(model, ownerName);
-           
-            return RedirectToAction("Index", "Home");   
+            if(ModelState.IsValid)
+            {
+                string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
+                _projectService.addProject(model, ownerName);
+                return RedirectToAction("Index", "Home");
+            }
+            
+            model.projectType = _projectService.populateDropdownData();
+            return View(model);
         }
 
 

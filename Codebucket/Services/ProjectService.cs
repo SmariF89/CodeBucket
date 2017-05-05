@@ -57,17 +57,22 @@ namespace Codebucket.Services
             _db._projects.Add(newProject);
             _db.SaveChanges();
 
-            //String fileExtension = model.projectType
+            string extension = _db._fileTypes.Where(x => x.ID == model.projectTypeId).SingleOrDefault()._extension;
 
             ProjectFile defaultFile = new ProjectFile();
-            defaultFile._projectFileName = "index";
-            defaultFile._projectFileType = ".html";
+            defaultFile._projectFileName = "index" + "." + extension;
+            defaultFile._projectFileType = "." + extension;
             defaultFile._projectFileData = "<p>Hello world!</p>";
-            
-            //owner._projectID = 2;
-            //owner._userName = "Snorri";
+            defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).SingleOrDefault().ID;
 
-            //_db._projectOwners.Add(owner);
+            _db._projectFiles.Add(defaultFile);
+            _db.SaveChanges();
+
+            ProjectOwner owner = new ProjectOwner();
+            owner._projectID = defaultFile._projectID;
+            owner._userName = ownerName;
+
+            _db._projectOwners.Add(owner);
             _db.SaveChanges();
         }
 
@@ -105,14 +110,7 @@ namespace Codebucket.Services
         {
             List<SelectListItem> fileTypes = new List<SelectListItem>();
             fileTypes.Add(new SelectListItem() { Value = "", Text = "- Choose a file type -" });
-
-            fileTypes.Add(new SelectListItem() { Value = "1", Text = "HTML" });
-            fileTypes.Add(new SelectListItem() { Value = "2", Text = "CSS" });
-            fileTypes.Add(new SelectListItem() { Value = "3", Text = "JavaScript" });
-            fileTypes.Add(new SelectListItem() { Value = "4", Text = "C#" });
-            fileTypes.Add(new SelectListItem() { Value = "5", Text = "C++" });
-
-            //db.Categories.ToList().ForEach((x) => { fileTypes.Add(new SelectListItem() { Value = x.ID.ToString(), Text = x.description }); });
+            _db._fileTypes.ToList().ForEach((x) => { fileTypes.Add(new SelectListItem() { Value = x.ID.ToString(), Text = x._description }); });
 
             return fileTypes;
         }
