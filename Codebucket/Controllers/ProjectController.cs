@@ -20,27 +20,27 @@ namespace Codebucket.Controllers
             return View();
         }
 
-        // GET: CreateNewProject
+        //GET: CreateNewProject
         [HttpGet]
         public ActionResult createNewProject()
         {
-            ProjectViewModel model = new ProjectViewModel();
+            CreateProjectViewModel model = new CreateProjectViewModel();
+            model.projectType = _projectService.populateDropdownData();
             return View(model);
         }
 
         // POST: CreateNewProject
         [HttpPost]
-        public ActionResult createNewProject(ProjectViewModel model)
+        public ActionResult createNewProject(FormCollection collection)
         {
-            if(ModelState.IsValid)
-            {
-                string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
-                _projectService.addProject(model, ownerName);
-                return RedirectToAction("Index", "Home");
-            }
-            
-            model.projectType = _projectService.populateDropdownData();
-            return View(model);
+            string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
+            CreateProjectViewModel model = new CreateProjectViewModel();
+
+            model._projectName = collection["_projectName"];
+            model.projectTypeId = Int32.Parse(collection["radioChoice"]);
+            _projectService.addProject(model, ownerName);
+
+            return RedirectToAction("Index", "Home");
         }
 
 

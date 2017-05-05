@@ -1,33 +1,53 @@
-﻿@model Codebucket.Models.ViewModels.ProjectViewModel
+﻿@model Codebucket.Models.ViewModels.CreateProjectViewModel
 
-@using (Html.BeginForm()) 
+@{
+    ViewBag.Title = "createNewProject";
+}
+
+<h2>createNewProject</h2>
+
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>ProjectViewModel</h4>
+        <h4>CreateProjectViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model._projectName,"Project name", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._projectName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model._projectName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model._projectName, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.projectTypeId, "File type", htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.projectTypeId, Model.projectType, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.projectTypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        
+        <p>
+            <input name="radioChoice" type="radio" id="test1" value="1" />
+            <label for="test1">HTML</label>
+        </p>
+        <p>
+            <input name="radioChoice" type="radio" id="test2" value="2" />
+            <label for="test2">CSS</label>
+        </p>
+        <p>
+            <input name="radioChoice" type="radio" id="test3" value="3" />
+            <label for="test3">C++</label>
+        </p>
+        <p>
+            <input name="radioChoice" type="radio" id="test4" value="4" />
+            <label for="test4">C#</label>
+        </p>
+        <p>
+            <input name="radioChoice" type="radio" id="test5" value="5" />
+            <label for="test5">Java</label>
+        </p>
+        <p>
+            <input name="radioChoice" type="radio" id="test6" value="6" />
+            <label for="test6">JavaScript</label>
+        </p>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
@@ -37,3 +57,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

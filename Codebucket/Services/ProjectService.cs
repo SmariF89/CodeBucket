@@ -48,7 +48,7 @@ namespace Codebucket.Services
             return null;
         }
 
-        public void addProject(ProjectViewModel model, string ownerName)
+        public void addProject(CreateProjectViewModel model, string ownerName)
         {
             Project newProject = new Project();
 
@@ -63,7 +63,7 @@ namespace Codebucket.Services
             defaultFile._projectFileName = "index" + "." + extension;
             defaultFile._projectFileType = "." + extension;
             defaultFile._projectFileData = "<p>Hello world!</p>";
-            defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).SingleOrDefault().ID;
+            defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).FirstOrDefault().ID;
 
             _db._projectFiles.Add(defaultFile);
             _db.SaveChanges();
