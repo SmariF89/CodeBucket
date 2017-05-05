@@ -10,8 +10,13 @@ namespace Codebucket.Models.Entities
     {
         [Key]
         public int ID { get; set; }
+        [Display(Name = "Project")]
+
+        [Required]
         public int  _projectID { get; set; }
+        [Display(Name ="File name: ")]
         public string _projectFileName { get; set; }
+        [Display(Name = "File name: ")]
         public string _projectFileType { get; set; }
         public string _projectFileData { get; set; }
     }

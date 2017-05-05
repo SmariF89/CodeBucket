@@ -20,39 +20,6 @@ namespace Codebucket.Controllers
             return View();
         }
 
-        // GET: getAllProjectsByApplicationUserId
-        [HttpGet]
-        public ActionResult listAllProjects()
-        {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = User.Identity.Name
-            };
-
-            List<ProjectViewModel> model = new List<ProjectViewModel>();
-
-            model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
-
-
-            List<ProjectViewModel> modelList = new List<ProjectViewModel>();
-
-            modelList.Add(new ProjectViewModel
-            {
-                _projectName = "TESTING",
-            });
-            modelList.Add(new ProjectViewModel
-            {
-                _projectName = "TEST2ING",
-            });
-            modelList.Add(new ProjectViewModel
-            {
-                _projectName = "TEST22ING",
-            });
-
-
-            return View(model);
-        }
-
         // GET: CreateNewProject
         [HttpGet]
         public ActionResult createNewProject()
@@ -68,9 +35,13 @@ namespace Codebucket.Controllers
             ApplicationUser user = new ApplicationUser
             {
                 UserName = User.Identity.Name
+                
             };
 
-            _projectService.addProject(model, user);
+            
+            
+
+            _projectService.addProject(model, user.UserName);
             //Senda current user inní töflu
 
             

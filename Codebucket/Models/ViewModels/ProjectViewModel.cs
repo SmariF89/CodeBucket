@@ -3,19 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 
 namespace Codebucket.Models.ViewModels
 {
     public class ProjectViewModel
     {
-        
         public string _projectName { get; set; }
-
-        public Project _project { get; set; }
-
+        public List<SelectListItem> projectType { get; set; }
         public List<ProjectFileViewModel> _projectFiles { get; set; }
-        public List<ProjectMember> _projectMembers { get; set; }
-        //public List<ApplicationUserViewModel> _projectMembers { get; set; } // needed ?
+        public List<ApplicationUserViewModel> _projectMembers { get; set; }
     }
 }

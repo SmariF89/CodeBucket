@@ -6,105 +6,68 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Codebucket.Services
 {
     public class ProjectService
     {
         private ApplicationDbContext _db;
-        private ProjectFileService _projectFileService = new ProjectFileService();
-        private ApplicationUserService _applicationUserService = new ApplicationUserService();
 
         public ProjectService()
         {
             _db = new ApplicationDbContext();
         }
 
-        public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ApplicationUser user)
+        //TODO: Check if this works after implementing more important stuff.
+        public List<ProjectViewModel> getAllProjectsByApplicationUserId(ApplicationUser user)
         {
-            List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
-            List<Project> newOwnerProjects = new List<Project>();
+            List<ProjectViewModel> ownedProjectViewModel = new List<ProjectViewModel>();
+            var ownedProjects = _db._projectOwners.ToList();
 
-            IEnumerable<ProjectOwner> ownerProjectsIds = (from projectOwner in _db._projectOwners
-                                                   where projectOwner._userName == user.UserName
-                                                   select projectOwner);
+            //item._projectID;
 
-            foreach (var item in ownerProjectsIds)
+            foreach (var item in ownedProjects)
             {
-                //newOwnerProjects.Add(getProjectEntityById(item._projectID));
-                newOwnerProjects.Add(getProjectEntityById(1));
-
-            }
-
-            foreach (var item in newOwnerProjects)
-            {
-                newOwnerProjectViewModel.Add(new ProjectViewModel
+                ownedProjectViewModel.Add(new ProjectViewModel
                 {
-                    //_projectName = "test",
-                    _projectName = item._projectName,
-                    _project = item,
-                    _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
-                });
+                    //_project = item
+                    //,
+                    _projectName = (from j in _db._projects
+                                    where j.ID == item._projectID
+                                    select j._projectName).FirstOrDefault()
+                }
+                );
             }
+            return ownedProjectViewModel;
 
-            return newOwnerProjectViewModel;
-
-            //List<ProjectViewModel> ownedProjectViewModel = new List<ProjectViewModel>();
-            //var ownedProjects = _db._projectOwners.ToList();
-
-            ////item._projectID;
-
-            //foreach (var item in ownedProjects)
-            //{
-            //    ownedProjectViewModel.Add(new ProjectViewModel
-            //    {
-            //        //_project = item
-            //        //,
-            //        _projectName = (from j in _db._projects
-            //                        where j.ID == item._projectID
-            //                        select j._projectName).FirstOrDefault()
-            //    }
-            //    );
-            //}
-            //return ownedProjectViewModel;
-
-            //--------------------------------------
-
-        }
-
-       
-
-        public List<ProjectViewModel> getAllMemberProjectsByApplicationUserId(ApplicationUser user)
-        {
-            List<ProjectViewModel> newMemberProjectViewModel = new List<ProjectViewModel>();
-            return newMemberProjectViewModel;
         }
 
         public ProjectViewModel getProjectById(int? id)
         {
-
             return null;
         }
 
-        public void addProject(ProjectViewModel model, ApplicationUser user)
+        public void addProject(ProjectViewModel model, string ownerName)
         {
             Project newProject = new Project();
 
             newProject._projectName = model._projectName;
             
-
             _db._projects.Add(newProject);
             _db.SaveChanges();
 
-            ProjectOwner owner = new ProjectOwner();
-            owner._projectID = newProject.ID;
-            owner._userName = user.UserName;
+            //String fileExtension = model.projectType
+
+            ProjectFile defaultFile = new ProjectFile();
+            defaultFile._projectFileName = "index";
+            defaultFile._projectFileType = ".html";
+            defaultFile._projectFileData = "<p>Hello world!</p>";
             
             //owner._projectID = 2;
             //owner._userName = "Snorri";
 
-            _db._projectOwners.Add(owner);
+            //_db._projectOwners.Add(owner);
             _db.SaveChanges();
         }
 
@@ -138,25 +101,21 @@ namespace Codebucket.Services
             // TODO :: THOW EXCEPTION, else {if project or user was not found.}
         }
 
-        private Project getProjectEntityById(int? id)
+        public List<SelectListItem> populateDropdownData()
         {
-            Project newProject = new Project();
+            List<SelectListItem> fileTypes = new List<SelectListItem>();
+            fileTypes.Add(new SelectListItem() { Value = "", Text = "- Choose a file type -" });
 
-            newProject = (from project in _db._projects
-                          select project).FirstOrDefault();
+            fileTypes.Add(new SelectListItem() { Value = "1", Text = "HTML" });
+            fileTypes.Add(new SelectListItem() { Value = "2", Text = "CSS" });
+            fileTypes.Add(new SelectListItem() { Value = "3", Text = "JavaScript" });
+            fileTypes.Add(new SelectListItem() { Value = "4", Text = "C#" });
+            fileTypes.Add(new SelectListItem() { Value = "5", Text = "C++" });
 
-            //newProject = _db._projects.Find(id);
+            //db.Categories.ToList().ForEach((x) => { fileTypes.Add(new SelectListItem() { Value = x.ID.ToString(), Text = x.description }); });
 
-            return newProject;
+            return fileTypes;
         }
-
-        private List<ApplicationUserViewModel> getApplicationUserViewModel() // Needed ?
-        {
-            List <ApplicationUserViewModel> newApplicationUserViewModel = new List<ApplicationUserViewModel>();
-
-            return newApplicationUserViewModel;
-        }
-
     }
 }
 

@@ -36,6 +36,9 @@ namespace Codebucket.Models
         {
             return new ApplicationDbContext();
         }
+
+        ///Uncomment this method in order to add new table to db.
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<ApplicationDbContext>(null);
