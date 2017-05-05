@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Codebucket.Services
 {
@@ -19,12 +20,29 @@ namespace Codebucket.Services
 
         public List<ProjectFileViewModel> getAllProjectFilesByProjectId(int? id)
         {
-            return null;
+            List<ProjectFileViewModel> newProjectFileViewModel = new List<ProjectFileViewModel>();
+
+            IEnumerable<ProjectFile> projectFiles = (from projectFile in _db._projectFiles
+                                                     where projectFile._projectID == id
+                                                     select projectFile);
+
+            foreach (var item in projectFiles)
+            {
+                newProjectFileViewModel.Add(new ProjectFileViewModel
+                {
+                    _projectFileName = item._projectFileName,
+                    _projectFileType = item._projectFileType,
+                    _projectFileData = item._projectFileData
+                });
+            }
+
+
+            return newProjectFileViewModel;
         }
 
-        public ProjectFileViewModel getProjectFileById(int? id)
+        public ProjectFileViewModel getProjectFileById(int? id) 
         {
-            if (id.HasValue)
+            if (id.HasValue) 
             {
                 ProjectFile newProjectFile = _db._projectFiles.Find(id);
 
@@ -47,7 +65,7 @@ namespace Codebucket.Services
             newProjectFile._projectFileName = model._projectFileName;
             newProjectFile._projectFileData = model._projectFileData;
             newProjectFile._projectFileType = model._projectFileType;
-            newProjectFile._projectID = 1;
+            newProjectFile._projectID = model.ProjectID;
 
             _db._projectFiles.Add(newProjectFile);
             _db.SaveChanges();
@@ -57,5 +75,17 @@ namespace Codebucket.Services
         {
             
         }
+
+        public List<Project> getAllProjects()
+        {
+           
+            return _db._projects.ToList();
+            
+            
+        }
+
+        
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using Codebucket.Models.ViewModels;
+﻿using Codebucket.Models.Entities;
+using Codebucket.Models.ViewModels;
 using Codebucket.Services;
 using System;
 using System.Collections.Generic;
@@ -23,16 +24,50 @@ namespace Codebucket.Controllers
 		[HttpGet]
 		public ActionResult createNewProjectFile()
 		{
-			ProjectFileViewModel model = new ProjectFileViewModel();
-			return View(model);
+			var list = _projectFileService.getAllProjects();
+
+			// Hver skrá getur bara tengst einu verkefni
+
+			// Hvert verkefni getur haft margar skrár 
+
+			ProjectFileViewModel file = new ProjectFileViewModel()
+			{
+				project = list
+			};
+
+
+
+            //var model = new ProjectFileViewModel();
+
+            var db = _projectFileService;
+
+            //ViewBag.Files = new SelectList(db.getAllProjects, "ID", );
+
+			
+
+			
+			//Viljum senda inn 
+			//ProjectFileViewModel model = new ProjectFileViewModel();
+
+			return View(file);
 		}
 
 		// POST: createNewProjectFile
 		[HttpPost]
 		public ActionResult createNewProjectFile(ProjectFileViewModel model)
 		{
-			_projectFileService.addProjectFile(model);
-			return RedirectToAction("Index", "Home");
+
+			if(ModelState.IsValid)
+			{
+
+                //model.project = _projectFileService.getAllProjects();
+
+
+               _projectFileService.addProjectFile(model);
+				return RedirectToAction("Index", "Home");
+			}
+           // model.project = _projectFileService.getAllProjects();
+            return RedirectToAction("Index", "Home");
 		}
 
 		// GET: updateProjectFile
@@ -64,6 +99,28 @@ namespace Codebucket.Controllers
 			return View(model);
 		}
 
+        /* private IEnumerable<Project> GetAllProjects()
+         {
 
-	}
+         } */
+
+
+
+        /*public static IEnumerable<SelectListItem> ToSelectListItem(this IEnumerable<Project> projects, int selectedID)
+        {
+            return
+                projects.OrderBy(project => project._projectName)
+                .Select(project => new SelectListItem
+                {
+                    Selected = (project.ID == selectedID),
+                    Text = project._projectName,
+                    Value = project.ID.ToString()
+
+                });
+
+        }*/
+
+
+
+    }
 }
