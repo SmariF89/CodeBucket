@@ -49,12 +49,12 @@ namespace Codebucket.Services
             {
                 model.Add(new ProjectViewModel
                 {
+                    _id = item.ID,
                     _projectName = item._projectName,
                     _isProjectOwner = true,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
-                    
+                    _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)                
                 });
             }
 
@@ -80,6 +80,7 @@ namespace Codebucket.Services
             {
                 model.Add(new ProjectViewModel
                 {
+                    _id = item.ID,
                     _projectName = item._projectName,
                     _isProjectOwner = false,
                     _projectTypeId = item.ID,

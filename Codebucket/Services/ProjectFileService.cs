@@ -30,6 +30,7 @@ namespace Codebucket.Services
             {
                 newProjectFileViewModel.Add(new ProjectFileViewModel
                 {
+                    _projectID = item._projectID,
                     _projectFileName = item._projectFileName,
                     _projectFileType = item._projectFileType,
                     _projectFileData = item._projectFileData
@@ -65,7 +66,7 @@ namespace Codebucket.Services
             newProjectFile._projectFileName = model._projectFileName;
             newProjectFile._projectFileData = model._projectFileData;
             newProjectFile._projectFileType = model._projectFileType;
-            newProjectFile._projectID = model.ProjectID;
+            newProjectFile._projectID = model._projectID;
 
             _db._projectFiles.Add(newProjectFile);
             _db.SaveChanges();

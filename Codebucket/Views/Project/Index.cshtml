@@ -1,0 +1,38 @@
+﻿@model List<Codebucket.Models.ViewModels.ProjectViewModel>
+@using Codebucket.Models.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Owned projects</h2>
+
+<ul>
+    @foreach(ProjectViewModel item in Model)
+    {
+        if (item._isProjectOwner)
+        {
+            <li>
+                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id })
+            </li>
+        }
+    }
+</ul>
+
+
+<h2>Member projects</h2>
+
+<ul>
+    @foreach (ProjectViewModel item in Model)
+    {
+        if (!item._isProjectOwner)
+        {
+            <li>
+                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id})
+            </li>
+        }
+    }
+</ul>
+
+@Html.ActionLink("CREATE NEW PROJECT", "createNewProject", new { @class = "btn btn-primary btn-sm" })
+

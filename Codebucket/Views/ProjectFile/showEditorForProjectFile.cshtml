@@ -1,35 +1,35 @@
 ﻿<head>
-	<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
 </head>
 
 @*link to the ace website: https://ace.c9.io/#nav=embedding*@
 <h2>ACE in Action</h2>
 
 <div class="form-group">
-	<label for="theme" class="control-label">Theme:</label>
-	<select id="theme" class="form-control">
-		<option value="ambiance">ambiance</option>
-		<option value="chrome" selected>chrome</option>
-		<option value="clouds">clouds</option>
-		<option value="clouds_midnight">clouds_midnight</option>
-		<option value="github">github</option>
-		<option value="monokai">monokai</option>
-		<option value="xcode">xcode</option>
-	</select>
+    <label for="theme" class="control-label">Theme:</label>
+    <select id="theme" class="form-control">
+        <option value="ambiance">ambiance</option>
+        <option value="chrome" selected>chrome</option>
+        <option value="clouds">clouds</option>
+        <option value="clouds_midnight">clouds_midnight</option>
+        <option value="github">github</option>
+        <option value="monokai">monokai</option>
+        <option value="xcode">xcode</option>
+    </select>
 
-	<label for="mode" class="control-label">Language Mode:</label>
-	<select id="mode" class="form-control">
-		<option value="javascript">javascript</option>
-		<option value="html">html</option>
-	</select>
+    <label for="mode" class="control-label">Language Mode:</label>
+    <select id="mode" class="form-control">
+        <option value="javascript">javascript</option>
+        <option value="html">html</option>
+    </select>
 </div>
 
 @*This is where Ace is shown*@
 <div id="editor">
-	function foo(items) {
-	var x = "All this is syntax highlighted";
-	return x;
-	}
+    function foo(items) {
+    var x = "All this is syntax highlighted";
+    return x;
+    }
 </div>
 
 <script src="~/Ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>

@@ -10,7 +10,7 @@ namespace Codebucket.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Project");
         }
 
         public ActionResult About()

@@ -17,9 +17,19 @@ namespace Codebucket.Controllers
         // GET: Project
         public ActionResult Index()
         {
-            return View();
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = User.Identity.Name
+            };
+
+            // Same as in return, remove if it couses no problems.
+            //List<ProjectViewModel> model = new List<ProjectViewModel>();
+            //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
+
+            return View(_projectService.getAllProjectsByApplicationUserId(user));
         }
 
+        /*
         // GET: getAllOwnerProjectsByApplicationUserId
         [HttpGet]
         public ActionResult listAllProjects()
@@ -35,6 +45,12 @@ namespace Codebucket.Controllers
 
             return View(_projectService.getAllProjectsByApplicationUserId(user));
         }
+        */
+        public ActionResult displayProjectFiles(int? id)
+        {
+            return RedirectToAction("listAllProjectFiles", "ProjectFile", new { id });
+        }
+
 
         //// GET: getAllOwnerProjectsByApplicationUserId
         //[HttpGet]
@@ -106,24 +122,6 @@ namespace Codebucket.Controllers
             return null;
         }
 
-        // GET: AddProjectMember
-        [HttpGet]
-        public ActionResult addProjectMember()
-        {
-            AddMemberViewModel model = new AddMemberViewModel();
-            return View(model);
-        }
 
-        // POST: AddProjectMember
-        [HttpPost]
-        public ActionResult addProjectMember(AddMemberViewModel model)
-        {
-            if(ModelState.IsValid)
-            {
-                _projectService.addProjectMember(model);
-                return RedirectToAction("Index", "Home");
-            }
-            return HttpNotFound();
-        }
     }
 }

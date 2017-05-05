@@ -13,12 +13,9 @@ namespace Codebucket.Controllers
 	public class ProjectFileController : Controller
 	{
 		private ProjectFileService _projectFileService = new ProjectFileService();
+        private ProjectService _projectService = new ProjectService();
+        private int? currentProjectId;
 
-		// GET: ProjectFile
-		public ActionResult Index()
-		{
-			return View();
-		}
 
 		// GET: createNewProjectFile
 		[HttpGet]
@@ -56,19 +53,16 @@ namespace Codebucket.Controllers
 		[HttpPost]
 		public ActionResult createNewProjectFile(ProjectFileViewModel model)
 		{
+		    if(ModelState.IsValid)
+			    {
+                    //model.project = _projectFileService.getAllProjects();
 
-			if(ModelState.IsValid)
-			{
-
-                //model.project = _projectFileService.getAllProjects();
-
-
-               _projectFileService.addProjectFile(model);
-				return RedirectToAction("Index", "Home");
-			}
-           // model.project = _projectFileService.getAllProjects();
-            return RedirectToAction("Index", "Home");
-		}
+                   _projectFileService.addProjectFile(model);
+				    return RedirectToAction("Index", "Home");
+			    }
+               // model.project = _projectFileService.getAllProjects();
+                return RedirectToAction("Index", "Home");
+		    }
 
 		// GET: updateProjectFile
 		[HttpGet]
@@ -86,18 +80,52 @@ namespace Codebucket.Controllers
 
 		// GET: getProjectFileById
 		[HttpGet]
-		public ActionResult getProjectFileById(int? id)
+		public ActionResult listAllProjectFiles(int? id)
 		{
-            return View(_projectFileService.getAllProjectFilesByProjectId(1));
+            currentProjectId = id;
+
+            return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
 		}
 
-		//// POST: getProjectFileById // probably not needed since only get is used.
-		//[HttpPost]
-		//public ActionResult getProjectFileById(int? id)
-		//{
-		//	ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
-		//	return View(model);
-		//}
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // GET: AddProjectMember
+        [HttpGet]
+        public ActionResult addProjectMember()
+        {
+            AddMemberViewModel model = new AddMemberViewModel();
+            return View(model);
+        }
+
+        // POST: AddProjectMember
+        [HttpPost]
+        public ActionResult addProjectMember(AddMemberViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _projectService.addProjectMember(model);
+                return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
+            }
+            return HttpNotFound();
+        }
+
+        public ActionResult showEditorForProjectFile()
+        {
+            return View();
+        }
+
+
+        //// POST: getProjectFileById // probably not needed since only get is used.
+        //[HttpPost]
+        //public ActionResult getProjectFileById(int? id)
+        //{
+        //	ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
+        //	return View(model);
+        //}
 
         /* private IEnumerable<Project> GetAllProjects()
          {
