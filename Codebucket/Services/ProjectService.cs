@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Codebucket.Services
 {
@@ -47,29 +48,26 @@ namespace Codebucket.Services
             return null;
         }
 
-        public void addProject(ProjectViewModel model, ApplicationUser user)
+        public void addProject(ProjectViewModel model, string ownerName)
         {
             Project newProject = new Project();
 
             newProject._projectName = model._projectName;
             
-
             _db._projects.Add(newProject);
             _db.SaveChanges();
 
+            //String fileExtension = model.projectType
 
-            //ProjectFile defaultFile = new ProjectFile();
-            //defaultFile._projectFileName = 
-            //defaultFile._projectFileData
-
-            ProjectOwner owner = new ProjectOwner();
-            owner._projectID = newProject.ID;
-            owner._userName = user.UserName;
+            ProjectFile defaultFile = new ProjectFile();
+            defaultFile._projectFileName = "index";
+            defaultFile._projectFileType = ".html";
+            defaultFile._projectFileData = "<p>Hello world!</p>";
             
             //owner._projectID = 2;
             //owner._userName = "Snorri";
 
-            _db._projectOwners.Add(owner);
+            //_db._projectOwners.Add(owner);
             _db.SaveChanges();
         }
 
@@ -101,6 +99,22 @@ namespace Codebucket.Services
                 _db.SaveChanges();
             }
             // TODO :: THOW EXCEPTION, else {if project or user was not found.}
+        }
+
+        public List<SelectListItem> populateDropdownData()
+        {
+            List<SelectListItem> fileTypes = new List<SelectListItem>();
+            fileTypes.Add(new SelectListItem() { Value = "", Text = "- Choose a file type -" });
+
+            fileTypes.Add(new SelectListItem() { Value = "1", Text = "HTML" });
+            fileTypes.Add(new SelectListItem() { Value = "2", Text = "CSS" });
+            fileTypes.Add(new SelectListItem() { Value = "3", Text = "JavaScript" });
+            fileTypes.Add(new SelectListItem() { Value = "4", Text = "C#" });
+            fileTypes.Add(new SelectListItem() { Value = "5", Text = "C++" });
+
+            //db.Categories.ToList().ForEach((x) => { fileTypes.Add(new SelectListItem() { Value = x.ID.ToString(), Text = x.description }); });
+
+            return fileTypes;
         }
     }
 }

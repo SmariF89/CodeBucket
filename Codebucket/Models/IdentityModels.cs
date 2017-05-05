@@ -25,6 +25,7 @@ namespace Codebucket.Models
         public DbSet<ProjectFile> _projectFiles { get; set; }
         public DbSet<ProjectOwner> _projectOwners { get; set; }
         public DbSet<ProjectMember> _projectMembers { get; set; }
+        public DbSet<FileType> _fileTypes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -34,6 +35,14 @@ namespace Codebucket.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        ///Uncomment this method in order to add new table to db.
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<ApplicationDbContext>(null);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

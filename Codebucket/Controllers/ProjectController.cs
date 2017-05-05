@@ -54,6 +54,7 @@ namespace Codebucket.Controllers
         public ActionResult createNewProject()
         {
             ProjectViewModel model = new ProjectViewModel();
+            model.projectType = _projectService.populateDropdownData();
             return View(model);
         }
 
@@ -61,17 +62,9 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult createNewProject(ProjectViewModel model)
         {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = User.Identity.Name
-            };
-
-            _projectService.addProject(model, user);
-            //Senda current user inní töflu
-
-            
-            
-
+            string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
+            _projectService.addProject(model, ownerName);
+           
             return RedirectToAction("Index", "Home");   
         }
 
