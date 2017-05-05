@@ -20,6 +20,38 @@ namespace Codebucket.Controllers
             return View();
         }
 
+        // GET: getAllOwnerProjectsByApplicationUserId
+        [HttpGet]
+        public ActionResult listAllOwnerProjects()
+        {
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = User.Identity.Name
+            };
+
+            List<ProjectViewModel> model = new List<ProjectViewModel>();
+
+            model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
+
+            return View(model);
+        }
+
+        // GET: getAllMemberProjectsByApplicationUserId 
+        [HttpGet]
+        public ActionResult listAllMemberProjects()
+        {
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = User.Identity.Name
+            };
+
+            List<ProjectViewModel> model = new List<ProjectViewModel>();
+
+            model = _projectService.getAllMemberProjectsByApplicationUserId(user);
+
+            return View(model);
+        }
+
         // GET: CreateNewProject
         [HttpGet]
         public ActionResult createNewProject()
@@ -39,7 +71,7 @@ namespace Codebucket.Controllers
                 return RedirectToAction("Index", "Home");
             }
             
-            model.projectType = _projectService.populateDropdownData();
+            model._projectType = _projectService.populateDropdownData();
             return View(model);
         }
 

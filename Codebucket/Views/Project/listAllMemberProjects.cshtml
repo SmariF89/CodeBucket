@@ -1,21 +1,27 @@
-﻿@model  IEnumerable<Codebucket.Models.ViewModels.ProjectViewModel>
+﻿@model IEnumerable<Codebucket.Models.ViewModels.ProjectViewModel>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    @*<tr>
+    <tr>
         <th>
             @Html.DisplayNameFor(model => model._projectName)
         </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model._projectTypeId)
+        </th>*@
         <th></th>
-    </tr>*@
+    </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item._projectName)
         </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item._projectTypeId)
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |

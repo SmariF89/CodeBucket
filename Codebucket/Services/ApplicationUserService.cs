@@ -32,11 +32,19 @@ namespace Codebucket.Services
             return false;
         }
 
+        public List<ProjectOwner> getAllProjectOwnersByProjectId(int? id)
+        {
+            List<ProjectOwner> newProjectOwner = (from projectOwner in _db._projectOwners
+                                                     where projectOwner._projectID == id
+                                                     select projectOwner).ToList();
+            return newProjectOwner;
+        }
+
         public List<ProjectMember> getAllProjectMembersByProjectId(int? id)
         {
             List<ProjectMember> newProjectMember = (from projectMember in _db._projectMembers
-                                                     where projectMember._projectID == id
-                                                     select projectMember).ToList();
+                                                    where projectMember._projectID == id
+                                                    select projectMember).ToList();
             return newProjectMember;
         }
     }
