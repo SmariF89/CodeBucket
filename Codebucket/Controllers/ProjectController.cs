@@ -20,7 +20,56 @@ namespace Codebucket.Controllers
             return View();
         }
 
-        //GET: CreateNewProject
+        // GET: getAllOwnerProjectsByApplicationUserId
+        [HttpGet]
+        public ActionResult listAllProjects()
+        {
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = User.Identity.Name
+            };
+
+            // Same as in return, remove if it couses no problems.
+            //List<ProjectViewModel> model = new List<ProjectViewModel>();
+            //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
+
+            return View(_projectService.getAllProjectsByApplicationUserId(user));
+        }
+
+        //// GET: getAllOwnerProjectsByApplicationUserId
+        //[HttpGet]
+        //public ActionResult listAllOwnerProjects()
+        //{
+        //    ApplicationUser user = new ApplicationUser
+        //    {
+        //        UserName = User.Identity.Name
+        //    };
+
+        //    // Same as in return, remove if it couses no problems.
+        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
+        //    //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
+
+        //    return View(_projectService.getAllOwnerProjectsByApplicationUserId(user));
+        //}
+
+        //// GET: getAllMemberProjectsByApplicationUserId 
+        //[HttpGet]
+        //public ActionResult listAllMemberProjects()
+        //{
+        //    ApplicationUser user = new ApplicationUser
+        //    {
+        //        UserName = User.Identity.Name
+        //    };
+
+        //    // Same as in return, remove if it couses no problems.
+        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
+        //    //model = _projectService.getAllMemberProjectsByApplicationUserId(user);
+
+        //    return View(_projectService.getAllMemberProjectsByApplicationUserId(user));
+        //}
+
+        // GET: CreateNewProject
+
         [HttpGet]
         public ActionResult createNewProject()
         {
@@ -37,7 +86,7 @@ namespace Codebucket.Controllers
             CreateProjectViewModel model = new CreateProjectViewModel();
 
             model._projectName = collection["_projectName"];
-            model.projectTypeId = Int32.Parse(collection["radioChoice"]);
+            model._projectTypeId = Int32.Parse(collection["radioChoice"]);
             _projectService.addProject(model, ownerName);
 
             return RedirectToAction("Index", "Home");

@@ -13,33 +13,83 @@ namespace Codebucket.Services
     public class ProjectService
     {
         private ApplicationDbContext _db;
+        private ProjectFileService _projectFileService = new ProjectFileService();
+        private ApplicationUserService _applicationUserService = new ApplicationUserService();
 
         public ProjectService()
         {
             _db = new ApplicationDbContext();
         }
 
-        //TODO: Check if this works after implementing more important stuff.
         public List<ProjectViewModel> getAllProjectsByApplicationUserId(ApplicationUser user)
         {
-            List<ProjectViewModel> ownedProjectViewModel = new List<ProjectViewModel>();
-            var ownedProjects = _db._projectOwners.ToList();
+            List<ProjectViewModel> newProjectViewModel = new List<ProjectViewModel>();
 
-            //item._projectID;
+            newProjectViewModel = getAllOwnerProjectsByApplicationUserId(ref newProjectViewModel, user);
+            newProjectViewModel = getAllMemberProjectsByApplicationUserId(ref newProjectViewModel, user);
 
-            foreach (var item in ownedProjects)
+            return newProjectViewModel;
+        }
+
+        public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ref List<ProjectViewModel> model, ApplicationUser user)
+        {
+            //List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
+            List<Project> newOwnerProjects = new List<Project>();
+
+            IEnumerable<ProjectOwner> ownerProjectsIds = (from projectOwner in _db._projectOwners
+                                                          where projectOwner._userName == user.UserName
+                                                          select projectOwner);
+
+
+            newOwnerProjects = (from a in _db._projects
+                                join b in ownerProjectsIds on a.ID equals b._projectID
+                                select a).ToList();
+
+            foreach (var item in newOwnerProjects)
             {
-                ownedProjectViewModel.Add(new ProjectViewModel
+                model.Add(new ProjectViewModel
                 {
-                    //_project = item
-                    //,
-                    _projectName = (from j in _db._projects
-                                    where j.ID == item._projectID
-                                    select j._projectName).FirstOrDefault()
-                }
-                );
+                    _projectName = item._projectName,
+                    _isProjectOwner = true,
+                    _projectTypeId = item.ID,
+                    _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
+                    _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
+                    
+                });
             }
-            return ownedProjectViewModel;
+
+            return model;
+
+        }
+
+        public List<ProjectViewModel> getAllMemberProjectsByApplicationUserId(ref List<ProjectViewModel> model, ApplicationUser user)
+        {
+            //List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
+            List<Project> newOwnerProjects = new List<Project>();
+
+            IEnumerable<ProjectMember> memberProjectsIds = (from projectMember in _db._projectMembers
+                                                          where projectMember._userName == user.UserName
+                                                          select projectMember);
+
+
+            newOwnerProjects = (from a in _db._projects
+                                join b in memberProjectsIds on a.ID equals b._projectID
+                                select a).ToList();
+
+            foreach (var item in newOwnerProjects)
+            {
+                model.Add(new ProjectViewModel
+                {
+                    _projectName = item._projectName,
+                    _isProjectOwner = false,
+                    _projectTypeId = item.ID,
+                    _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
+                    _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
+
+                });
+            }
+
+            return model;
 
         }
 
@@ -57,7 +107,7 @@ namespace Codebucket.Services
             _db._projects.Add(newProject);
             _db.SaveChanges();
 
-            string extension = _db._fileTypes.Where(x => x.ID == model.projectTypeId).SingleOrDefault()._extension;
+            string extension = _db._fileTypes.Where(x => x.ID == model._projectTypeId).SingleOrDefault()._extension;
 
             ProjectFile defaultFile = new ProjectFile();
             defaultFile._projectFileName = "index" + "." + extension;
@@ -80,6 +130,8 @@ namespace Codebucket.Services
         {
            
         }
+
+
 
         public void addProjectMember(AddMemberViewModel model)
         {
@@ -104,6 +156,27 @@ namespace Codebucket.Services
                 _db.SaveChanges();
             }
             // TODO :: THOW EXCEPTION, else {if project or user was not found.}
+        }
+
+        private Project getProjectEntityById(int? id)
+        {
+            Project newProject = new Project();
+
+
+            newProject = (from project in _db._projects
+                          where project.ID == id
+                          select project).FirstOrDefault();
+
+            //newProject = _db._projects.Find(id);
+
+            return newProject;
+        }
+
+        private List<ApplicationUserViewModel> getApplicationUserViewModel() // Needed ?
+        {
+            List<ApplicationUserViewModel> newApplicationUserViewModel = new List<ApplicationUserViewModel>();
+
+            return newApplicationUserViewModel;
         }
 
         public List<SelectListItem> populateDropdownData()

@@ -10,6 +10,6 @@ namespace Codebucket.Models.ViewModels
     {
         public string _projectName { get; set; }
         public List<SelectListItem> projectType { get; set; }
-        public int projectTypeId { get; set; }
+        public int _projectTypeId { get; set; }
     }
 }
