@@ -1,4 +1,5 @@
 ﻿using Codebucket.Models;
+using Codebucket.Models.Entities;
 using Codebucket.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,14 @@ namespace Codebucket.Services
         public bool isProjectMember(int? id)
         {
             return false;
+        }
+
+        public List<ProjectMember> getAllProjectMembersByProjectId(int? id)
+        {
+            List<ProjectMember> newProjectMember = (from projectMember in _db._projectMembers
+                                                     where projectMember._projectID == id
+                                                     select projectMember).ToList();
+            return newProjectMember;
         }
     }
 }

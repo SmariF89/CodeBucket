@@ -20,12 +20,29 @@ namespace Codebucket.Services
 
         public List<ProjectFileViewModel> getAllProjectFilesByProjectId(int? id)
         {
-            return null;
+            List<ProjectFileViewModel> newProjectFileViewModel = new List<ProjectFileViewModel>();
+
+            IEnumerable<ProjectFile> projectFiles = (from projectFile in _db._projectFiles
+                                                     where projectFile._projectID == id
+                                                     select projectFile);
+
+            foreach (var item in projectFiles)
+            {
+                newProjectFileViewModel.Add(new ProjectFileViewModel
+                {
+                    _projectFileName = item._projectFileName,
+                    _projectFileType = item._projectFileType,
+                    _projectFileData = item._projectFileData
+                });
+            }
+
+
+            return newProjectFileViewModel;
         }
 
-        public ProjectFileViewModel getProjectFileById(int? id)
+        public ProjectFileViewModel getProjectFileById(int? id) 
         {
-            if (id.HasValue)
+            if (id.HasValue) 
             {
                 ProjectFile newProjectFile = _db._projectFiles.Find(id);
 

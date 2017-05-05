@@ -32,22 +32,15 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult createNewProject(ProjectViewModel model)
         {
-            ApplicationUser user = new ApplicationUser
+            if(ModelState.IsValid)
             {
-                UserName = User.Identity.Name
-                
-            };
-
+                string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
+                _projectService.addProject(model, ownerName);
+                return RedirectToAction("Index", "Home");
+            }
             
-            
-
-            _projectService.addProject(model, user.UserName);
-            //Senda current user inní töflu
-
-            
-            
-
-            return RedirectToAction("Index", "Home");   
+            model.projectType = _projectService.populateDropdownData();
+            return View(model);
         }
 
 
