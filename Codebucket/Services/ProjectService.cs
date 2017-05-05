@@ -21,9 +21,19 @@ namespace Codebucket.Services
             _db = new ApplicationDbContext();
         }
 
-        public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ApplicationUser user)
+        public List<ProjectViewModel> getAllProjectsByApplicationUserId(ApplicationUser user)
         {
-            List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
+            List<ProjectViewModel> newProjectViewModel = new List<ProjectViewModel>();
+
+            newProjectViewModel = getAllOwnerProjectsByApplicationUserId(ref newProjectViewModel, user);
+            newProjectViewModel = getAllMemberProjectsByApplicationUserId(ref newProjectViewModel, user);
+
+            return newProjectViewModel;
+        }
+
+        public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ref List<ProjectViewModel> model, ApplicationUser user)
+        {
+            //List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
             List<Project> newOwnerProjects = new List<Project>();
 
             IEnumerable<ProjectOwner> ownerProjectsIds = (from projectOwner in _db._projectOwners
@@ -37,10 +47,10 @@ namespace Codebucket.Services
 
             foreach (var item in newOwnerProjects)
             {
-                newOwnerProjectViewModel.Add(new ProjectViewModel
+                model.Add(new ProjectViewModel
                 {
                     _projectName = item._projectName,
-                    //_projectType = item. // needed ?
+                    _isProjectOwner = true,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
                     _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
@@ -48,13 +58,13 @@ namespace Codebucket.Services
                 });
             }
 
-            return newOwnerProjectViewModel;
+            return model;
 
         }
 
-        public List<ProjectViewModel> getAllMemberProjectsByApplicationUserId(ApplicationUser user)
+        public List<ProjectViewModel> getAllMemberProjectsByApplicationUserId(ref List<ProjectViewModel> model, ApplicationUser user)
         {
-            List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
+            //List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
             List<Project> newOwnerProjects = new List<Project>();
 
             IEnumerable<ProjectMember> memberProjectsIds = (from projectMember in _db._projectMembers
@@ -68,10 +78,10 @@ namespace Codebucket.Services
 
             foreach (var item in newOwnerProjects)
             {
-                newOwnerProjectViewModel.Add(new ProjectViewModel
+                model.Add(new ProjectViewModel
                 {
                     _projectName = item._projectName,
-                    //_projectType = item. // needed ?
+                    _isProjectOwner = false,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
                     _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
@@ -79,7 +89,7 @@ namespace Codebucket.Services
                 });
             }
 
-            return newOwnerProjectViewModel;
+            return model;
 
         }
 

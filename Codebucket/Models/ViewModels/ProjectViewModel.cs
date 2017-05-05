@@ -15,5 +15,6 @@ namespace Codebucket.Models.ViewModels
         public List<ProjectFileViewModel> _projectFiles { get; set; }
         public List<ProjectMember> _projectMembers { get; set; }
         public int _projectTypeId { get; set; }
+        public bool _isProjectOwner { get; set; }
     }
 }

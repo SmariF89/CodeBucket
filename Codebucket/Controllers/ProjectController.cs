@@ -22,7 +22,7 @@ namespace Codebucket.Controllers
 
         // GET: getAllOwnerProjectsByApplicationUserId
         [HttpGet]
-        public ActionResult listAllOwnerProjects()
+        public ActionResult listAllProjects()
         {
             ApplicationUser user = new ApplicationUser
             {
@@ -33,24 +33,40 @@ namespace Codebucket.Controllers
             //List<ProjectViewModel> model = new List<ProjectViewModel>();
             //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
 
-            return View(_projectService.getAllOwnerProjectsByApplicationUserId(user));
+            return View(_projectService.getAllProjectsByApplicationUserId(user));
         }
 
-        // GET: getAllMemberProjectsByApplicationUserId 
-        [HttpGet]
-        public ActionResult listAllMemberProjects()
-        {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = User.Identity.Name
-            };
+        //// GET: getAllOwnerProjectsByApplicationUserId
+        //[HttpGet]
+        //public ActionResult listAllOwnerProjects()
+        //{
+        //    ApplicationUser user = new ApplicationUser
+        //    {
+        //        UserName = User.Identity.Name
+        //    };
 
-            // Same as in return, remove if it couses no problems.
-            //List<ProjectViewModel> model = new List<ProjectViewModel>();
-            //model = _projectService.getAllMemberProjectsByApplicationUserId(user);
+        //    // Same as in return, remove if it couses no problems.
+        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
+        //    //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
 
-            return View(_projectService.getAllMemberProjectsByApplicationUserId(user));
-        }
+        //    return View(_projectService.getAllOwnerProjectsByApplicationUserId(user));
+        //}
+
+        //// GET: getAllMemberProjectsByApplicationUserId 
+        //[HttpGet]
+        //public ActionResult listAllMemberProjects()
+        //{
+        //    ApplicationUser user = new ApplicationUser
+        //    {
+        //        UserName = User.Identity.Name
+        //    };
+
+        //    // Same as in return, remove if it couses no problems.
+        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
+        //    //model = _projectService.getAllMemberProjectsByApplicationUserId(user);
+
+        //    return View(_projectService.getAllMemberProjectsByApplicationUserId(user));
+        //}
 
         // GET: CreateNewProject
         [HttpGet]
