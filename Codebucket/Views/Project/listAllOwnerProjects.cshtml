@@ -8,12 +8,9 @@
         <th>
             @Html.DisplayNameFor(model => model._projectName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model._projectTypeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model._isProjectOwner)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -22,12 +19,9 @@
         <td>
             @Html.DisplayFor(modelItem => item._projectName)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item._projectTypeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item._isProjectOwner)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |

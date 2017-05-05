@@ -39,10 +39,10 @@ namespace Codebucket.Models
 
         ///Uncomment this method in order to add new table to db.
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    Database.SetInitializer<ApplicationDbContext>(null);
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<ApplicationDbContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

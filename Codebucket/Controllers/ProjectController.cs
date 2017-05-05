@@ -20,7 +20,7 @@ namespace Codebucket.Controllers
             return View();
         }
 
-        // GET: getAllProjectsByApplicationUserId
+        // GET: getAllOwnerProjectsByApplicationUserId
         [HttpGet]
         public ActionResult listAllProjects()
         {
@@ -29,32 +29,50 @@ namespace Codebucket.Controllers
                 UserName = User.Identity.Name
             };
 
-            ProjectViewModel model = new ProjectViewModel();
-
-            
-
+            // Same as in return, remove if it couses no problems.
+            //List<ProjectViewModel> model = new List<ProjectViewModel>();
+            //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
 
             return View(_projectService.getAllProjectsByApplicationUserId(user));
         }
 
-        // POST: getAllProjectsByApplicationUserId
-        //[HttpPost]
-        //public ActionResult listAllProjects(ProjectViewModel model)
+        //// GET: getAllOwnerProjectsByApplicationUserId
+        //[HttpGet]
+        //public ActionResult listAllOwnerProjects()
         //{
-            
+        //    ApplicationUser user = new ApplicationUser
+        //    {
+        //        UserName = User.Identity.Name
+        //    };
 
-            
+        //    // Same as in return, remove if it couses no problems.
+        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
+        //    //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
 
-        //    return View();
+        //    return View(_projectService.getAllOwnerProjectsByApplicationUserId(user));
         //}
 
+        //// GET: getAllMemberProjectsByApplicationUserId 
+        //[HttpGet]
+        //public ActionResult listAllMemberProjects()
+        //{
+        //    ApplicationUser user = new ApplicationUser
+        //    {
+        //        UserName = User.Identity.Name
+        //    };
+
+        //    // Same as in return, remove if it couses no problems.
+        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
+        //    //model = _projectService.getAllMemberProjectsByApplicationUserId(user);
+
+        //    return View(_projectService.getAllMemberProjectsByApplicationUserId(user));
+        //}
 
         // GET: CreateNewProject
         [HttpGet]
         public ActionResult createNewProject()
         {
             ProjectViewModel model = new ProjectViewModel();
-            model.projectType = _projectService.populateDropdownData();
             return View(model);
         }
 
@@ -62,18 +80,15 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult createNewProject(ProjectViewModel model)
         {
-            ApplicationUser user = new ApplicationUser
+            if(ModelState.IsValid)
             {
-                UserName = User.Identity.Name
-            };
-
-            _projectService.addProject(model, user.UserName);
-            //Senda current user inní töflu
-
+                string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
+                _projectService.addProject(model, ownerName);
+                return RedirectToAction("Index", "Home");
+            }
             
-            
-
-            return RedirectToAction("Index", "Home");   
+            model._projectType = _projectService.populateDropdownData();
+            return View(model);
         }
 
 
