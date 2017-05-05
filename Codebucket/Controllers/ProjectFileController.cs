@@ -86,18 +86,18 @@ namespace Codebucket.Controllers
 
 		// GET: getProjectFileById
 		[HttpGet]
-		public ActionResult getProjectFileById() // TODO:: How to put in the id from user
-		{
-			return null;
-		}
-
-		// POST: getProjectFileById
-		[HttpPost]
 		public ActionResult getProjectFileById(int? id)
 		{
-			ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
-			return View(model);
+            return View(_projectFileService.getAllProjectFilesByProjectId(1));
 		}
+
+		//// POST: getProjectFileById // probably not needed since only get is used.
+		//[HttpPost]
+		//public ActionResult getProjectFileById(int? id)
+		//{
+		//	ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
+		//	return View(model);
+		//}
 
         /* private IEnumerable<Project> GetAllProjects()
          {

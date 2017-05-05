@@ -29,11 +29,11 @@ namespace Codebucket.Controllers
                 UserName = User.Identity.Name
             };
 
-            List<ProjectViewModel> model = new List<ProjectViewModel>();
+            // Same as in return, remove if it couses no problems.
+            //List<ProjectViewModel> model = new List<ProjectViewModel>();
+            //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
 
-            model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
-
-            return View(model);
+            return View(_projectService.getAllOwnerProjectsByApplicationUserId(user));
         }
 
         // GET: getAllMemberProjectsByApplicationUserId 
@@ -45,11 +45,11 @@ namespace Codebucket.Controllers
                 UserName = User.Identity.Name
             };
 
-            List<ProjectViewModel> model = new List<ProjectViewModel>();
+            // Same as in return, remove if it couses no problems.
+            //List<ProjectViewModel> model = new List<ProjectViewModel>();
+            //model = _projectService.getAllMemberProjectsByApplicationUserId(user);
 
-            model = _projectService.getAllMemberProjectsByApplicationUserId(user);
-
-            return View(model);
+            return View(_projectService.getAllMemberProjectsByApplicationUserId(user));
         }
 
         // GET: CreateNewProject

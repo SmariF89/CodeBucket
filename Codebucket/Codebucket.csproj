@@ -665,6 +665,7 @@
     <Content Include="Views\Project\createNewProject.cshtml" />
     <Content Include="Views\Project\listAllOwnerProjects.cshtml" />
     <Content Include="Views\Project\listAllMemberProjects.cshtml" />
+    <Content Include="Views\ProjectFile\getProjectFileById.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
