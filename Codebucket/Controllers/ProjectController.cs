@@ -29,25 +29,29 @@ namespace Codebucket.Controllers
                 UserName = User.Identity.Name
             };
 
-            ProjectViewModel model = new ProjectViewModel();
+            List<ProjectViewModel> model = new List<ProjectViewModel>();
+
+            model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
 
 
+            List<ProjectViewModel> modelList = new List<ProjectViewModel>();
+
+            modelList.Add(new ProjectViewModel
+            {
+                _projectName = "TESTING",
+            });
+            modelList.Add(new ProjectViewModel
+            {
+                _projectName = "TEST2ING",
+            });
+            modelList.Add(new ProjectViewModel
+            {
+                _projectName = "TEST22ING",
+            });
 
 
-            return View(_projectService.getAllProjectsByApplicationUserId(user));
+            return View(model);
         }
-
-        // POST: getAllProjectsByApplicationUserId
-        //[HttpPost]
-        //public ActionResult listAllProjects(ProjectViewModel model)
-        //{
-            
-
-            
-
-        //    return View();
-        //}
-
 
         // GET: CreateNewProject
         [HttpGet]

@@ -221,6 +221,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\FileType.cs" />
     <Compile Include="Models\Entities\Project.cs" />
     <Compile Include="Models\Entities\ProjectFile.cs" />
     <Compile Include="Models\Entities\ProjectMember.cs" />

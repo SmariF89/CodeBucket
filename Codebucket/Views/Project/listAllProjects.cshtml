@@ -1,15 +1,15 @@
-﻿@model IEnumerable<Codebucket.Models.ViewModels.ProjectViewModel>
+﻿@model  IEnumerable<Codebucket.Models.ViewModels.ProjectViewModel>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
+    @*<tr>
         <th>
             @Html.DisplayNameFor(model => model._projectName)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
 @foreach (var item in Model) {
     <tr>

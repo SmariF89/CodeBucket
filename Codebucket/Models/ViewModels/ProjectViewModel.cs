@@ -12,9 +12,10 @@ namespace Codebucket.Models.ViewModels
         
         public string _projectName { get; set; }
 
-        //public Project _project { get; set; }
+        public Project _project { get; set; }
 
-        //public List<ProjectFileViewModel> _projectFiles { get; set; }
-        //public List<ApplicationUserViewModel> _projectMembers { get; set; }
+        public List<ProjectFileViewModel> _projectFiles { get; set; }
+        public List<ProjectMember> _projectMembers { get; set; }
+        //public List<ApplicationUserViewModel> _projectMembers { get; set; } // needed ?
     }
 }
