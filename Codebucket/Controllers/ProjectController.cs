@@ -41,7 +41,7 @@ namespace Codebucket.Controllers
             
             
 
-            _projectService.addProject(model, user);
+            _projectService.addProject(model, user.UserName);
             //Senda current user inní töflu
 
             
