@@ -1,11 +1,13 @@
 ﻿using Codebucket.Models;
 using Codebucket.Models.Entities;
 using Codebucket.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Codebucket.Services
 {
@@ -65,7 +67,7 @@ namespace Codebucket.Services
             newProjectFile._projectFileName = model._projectFileName;
             newProjectFile._projectFileData = model._projectFileData;
             newProjectFile._projectFileType = model._projectFileType;
-            newProjectFile._projectID = model.ProjectID;
+            newProjectFile._projectID = model._projectID;
 
             _db._projectFiles.Add(newProjectFile);
             _db.SaveChanges();
@@ -78,8 +80,51 @@ namespace Codebucket.Services
 
         public List<Project> getAllProjects()
         {
+            //System.Web.HttpContext.Current.User.Identity.Name;
+
+
+            //var db = from f in _db._projects where f.ID == 
+            /*var ownedProjects = (from p in _db._projects
+                                 join f in _db._projectOwners on p.ID equals f._projectID
+                   
+            select p).ToList();*/
+
+            //System.Web.HttpContext.Current.User.Identity.Name
+
+            ProjectOwner currentMember = new ProjectOwner();
+
+
+            currentMember = (from c in _db._projectOwners
+                                     where c._userName == System.Web.HttpContext.Current.User.Identity.Name
+                                     select c).SingleOrDefault();
+            //int id = currentMember.ID;
+
+            if(currentMember == null)
+            {
+                return null;
+            }
+
+
+            /* var ownedProjects = (from c in _db._projects
+                                  from p in _db._projectOwners where p.ID == id &&     //c.ID == p._projectID && p._userName == currentMember._userName
+                                  select c).ToList();*/
+
+            else
+            { 
+
+            var owned = (from project in _db._projects
+                         join o in _db._projectOwners
+                         on project.ID equals o._projectID
+                         where o.ID.Equals(currentMember.ID)
+                         select project).ToList();
+                return owned;
+
+
+            }
+
+            //return _db._projects.ToList();
+            // return ownedProjects;
            
-            return _db._projects.ToList();
             
             
         }
