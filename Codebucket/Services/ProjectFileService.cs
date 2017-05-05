@@ -97,7 +97,7 @@ namespace Codebucket.Services
 
             currentMember = (from c in _db._projectOwners
                                      where c._userName == System.Web.HttpContext.Current.User.Identity.Name
-                                     select c).SingleOrDefault();
+                                     select c).FirstOrDefault();
             //int id = currentMember.ID;
 
             if(currentMember == null)
