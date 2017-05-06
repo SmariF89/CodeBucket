@@ -15,7 +15,7 @@ namespace Codebucket.Controllers
 		private ProjectFileService _projectFileService = new ProjectFileService();
         private ProjectService _projectService = new ProjectService();
         private int? currentProjectId;
-
+        
         #region Create new file in current project.
         // GET: createNewProjectFile
         [HttpGet]
@@ -65,16 +65,25 @@ namespace Codebucket.Controllers
         }
         #endregion
 
+        [HttpGet]
+        public ActionResult displayProject(int? id)
+        {
+            //ProjectViewModel model = _projectService.getProjectByProjectId(id);
+
+            return View();
+           
+        }
+
         #region List all files in current project.
         // GET: getProjectFileById
         [HttpGet]
-		public ActionResult listAllProjectFiles(int? id)
-		{
+        public ActionResult listAllProjectFiles(int? id)
+        {
             currentProjectId = id;
 
             return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
-           
-		}
+
+        }
         #endregion
 
         #region Add member to current project.   

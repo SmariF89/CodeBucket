@@ -57,7 +57,7 @@ namespace Codebucket.Services
                     _isProjectOwner = true,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)                
+                    //_projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)                
                 });
             }
 
@@ -85,7 +85,7 @@ namespace Codebucket.Services
                     _isProjectOwner = false,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
+                    //_projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
                 });
             }
 

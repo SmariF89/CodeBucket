@@ -1,0 +1,26 @@
+﻿@model Codebucket.Models.ViewModels.ProjectViewModel
+@using Codebucket.Models.ViewModels
+
+@{ 
+    ViewBag.Title = "Project Overview";
+}
+
+<h2>My current project</h2>
+
+<ul>
+    @foreach (ProjectFileViewModel item in Model._projectFiles)
+    {
+        <li>
+            @Html.ActionLink(item._projectFileName, "showEditorForProjectFile", new { id = item._id })
+        </li>
+    }
+</ul>
+
+
+@foreach (ProjectMemberViewModel item in Model._projectMembers)
+{
+    <li>
+        item._projectFileName, "showEditorForProjectFile"
+    </li>
+}
+
