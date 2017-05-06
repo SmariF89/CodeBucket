@@ -101,12 +101,14 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult addProjectMember(AddMemberViewModel model)
         {
-            int currId = model._projectID;
+            int? currId = model._projectID;
 
             if (ModelState.IsValid)
             {
                 _projectService.addProjectMember(model);
-                return RedirectToAction("displayProject", "ProjectFile", currId);
+                ProjectViewModel model2 = _projectService.getProjectByProjectId(currId);
+
+                return View("displayProject" , model2);
             }
             return HttpNotFound();
         }
