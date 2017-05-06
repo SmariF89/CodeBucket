@@ -9,27 +9,28 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-    [ValidateInput(false)]
-    public class ProjectFileController : Controller
-    {
-        private ProjectFileService _projectFileService = new ProjectFileService();
-        private ProjectService _projectService = new ProjectService();
-        private int? currentProjectId;
+	[ValidateInput(false)]
+	public class ProjectFileController : Controller
+	{
+		private ProjectFileService _projectFileService = new ProjectFileService();
+		private ProjectService _projectService = new ProjectService();
+		private int? currentProjectId;
 
-        #region Create new file in current project.
-        // GET: createNewProjectFile
-        [HttpGet]
-        public ActionResult createNewProjectFile()
-        {
-            List<Project> list = _projectFileService.getAllProjects();
+		#region Create new file in current project.
+		// GET: createNewProjectFile
+		[HttpGet]
+		public ActionResult createNewProjectFile()
+		{
+			List<Project> list = _projectFileService.getAllProjects();
 
-            ProjectFileViewModel file = new ProjectFileViewModel()
-            {
-                project = list
-            };
+			ProjectFileViewModel file = new ProjectFileViewModel()
+			{
+				project = list
+			};
 
-            return View(file);
-        }
+			return View(file);
+		}
+	
 
         // POST: createNewProjectFile
         [HttpPost]
@@ -42,30 +43,35 @@ namespace Codebucket.Controllers
 
             return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
         }
-        #endregion
+		#endregion
 
-        #region Update file in current project.
-        // GET: updateProjectFile
-        [HttpGet]
-        public ActionResult updateProjectFile(int? id)
-        {
-            return View();
-        }
+		#region Update file in current project.
+		// GET: updateProjectFile
+		[HttpGet]
+		public ActionResult updateProjectFile(int? id)
+		{
+			if (id.HasValue)
+			{
+				ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
+				return View(model);
+			}
+			return null;
+		}
 
-        // POST: updateProjectFile
-        [HttpPost]
-        public ActionResult updateProjectFile(ProjectFileViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                _projectFileService.updateProjectFile(model);
-                return RedirectToAction("updateProjectFile", "ProjectFile");
-            }
-            return HttpNotFound();
-        }
-        #endregion
+		// POST: updateProjectFile
+		[HttpPost]
+		public ActionResult updateProjectFile(ProjectFileViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				_projectFileService.updateProjectFile(model);
+				return View(model);
+			}
+			return HttpNotFound();
+		}
+		#endregion
 
-        [HttpGet]
+		[HttpGet]
         public ActionResult displayProject(int? id)
         {
             currentProjectId = id;
@@ -112,8 +118,31 @@ namespace Codebucket.Controllers
             }
             return HttpNotFound();
         }
-        #endregion
 
+		#endregion
 
-    }
+		//[HttpGet]
+		//      public ActionResult showEditorForProjectFile(int? id)
+		//      {
+		//	if (id.HasValue)
+		//	{
+		//		ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
+		//		return View(model);
+		//	}
+		//	return null;
+		//      }
+
+		//[HttpPost]
+		//public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
+		//{
+		//	if (ModelState.IsValid)
+		//	{
+		//		_projectFileService.updateProjectFile(model);
+		//		//showEditorForProjectFile(model._id);
+		//		return View(model);
+		//	}
+		//	return HttpNotFound();
+		//}
+	}
+
 }

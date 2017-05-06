@@ -32,7 +32,8 @@ namespace Codebucket.Services
             {
                 newProjectFileViewModel.Add(new ProjectFileViewModel
                 {
-                    _projectID = item._projectID,
+					_id = item.ID,
+					_projectID = item._projectID,
                     _projectFileName = item._projectFileName,
                     _projectFileType = item._projectFileType,
                     _projectFileData = item._projectFileData
@@ -50,6 +51,7 @@ namespace Codebucket.Services
                 ProjectFile newProjectFile = _db._projectFiles.Find(id);
 
                 ProjectFileViewModel viewModel = new ProjectFileViewModel();
+				viewModel._id = newProjectFile.ID;
                 viewModel._projectFileData = newProjectFile._projectFileData.ToString();
                 viewModel._projectFileName = newProjectFile._projectFileName.ToString();
                 viewModel._projectFileType = newProjectFile._projectFileType.ToString();
@@ -64,8 +66,8 @@ namespace Codebucket.Services
         public void addProjectFile(ProjectFileViewModel model)
         {
             ProjectFile newProjectFile = new ProjectFile();
-
-            newProjectFile._projectFileName = model._projectFileName;
+			// Id comes in automatically
+			newProjectFile._projectFileName = model._projectFileName;
             newProjectFile._projectFileData = model._projectFileData;
             newProjectFile._projectFileType = model._projectFileType;
             newProjectFile._projectID = model._projectID;
@@ -74,21 +76,21 @@ namespace Codebucket.Services
             _db.SaveChanges();
         }
 
-        public void updateProjectFile(ProjectFileViewModel file)
-        {
-            if (file != null)
-            {
-                ProjectFile projectFiles = (from projectFile in _db._projectFiles
-                                            where projectFile._projectFileName == file._projectFileName
-                                            select projectFile).SingleOrDefault();
+		public void updateProjectFile(ProjectFileViewModel file)
+		{
+			if (file._id != 0)
+			{
+				ProjectFile projectFiles = (from projectFile in _db._projectFiles
+											where projectFile.ID == file._id
+											select projectFile).FirstOrDefault();
 
-                projectFiles._projectFileData = file._projectFileData;
-                _db._projectFiles.Add(projectFiles);
-                _db.SaveChanges();
-            }
-        }
+				projectFiles._projectFileData = file._projectFileData;
+				_db._projectFiles.Add(projectFiles);
+				_db.SaveChanges();
+			}
+		}
 
-        public List<Project> getAllProjects()
+		public List<Project> getAllProjects()
         {
             //System.Web.HttpContext.Current.User.Identity.Name;
 
@@ -131,16 +133,8 @@ namespace Codebucket.Services
 
 
             }
-
             //return _db._projects.ToList();
-            // return ownedProjects;
-           
-            
-            
+            // return ownedProjects; 
         }
-
-        
-
-        
-    }
+	}
 }
