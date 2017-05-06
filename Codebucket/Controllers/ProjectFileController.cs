@@ -32,17 +32,12 @@ namespace Codebucket.Controllers
 				project = list
 			};
 
-
-
             //var model = new ProjectFileViewModel();
 
             //var db = _projectFileService;
 
             //ViewBag.Files = new SelectList(db.getAllProjects, "ID", );
 
-			
-
-			
 			//Viljum senda inn 
 			//ProjectFileViewModel model = new ProjectFileViewModel();
 
@@ -114,28 +109,44 @@ namespace Codebucket.Controllers
             return HttpNotFound();
         }
 
-        public ActionResult showEditorForProjectFile()
+		[HttpGet]
+        public ActionResult showEditorForProjectFile(int? id)
         {
-            return View();
+			if (id.HasValue)
+			{
+				ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
+				return View(model);
+			}
+			return null;
         }
 
+		[HttpPost]
+		public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				_projectFileService.updateProjectFile(model);
+				//showEditorForProjectFile(model._id);
+				return View(model);
+			}
+			return HttpNotFound();
+		}
 
-        //// POST: getProjectFileById // probably not needed since only get is used.
-        //[HttpPost]
-        //public ActionResult getProjectFileById(int? id)
-        //{
-        //	ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
-        //	return View(model);
-        //}
 
-        /* private IEnumerable<Project> GetAllProjects()
+		//// POST: getProjectFileById // probably not needed since only get is used.
+		//[HttpPost]
+		//public ActionResult getProjectFileById(int? id)
+		//{
+		//	ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
+		//	return View(model);
+		//}
+
+		/* private IEnumerable<Project> GetAllProjects()
          {
 
          } */
 
-
-
-        /*public static IEnumerable<SelectListItem> ToSelectListItem(this IEnumerable<Project> projects, int selectedID)
+		/*public static IEnumerable<SelectListItem> ToSelectListItem(this IEnumerable<Project> projects, int selectedID)
         {
             return
                 projects.OrderBy(project => project._projectName)
@@ -148,8 +159,5 @@ namespace Codebucket.Controllers
                 });
 
         }*/
-
-
-
-    }
+	}
 }
