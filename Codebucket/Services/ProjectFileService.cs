@@ -74,9 +74,18 @@ namespace Codebucket.Services
             _db.SaveChanges();
         }
 
-        public void updateProjectFile(string projectFileData)
+        public void updateProjectFile(ProjectFileViewModel file)
         {
-            
+            if (file != null)
+            {
+                ProjectFile projectFiles = (from projectFile in _db._projectFiles
+                                            where projectFile._projectFileName == file._projectFileName
+                                            select projectFile).SingleOrDefault();
+
+                projectFiles._projectFileData = file._projectFileData;
+                _db._projectFiles.Add(projectFiles);
+                _db.SaveChanges();
+            }
         }
 
         public List<Project> getAllProjects()

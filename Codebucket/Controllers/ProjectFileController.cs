@@ -68,15 +68,20 @@ namespace Codebucket.Controllers
 		[HttpGet]
 		public ActionResult updateProjectFile(int? id)
 		{
-			return null;
+			return View();
 		}
 
 		// POST: updateProjectFile
 		[HttpPost]
 		public ActionResult updateProjectFile(ProjectFileViewModel model)
 		{
-			return null;
-		}
+            if (ModelState.IsValid)
+            {
+                _projectFileService.updateProjectFile(model);
+                return RedirectToAction("updateProjectFile", "ProjectFile");
+            }
+            return HttpNotFound();
+        }
 
 		// GET: getProjectFileById
 		[HttpGet]

@@ -34,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item._projectID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "updateProjectFile", new { item._projectFile}) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
@@ -47,5 +47,5 @@
 <br />
 @Html.ActionLink("ADD MEMBER", "addProjectMember", new { @class = "btn btn-primary btn-sm" })
 <br />
-@Html.ActionLink("EDITOR", "showEditorForProjectFile", new { @class = "btn btn-primary btn-sm" })
+@Html.ActionLink("EDITOR", "updateProjectFile", new { @class = "btn btn-primary btn-sm" })
 
