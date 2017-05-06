@@ -9,5 +9,6 @@ namespace Codebucket.Models.ViewModels
     {
         public string _userName  { get; set; }
         public string _project { get; set; }
+        public int _projectID { get; set; }
     }
 }
