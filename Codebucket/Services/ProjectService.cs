@@ -106,9 +106,9 @@ namespace Codebucket.Services
                           where project.ID == id
                           select project).FirstOrDefault();
 
-            newProjectFile = (from fileType in _db._projectFiles
-                           where fileType._projectID == id
-                           select fileType).FirstOrDefault();
+            newProjectFile = (from projectFile in _db._projectFiles
+                           where projectFile._projectID == id
+                           select projectFile).FirstOrDefault();
 
             newFileType = (from fileType in _db._fileTypes
                               where fileType.ID == newProjectFile.ID
