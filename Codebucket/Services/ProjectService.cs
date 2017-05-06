@@ -57,7 +57,7 @@ namespace Codebucket.Services
                     _isProjectOwner = true,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    //_projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)                
+                    _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)                
                 });
             }
 
@@ -85,7 +85,7 @@ namespace Codebucket.Services
                     _isProjectOwner = false,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    //_projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
+                    _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)
                 });
             }
 
@@ -118,8 +118,7 @@ namespace Codebucket.Services
             newProjectById._isProjectOwner = false;
             newProjectById._projectName = newProject._projectName;
             newProjectById._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
-            //newProjectById._projectMembers = _applicationUserService.getAllProjectMembersByProjectId(id);
-            ///newProjectById._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
+            newProjectById._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
             newProjectById._projectType = newSelectListItem;
             newProjectById._projectTypeId = newFileType.ID;
 
