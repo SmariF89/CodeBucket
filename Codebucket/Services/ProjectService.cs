@@ -93,6 +93,39 @@ namespace Codebucket.Services
         }
         #endregion
 
+        public ProjectViewModel getProjectByProjectId(int? id)
+        {
+            ProjectViewModel newProjectById = new ProjectViewModel();
+            Project newProject = new Project();
+            FileType newFileType = new FileType();
+            ProjectFile newProjectFile = new ProjectFile();
+            List<ProjectFileViewModel> newProjectFileViewModel = new List<ProjectFileViewModel>();            
+            List<SelectListItem> newSelectListItem = populateDropdownData();
+
+            newProject = (from project in _db._projects
+                          where project.ID == id
+                          select project).FirstOrDefault();
+
+            newProjectFile = (from fileType in _db._projectFiles
+                           where fileType._projectID == id
+                           select fileType).FirstOrDefault();
+
+            newFileType = (from fileType in _db._fileTypes
+                              where fileType.ID == newProjectFile.ID
+                           select fileType).FirstOrDefault();
+
+            newProjectById._id = newProject.ID;
+            newProjectById._isProjectOwner = false;
+            newProjectById._projectName = newProject._projectName;
+            newProjectById._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
+            //newProjectById._projectMembers = _applicationUserService.getAllProjectMembersByProjectId(id);
+            ///newProjectById._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
+            newProjectById._projectType = newSelectListItem;
+            newProjectById._projectTypeId = newFileType.ID;
+
+            return newProjectById;
+        }
+
         #region Add project by current user name
 
         public void addProject(CreateProjectViewModel model, string ownerName)
