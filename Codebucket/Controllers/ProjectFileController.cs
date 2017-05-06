@@ -49,15 +49,20 @@ namespace Codebucket.Controllers
         [HttpGet]
 		public ActionResult updateProjectFile(int? id)
 		{
-			return null;
+			return View();
 		}
-
-		// POST: updateProjectFile
-		[HttpPost]
+        
+        // POST: updateProjectFile
+        [HttpPost]
 		public ActionResult updateProjectFile(ProjectFileViewModel model)
 		{
-			return null;
-		}
+            if (ModelState.IsValid)
+            {
+                _projectFileService.updateProjectFile(model);
+                return RedirectToAction("updateProjectFile", "ProjectFile");
+            }
+            return HttpNotFound();
+        }
         #endregion
 
         #region List all files in current project.
@@ -80,7 +85,7 @@ namespace Codebucket.Controllers
             AddMemberViewModel model = new AddMemberViewModel();
             return View(model);
         }
-
+        
         // POST: AddProjectMember
         [HttpPost]
         public ActionResult addProjectMember(AddMemberViewModel model)

@@ -1,0 +1,96 @@
+﻿@model Codebucket.Models.ViewModels.ProjectFileViewModel
+
+@{
+    ViewBag.Title = "updateProjectFile";
+}
+<head>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+</head>
+
+
+<script src="~/Ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+	//var editor = ace.edit("editor");
+	//editor.setTheme("ace/theme/monokai");
+	//editor.getSession().setMode("ace/mode/javascript");
+
+	var editor = (function () {
+		var aceEditor = ace.edit("editor");
+		// default theme
+		aceEditor.setTheme("ace/theme/chrome");
+		// default mode
+		aceEditor.getSession().setMode("ace/mode/javascript");
+		return aceEditor;
+	})();
+
+	    var textarea = $('textarea[name="editor"]')
+	    editor.getSession().setValue(textarea.val());
+	    editor.getSession().on('change', function () {
+	        textarea.val(editor.getSession().getValue());
+	    });
+
+
+	        $('#theme').change(function () {
+	            var e = document.getElementById("theme");
+	            var strTheme = e.options[e.selectedIndex].value;
+	            editor.setTheme("ace/theme/" + strTheme);
+	        });
+
+	        $('#mode').change(function () {
+	            var e = document.getElementById("mode");
+	            var strMode = e.options[e.selectedIndex].value;
+	            editor.getSession().setMode("ace/mode/" + strMode);
+	        });
+
+</script>
+
+<h2>updateProjectFile</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="theme" class="control-label">Theme:</label>
+        <select id="theme" class="form-control">
+            <option value="ambiance">ambiance</option>
+            <option value="chrome" selected>chrome</option>
+            <option value="clouds">clouds</option>
+            <option value="clouds_midnight">clouds_midnight</option>
+            <option value="github">github</option>
+            <option value="monokai">monokai</option>
+            <option value="xcode">xcode</option>
+        </select>
+
+        <label for="mode" class="control-label">Language Mode:</label>
+        <select id="mode" class="form-control">
+            <option value="javascript">javascript</option>
+            <option value="html">html</option>
+        </select>
+    </div>
+
+    @*This is where Ace is shown*@
+    <form method="post">
+        <div id="editor"></div>
+        @*i am invisable*@
+
+        <input type="submit" value="Save" class="btn btn-default" />
+
+
+        <div>
+            < @Html.TextBoxFor(x => x._projectFileData, htmlAttributes: new { id = "editor" })>
+        </div>
+
+    </form>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

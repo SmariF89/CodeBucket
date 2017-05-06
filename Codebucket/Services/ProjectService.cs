@@ -16,30 +16,33 @@ namespace Codebucket.Services
         private ProjectFileService _projectFileService = new ProjectFileService();
         private ApplicationUserService _applicationUserService = new ApplicationUserService();
 
+        #region Constructor
+
         public ProjectService()
         {
             _db = new ApplicationDbContext();
         }
+        #endregion
 
-        public List<ProjectViewModel> getAllProjectsByApplicationUserId(ApplicationUser user)
+        #region Get all projects by user name
+
+        public List<ProjectViewModel> getAllProjectsByApplicationUserId(string userName)
         {
             List<ProjectViewModel> newProjectViewModel = new List<ProjectViewModel>();
 
-            newProjectViewModel = getAllOwnerProjectsByApplicationUserId(ref newProjectViewModel, user);
-            newProjectViewModel = getAllMemberProjectsByApplicationUserId(ref newProjectViewModel, user);
+            newProjectViewModel = getAllOwnerProjectsByApplicationUserId(ref newProjectViewModel, userName);
+            newProjectViewModel = getAllMemberProjectsByApplicationUserId(ref newProjectViewModel, userName);
 
             return newProjectViewModel;
         }
 
-        public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ref List<ProjectViewModel> model, ApplicationUser user)
+        public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ref List<ProjectViewModel> model, string userName)
         {
-            //List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
             List<Project> newOwnerProjects = new List<Project>();
 
             IEnumerable<ProjectOwner> ownerProjectsIds = (from projectOwner in _db._projectOwners
-                                                          where projectOwner._userName == user.UserName
+                                                          where projectOwner._userName == userName
                                                           select projectOwner);
-
 
             newOwnerProjects = (from a in _db._projects
                                 join b in ownerProjectsIds on a.ID equals b._projectID
@@ -59,18 +62,15 @@ namespace Codebucket.Services
             }
 
             return model;
-
         }
 
-        public List<ProjectViewModel> getAllMemberProjectsByApplicationUserId(ref List<ProjectViewModel> model, ApplicationUser user)
+        public List<ProjectViewModel> getAllMemberProjectsByApplicationUserId(ref List<ProjectViewModel> model, string userName)
         {
-            //List<ProjectViewModel> newOwnerProjectViewModel = new List<ProjectViewModel>();
             List<Project> newOwnerProjects = new List<Project>();
 
             IEnumerable<ProjectMember> memberProjectsIds = (from projectMember in _db._projectMembers
-                                                          where projectMember._userName == user.UserName
+                                                          where projectMember._userName == userName
                                                           select projectMember);
-
 
             newOwnerProjects = (from a in _db._projects
                                 join b in memberProjectsIds on a.ID equals b._projectID
@@ -86,18 +86,14 @@ namespace Codebucket.Services
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
                     _projectMembers = _applicationUserService.getAllProjectMembersByProjectId(item.ID)
-
                 });
             }
 
             return model;
-
         }
+        #endregion
 
-        public ProjectViewModel getProjectById(int? id)
-        {
-            return null;
-        }
+        #region Add project by current user name
 
         public void addProject(CreateProjectViewModel model, string ownerName)
         {
@@ -126,13 +122,9 @@ namespace Codebucket.Services
             _db._projectOwners.Add(owner);
             _db.SaveChanges();
         }
+        #endregion
 
-        public void updateProject(ProjectViewModel model)
-        {
-           
-        }
-
-
+        #region Add project member, TODO::Throw exeption?
 
         public void addProjectMember(AddMemberViewModel model)
         {
@@ -158,27 +150,9 @@ namespace Codebucket.Services
             }
             // TODO :: THOW EXCEPTION, else {if project or user was not found.}
         }
+        #endregion
 
-        private Project getProjectEntityById(int? id)
-        {
-            Project newProject = new Project();
-
-
-            newProject = (from project in _db._projects
-                          where project.ID == id
-                          select project).FirstOrDefault();
-
-            //newProject = _db._projects.Find(id);
-
-            return newProject;
-        }
-
-        private List<ApplicationUserViewModel> getApplicationUserViewModel() // Needed ?
-        {
-            List<ApplicationUserViewModel> newApplicationUserViewModel = new List<ApplicationUserViewModel>();
-
-            return newApplicationUserViewModel;
-        }
+        #region Populate drop down data
 
         public List<SelectListItem> populateDropdownData()
         {
@@ -188,6 +162,7 @@ namespace Codebucket.Services
 
             return fileTypes;
         }
+        #endregion
     }
 }
 
