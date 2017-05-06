@@ -664,7 +664,6 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\ProjectFile\addProjectMember.cshtml" />
     <Content Include="Views\ProjectFile\listAllProjectFiles.cshtml" />
-    <Content Include="Views\ProjectFile\showEditorForProjectFile.cshtml" />
     <Content Include="Views\ProjectFile\updateProjectFile.cshtml" />
     <Content Include="Views\ProjectFile\displayProject.cshtml" />
   </ItemGroup>

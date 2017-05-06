@@ -29,7 +29,7 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult displayProjectFiles(int? id)
         {
-            return RedirectToAction("listAllProjectFiles", "ProjectFile", new { id });
+            return RedirectToAction("displayProject", "ProjectFile", new { id });
         }
         #endregion
 

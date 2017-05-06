@@ -57,7 +57,7 @@ namespace Codebucket.Services
                     _isProjectOwner = true,
                     _projectTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)                
+                    _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)
                 });
             }
 
@@ -69,8 +69,8 @@ namespace Codebucket.Services
             List<Project> newOwnerProjects = new List<Project>();
 
             IEnumerable<ProjectMember> memberProjectsIds = (from projectMember in _db._projectMembers
-                                                          where projectMember._userName == userName
-                                                          select projectMember);
+                                                            where projectMember._userName == userName
+                                                            select projectMember);
 
             newOwnerProjects = (from a in _db._projects
                                 join b in memberProjectsIds on a.ID equals b._projectID
@@ -97,7 +97,7 @@ namespace Codebucket.Services
         {
             ProjectViewModel newProjectById = new ProjectViewModel();
             Project newProject = new Project();
-            FileType newFileType = new FileType();
+            //FileType newFileType = new FileType();
             ProjectFile newProjectFile = new ProjectFile();
             List<ProjectFileViewModel> newProjectFileViewModel = new List<ProjectFileViewModel>();            
             List<SelectListItem> newSelectListItem = populateDropdownData();
@@ -110,17 +110,17 @@ namespace Codebucket.Services
                            where projectFile._projectID == id
                            select projectFile).FirstOrDefault();
 
-            newFileType = (from fileType in _db._fileTypes
-                              where fileType.ID == newProjectFile.ID
-                           select fileType).FirstOrDefault();
+            //newFileType = (from fileType in _db._fileTypes
+            //                  where fileType.ID == newProjectFile.ID
+            //               select fileType).FirstOrDefault();
 
-            newProjectById._id = newProject.ID;
+            //newProjectById._id = id.Value;
             newProjectById._isProjectOwner = false;
             newProjectById._projectName = newProject._projectName;
             newProjectById._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
             newProjectById._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
             newProjectById._projectType = newSelectListItem;
-            newProjectById._projectTypeId = newFileType.ID;
+            //newProjectById._projectTypeId = newFileType.ID;
 
             return newProjectById;
         }
@@ -164,7 +164,7 @@ namespace Codebucket.Services
 
             // Select project from db that corresponds to user selected/entered project
             var project = from p in _db._projects
-                          where p._projectName == model._project
+                          where p.ID == model._projectID
                           select p;
 
             // Select username from db that corresponds to user selected/entered username

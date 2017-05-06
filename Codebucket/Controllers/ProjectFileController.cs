@@ -9,53 +9,53 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-	[ValidateInput(false)]
-	public class ProjectFileController : Controller
-	{
-		private ProjectFileService _projectFileService = new ProjectFileService();
+    [ValidateInput(false)]
+    public class ProjectFileController : Controller
+    {
+        private ProjectFileService _projectFileService = new ProjectFileService();
         private ProjectService _projectService = new ProjectService();
         private int? currentProjectId;
-        
+
         #region Create new file in current project.
         // GET: createNewProjectFile
         [HttpGet]
-		public ActionResult createNewProjectFile()
-		{
-			List<Project> list = _projectFileService.getAllProjects();
+        public ActionResult createNewProjectFile()
+        {
+            List<Project> list = _projectFileService.getAllProjects();
 
-			ProjectFileViewModel file = new ProjectFileViewModel()
-			{
-				project = list
-			};
+            ProjectFileViewModel file = new ProjectFileViewModel()
+            {
+                project = list
+            };
 
-			return View(file);
-		}
+            return View(file);
+        }
 
-		// POST: createNewProjectFile
-		[HttpPost]
-		public ActionResult createNewProjectFile(ProjectFileViewModel model)
+        // POST: createNewProjectFile
+        [HttpPost]
+        public ActionResult createNewProjectFile(ProjectFileViewModel model)
         {
             if (ModelState.IsValid)
             {
                 _projectFileService.addProjectFile(model);
             }
 
-            return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
+            return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
         }
         #endregion
 
         #region Update file in current project.
         // GET: updateProjectFile
         [HttpGet]
-		public ActionResult updateProjectFile(int? id)
-		{
-			return View();
-		}
-        
+        public ActionResult updateProjectFile(int? id)
+        {
+            return View();
+        }
+
         // POST: updateProjectFile
         [HttpPost]
-		public ActionResult updateProjectFile(ProjectFileViewModel model)
-		{
+        public ActionResult updateProjectFile(ProjectFileViewModel model)
+        {
             if (ModelState.IsValid)
             {
                 _projectFileService.updateProjectFile(model);
@@ -68,10 +68,10 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult displayProject(int? id)
         {
-            //ProjectViewModel model = _projectService.getProjectByProjectId(id);
+            currentProjectId = id;
+            ProjectViewModel model = _projectService.getProjectByProjectId(id);
 
-            return View();
-           
+            return View(model);
         }
 
         #region List all files in current project.
@@ -89,31 +89,29 @@ namespace Codebucket.Controllers
         #region Add member to current project.   
         // GET: AddProjectMember
         [HttpGet]
-        public ActionResult addProjectMember()
+        public ActionResult addProjectMember(int? id)
         {
             AddMemberViewModel model = new AddMemberViewModel();
+            model._projectID = id.Value;
+
             return View(model);
         }
-        
+
         // POST: AddProjectMember
         [HttpPost]
         public ActionResult addProjectMember(AddMemberViewModel model)
         {
+            int currId = model._projectID;
+
             if (ModelState.IsValid)
             {
                 _projectService.addProjectMember(model);
-                return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
+                return RedirectToAction("displayProject", "ProjectFile", currId);
             }
             return HttpNotFound();
         }
         #endregion
 
-        #region Show editor for a single file in current project.
-        [HttpGet]
-        public ActionResult showEditorForProjectFile()
-        {
-            return View();
-        }
-        #endregion
+
     }
 }
