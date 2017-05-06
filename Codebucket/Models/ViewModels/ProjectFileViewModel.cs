@@ -9,6 +9,7 @@ namespace Codebucket.Models.ViewModels
 {
     public class ProjectFileViewModel
     {
+        public int _id { get; set; }
         public IEnumerable<Project> project { get; set; }
 
         public IEnumerable<SelectListItem> projects { get; set; }
