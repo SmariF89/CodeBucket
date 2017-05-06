@@ -114,7 +114,7 @@ namespace Codebucket.Services
             //                  where fileType.ID == newProjectFile.ID
             //               select fileType).FirstOrDefault();
 
-            //newProjectById._id = id.Value;
+            newProjectById._id = id.Value;
             newProjectById._isProjectOwner = false;
             newProjectById._projectName = newProject._projectName;
             newProjectById._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
