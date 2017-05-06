@@ -233,6 +233,7 @@
     <Compile Include="Models\ViewModels\CreateProjectViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ProjectFileViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProjectMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApplicationUserService.cs" />
@@ -663,7 +664,8 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\ProjectFile\addProjectMember.cshtml" />
     <Content Include="Views\ProjectFile\listAllProjectFiles.cshtml" />
-    <Content Include="Views\ProjectFile\showEditorForProjectFile.cshtml" />
+    <Content Include="Views\ProjectFile\updateProjectFile.cshtml" />
+    <Content Include="Views\ProjectFile\displayProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

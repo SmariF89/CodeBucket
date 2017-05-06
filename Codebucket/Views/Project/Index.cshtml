@@ -6,9 +6,8 @@
 }
 
 <h2>Owned projects</h2>
-
 <ul>
-    @foreach(ProjectViewModel item in Model)
+    @foreach (ProjectViewModel item in Model)
     {
         if (item._isProjectOwner)
         {
@@ -19,20 +18,22 @@
     }
 </ul>
 
-
 <h2>Member projects</h2>
-
 <ul>
     @foreach (ProjectViewModel item in Model)
     {
         if (!item._isProjectOwner)
         {
             <li>
-                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id})
+                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id })
             </li>
         }
     }
 </ul>
 
-@Html.ActionLink("CREATE NEW PROJECT", "createNewProject", new { @class = "btn btn-primary btn-sm" })
+
+@Html.ActionLink("CREATE NEW PROJECT", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+
+
+
 

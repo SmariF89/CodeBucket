@@ -47,5 +47,24 @@ namespace Codebucket.Services
                                                     select projectMember).ToList();
             return newProjectMember;
         }
+
+        public List<ProjectMemberViewModel> getAllProjectMemberViewModelsByProjectId(int? id)
+        {
+            List<ProjectMemberViewModel> newProjectMemberViewModel = new List<ProjectMemberViewModel>();
+            List<ProjectMember> newProjectMember = new List<ProjectMember>();
+
+            newProjectMember = getAllProjectMembersByProjectId(id);
+
+            foreach (var item in newProjectMember)
+            {
+                newProjectMemberViewModel.Add(new ProjectMemberViewModel
+                {
+                    _projectID = item._projectID,
+                    _userName = item._userName
+                });
+            }
+
+            return newProjectMemberViewModel;
+        }
     }
 }

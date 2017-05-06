@@ -5,10 +5,9 @@ using System.Web;
 
 namespace Codebucket.Models.ViewModels
 {
-    public class AddMemberViewModel
+    public class ProjectMemberViewModel
     {
-        public string _userName  { get; set; }
-        public string _project { get; set; }
         public int _projectID { get; set; }
+        public string _userName { get; set; }
     }
 }

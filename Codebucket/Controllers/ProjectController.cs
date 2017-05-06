@@ -12,80 +12,30 @@ namespace Codebucket.Controllers
     public class ProjectController : Controller
     {
         private ProjectService _projectService = new ProjectService();
-        private ApplicationUserService _applicationUserService = new ApplicationUserService();
+
+        #region Display all projects by current user
 
         // GET: Project
+        [HttpGet]
         public ActionResult Index()
         {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = User.Identity.Name
-            };
+            string userName = User.Identity.Name;
 
-            // Same as in return, remove if it couses no problems.
-            //List<ProjectViewModel> model = new List<ProjectViewModel>();
-            //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
-
-            return View(_projectService.getAllProjectsByApplicationUserId(user));
+            return View(_projectService.getAllProjectsByApplicationUserId(userName));
         }
+        #endregion
 
-        /*
-        // GET: getAllOwnerProjectsByApplicationUserId
+        #region Display all files in project selected, redirects action to ProjectFile/listAllProjectFiles
         [HttpGet]
-        public ActionResult listAllProjects()
-        {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = User.Identity.Name
-            };
-
-            // Same as in return, remove if it couses no problems.
-            //List<ProjectViewModel> model = new List<ProjectViewModel>();
-            //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
-
-            return View(_projectService.getAllProjectsByApplicationUserId(user));
-        }
-        */
         public ActionResult displayProjectFiles(int? id)
         {
-            return RedirectToAction("listAllProjectFiles", "ProjectFile", new { id });
+            return RedirectToAction("displayProject", "ProjectFile", new { id });
         }
+        #endregion
 
-
-        //// GET: getAllOwnerProjectsByApplicationUserId
-        //[HttpGet]
-        //public ActionResult listAllOwnerProjects()
-        //{
-        //    ApplicationUser user = new ApplicationUser
-        //    {
-        //        UserName = User.Identity.Name
-        //    };
-
-        //    // Same as in return, remove if it couses no problems.
-        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
-        //    //model = _projectService.getAllOwnerProjectsByApplicationUserId(user);
-
-        //    return View(_projectService.getAllOwnerProjectsByApplicationUserId(user));
-        //}
-
-        //// GET: getAllMemberProjectsByApplicationUserId 
-        //[HttpGet]
-        //public ActionResult listAllMemberProjects()
-        //{
-        //    ApplicationUser user = new ApplicationUser
-        //    {
-        //        UserName = User.Identity.Name
-        //    };
-
-        //    // Same as in return, remove if it couses no problems.
-        //    //List<ProjectViewModel> model = new List<ProjectViewModel>();
-        //    //model = _projectService.getAllMemberProjectsByApplicationUserId(user);
-
-        //    return View(_projectService.getAllMemberProjectsByApplicationUserId(user));
-        //}
+        #region Create new project for current user
 
         // GET: CreateNewProject
-
         [HttpGet]
         public ActionResult createNewProject()
         {
@@ -107,7 +57,9 @@ namespace Codebucket.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region Update project TODO::needed?
 
         // GET: UpdateProject
         [HttpGet]
@@ -122,7 +74,6 @@ namespace Codebucket.Controllers
         {
             return null;
         }
-
-
+        #endregion
     }
 }

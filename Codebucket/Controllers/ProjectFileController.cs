@@ -13,56 +13,48 @@ namespace Codebucket.Controllers
 	public class ProjectFileController : Controller
 	{
 		private ProjectFileService _projectFileService = new ProjectFileService();
-        private ProjectService _projectService = new ProjectService();
-        private int? currentProjectId;
+		private ProjectService _projectService = new ProjectService();
+		private int? currentProjectId;
 
-
+		#region Create new file in current project.
 		// GET: createNewProjectFile
 		[HttpGet]
 		public ActionResult createNewProjectFile()
 		{
-			var list = _projectFileService.getAllProjects();
-
-			// Hver skrá getur bara tengst einu verkefni
-
-			// Hvert verkefni getur haft margar skrár 
+			List<Project> list = _projectFileService.getAllProjects();
 
 			ProjectFileViewModel file = new ProjectFileViewModel()
 			{
 				project = list
 			};
 
-            //var model = new ProjectFileViewModel();
-
-            //var db = _projectFileService;
-
-            //ViewBag.Files = new SelectList(db.getAllProjects, "ID", );
-
-			//Viljum senda inn 
-			//ProjectFileViewModel model = new ProjectFileViewModel();
-
 			return View(file);
 		}
+	
 
-		// POST: createNewProjectFile
-		[HttpPost]
-		public ActionResult createNewProjectFile(ProjectFileViewModel model)
-		{
-		    if(ModelState.IsValid)
-			    {
-                    //model.project = _projectFileService.getAllProjects();
-
-                   _projectFileService.addProjectFile(model);
-			    }
-               // model.project = _projectFileService.getAllProjects();
-                return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
-
+        // POST: createNewProjectFile
+        [HttpPost]
+        public ActionResult createNewProjectFile(ProjectFileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _projectFileService.addProjectFile(model);
             }
 
+            return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
+        }
+		#endregion
+
+		#region Update file in current project.
 		// GET: updateProjectFile
 		[HttpGet]
 		public ActionResult updateProjectFile(int? id)
 		{
+			if (id.HasValue)
+			{
+				ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
+				return View(model);
+			}
 			return null;
 		}
 
@@ -70,30 +62,44 @@ namespace Codebucket.Controllers
 		[HttpPost]
 		public ActionResult updateProjectFile(ProjectFileViewModel model)
 		{
-			return null;
+			if (ModelState.IsValid)
+			{
+				_projectFileService.updateProjectFile(model);
+				return View(model);
+			}
+			return HttpNotFound();
 		}
+		#endregion
 
-		// GET: getProjectFileById
 		[HttpGet]
-		public ActionResult listAllProjectFiles(int? id)
-		{
+        public ActionResult displayProject(int? id)
+        {
+            currentProjectId = id;
+            ProjectViewModel model = _projectService.getProjectByProjectId(id);
+
+            return View(model);
+        }
+
+        #region List all files in current project.
+        // GET: getProjectFileById
+        [HttpGet]
+        public ActionResult listAllProjectFiles(int? id)
+        {
             currentProjectId = id;
 
             return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
-           
-		}
 
-
-        public ActionResult Create()
-        {
-            return View();
         }
+        #endregion
 
+        #region Add member to current project.   
         // GET: AddProjectMember
         [HttpGet]
-        public ActionResult addProjectMember()
+        public ActionResult addProjectMember(int? id)
         {
             AddMemberViewModel model = new AddMemberViewModel();
+            model._projectID = id.Value;
+
             return View(model);
         }
 
@@ -101,63 +107,40 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult addProjectMember(AddMemberViewModel model)
         {
+            int currId = model._projectID;
+
             if (ModelState.IsValid)
             {
                 _projectService.addProjectMember(model);
-                return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
+                return RedirectToAction("displayProject", "ProjectFile", currId);
             }
             return HttpNotFound();
         }
 
-		[HttpGet]
-        public ActionResult showEditorForProjectFile(int? id)
-        {
-			if (id.HasValue)
-			{
-				ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
-				return View(model);
-			}
-			return null;
-        }
+		#endregion
 
-		[HttpPost]
-		public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
-		{
-			if (ModelState.IsValid)
-			{
-				_projectFileService.updateProjectFile(model);
-				//showEditorForProjectFile(model._id);
-				return View(model);
-			}
-			return HttpNotFound();
-		}
+		//[HttpGet]
+		//      public ActionResult showEditorForProjectFile(int? id)
+		//      {
+		//	if (id.HasValue)
+		//	{
+		//		ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
+		//		return View(model);
+		//	}
+		//	return null;
+		//      }
 
-
-		//// POST: getProjectFileById // probably not needed since only get is used.
 		//[HttpPost]
-		//public ActionResult getProjectFileById(int? id)
+		//public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
 		//{
-		//	ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
-		//	return View(model);
+		//	if (ModelState.IsValid)
+		//	{
+		//		_projectFileService.updateProjectFile(model);
+		//		//showEditorForProjectFile(model._id);
+		//		return View(model);
+		//	}
+		//	return HttpNotFound();
 		//}
-
-		/* private IEnumerable<Project> GetAllProjects()
-         {
-
-         } */
-
-		/*public static IEnumerable<SelectListItem> ToSelectListItem(this IEnumerable<Project> projects, int selectedID)
-        {
-            return
-                projects.OrderBy(project => project._projectName)
-                .Select(project => new SelectListItem
-                {
-                    Selected = (project.ID == selectedID),
-                    Text = project._projectName,
-                    Value = project.ID.ToString()
-
-                });
-
-        }*/
 	}
+
 }

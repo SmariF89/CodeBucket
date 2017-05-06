@@ -21,7 +21,6 @@
     {
         <tr>
             <td>
-
                 @Html.DisplayFor(modelItem => item._projectFileName)
             </td>
             <td>
@@ -34,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item._projectID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "updateProjectFile", new { item._projectFile}) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
 				@Html.ActionLink("EDITOR", "showEditorForProjectFile", new { id = item._id } )
@@ -44,9 +43,9 @@
 
 </table>
 
-@Html.ActionLink("CREATE FILE", "createNewProjectFile", new { @class = "btn btn-primary btn-sm" })
+@Html.ActionLink("CREATE FILE", "createNewProjectFile", null, new { @class = "waves-effect waves-light btn" })
 <br />
-@Html.ActionLink("ADD MEMBER", "addProjectMember", new { @class = "btn btn-primary btn-sm" })
+@Html.ActionLink("ADD MEMBER", "addProjectMember", null, new { @class = "waves-effect waves-light btn" })
 <br />
-@Html.ActionLink("EDITOR", "showEditorForProjectFile", new { @class = "btn btn-primary btn-sm" })
+@Html.ActionLink("EDITOR", "updateProjectFile", null, new { @class = "waves-effect waves-light btn" })
 
