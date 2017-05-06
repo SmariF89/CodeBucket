@@ -16,35 +16,17 @@ namespace Codebucket.Controllers
         private ProjectService _projectService = new ProjectService();
         private int? currentProjectId;
 
-
-		// GET: createNewProjectFile
-		[HttpGet]
+        #region Create new file in current project.
+        // GET: createNewProjectFile
+        [HttpGet]
 		public ActionResult createNewProjectFile()
 		{
-			var list = _projectFileService.getAllProjects();
-
-			// Hver skrá getur bara tengst einu verkefni
-
-			// Hvert verkefni getur haft margar skrár 
+			List<Project> list = _projectFileService.getAllProjects();
 
 			ProjectFileViewModel file = new ProjectFileViewModel()
 			{
 				project = list
 			};
-
-
-
-            //var model = new ProjectFileViewModel();
-
-            //var db = _projectFileService;
-
-            //ViewBag.Files = new SelectList(db.getAllProjects, "ID", );
-
-			
-
-			
-			//Viljum senda inn 
-			//ProjectFileViewModel model = new ProjectFileViewModel();
 
 			return View(file);
 		}
@@ -52,20 +34,19 @@ namespace Codebucket.Controllers
 		// POST: createNewProjectFile
 		[HttpPost]
 		public ActionResult createNewProjectFile(ProjectFileViewModel model)
-		{
-		    if(ModelState.IsValid)
-			    {
-                    //model.project = _projectFileService.getAllProjects();
-
-                   _projectFileService.addProjectFile(model);
-			    }
-               // model.project = _projectFileService.getAllProjects();
-                return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
-
+        {
+            if (ModelState.IsValid)
+            {
+                _projectFileService.addProjectFile(model);
             }
 
-		// GET: updateProjectFile
-		[HttpGet]
+            return RedirectToAction("listAllProjectFiles", "ProjectFile", new { currentProjectId });
+        }
+        #endregion
+
+        #region Update file in current project.
+        // GET: updateProjectFile
+        [HttpGet]
 		public ActionResult updateProjectFile(int? id)
 		{
 			return null;
@@ -77,9 +58,11 @@ namespace Codebucket.Controllers
 		{
 			return null;
 		}
+        #endregion
 
-		// GET: getProjectFileById
-		[HttpGet]
+        #region List all files in current project.
+        // GET: getProjectFileById
+        [HttpGet]
 		public ActionResult listAllProjectFiles(int? id)
 		{
             currentProjectId = id;
@@ -87,13 +70,9 @@ namespace Codebucket.Controllers
             return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
            
 		}
+        #endregion
 
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
+        #region Add member to current project.   
         // GET: AddProjectMember
         [HttpGet]
         public ActionResult addProjectMember()
@@ -113,43 +92,14 @@ namespace Codebucket.Controllers
             }
             return HttpNotFound();
         }
+        #endregion
 
+        #region Show editor for a single file in current project.
+        [HttpGet]
         public ActionResult showEditorForProjectFile()
         {
             return View();
         }
-
-
-        //// POST: getProjectFileById // probably not needed since only get is used.
-        //[HttpPost]
-        //public ActionResult getProjectFileById(int? id)
-        //{
-        //	ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
-        //	return View(model);
-        //}
-
-        /* private IEnumerable<Project> GetAllProjects()
-         {
-
-         } */
-
-
-
-        /*public static IEnumerable<SelectListItem> ToSelectListItem(this IEnumerable<Project> projects, int selectedID)
-        {
-            return
-                projects.OrderBy(project => project._projectName)
-                .Select(project => new SelectListItem
-                {
-                    Selected = (project.ID == selectedID),
-                    Text = project._projectName,
-                    Value = project.ID.ToString()
-
-                });
-
-        }*/
-
-
-
+        #endregion
     }
 }
