@@ -40,7 +40,6 @@ namespace Codebucket.Services
                 });
             }
 
-
             return newProjectFileViewModel;
         }
 
@@ -51,6 +50,26 @@ namespace Codebucket.Services
                                  select user).Any();
 
             return userExists; 
+        }
+
+        public bool isProjectOwner(string username, int projectID)
+        {
+
+            ProjectOwner own = new ProjectOwner();
+            own = (from owned in _db._projectOwners
+                   where owned._projectID == projectID select owned).SingleOrDefault();
+
+            if(own._userName == username)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+
+
         }
 
         public ProjectFileViewModel getProjectFileById(int? id) 

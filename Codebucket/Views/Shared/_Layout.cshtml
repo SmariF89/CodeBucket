@@ -11,6 +11,16 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/is_IS/sdk.js#xfbml=1&version=v2.9";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -52,8 +62,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Codebucket.Application</p>
-            <a href="https://www.facebook.com/Codebucket-1636320343062562/"> Follow us on Facebook!</a>
+            <div class="fb-follow" data-href="https://www.facebook.com/Codebucket-1636320343062562/" data-layout="standard" data-size="large" data-show-faces="true"></div>
         </footer>
     </div>
 

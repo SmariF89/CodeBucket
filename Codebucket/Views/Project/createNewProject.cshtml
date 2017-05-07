@@ -4,9 +4,6 @@
     ViewBag.Title = "createNewProject";
 }
 
-<h2>createNewProject</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -23,10 +20,8 @@
             </div>
         </div>
         <p>
-            <input name="radioChoice" type="radio" id="test1" value="1" checked />
+            <input name="radioChoice" type="radio" id="test1" value="1" checked="checked" />
             <label for="test1">HTML</label>
-           
-            
         </p>
         <p>
             <input name="radioChoice" type="radio" id="test2" value="2"  />
