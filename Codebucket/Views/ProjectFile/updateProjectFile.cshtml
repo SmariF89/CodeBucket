@@ -6,7 +6,7 @@
 @*link to the ace website: https://ace.c9.io/#nav=embedding*@
 
 <div class="form-group">
-        @*<div class="SideBySide">
+        <div class="SideBySide">
             <label for="theme" class="control-label">Theme:</label>
             <select id="theme" class="form-control">
                 <option value="ambiance">ambiance</option>
@@ -17,14 +17,14 @@
                 <option value="monokai">monokai</option>
                 <option value="xcode">xcode</option>
             </select>
-        </div>*@
-        <div class="SideBySide">
+        </div>
+        @*<div class="SideBySide">
             <label for="mode" class="control-label">Language Mode:</label>
             <select id="mode" class="form-control">
                 <option value="javascript">javascript</option>
                 <option value="html">html</option>
             </select>
-        </div>
+        </div>*@
         <div class="SideBySide">
             <label>Project Name</label>
         <div id="ProjectFileName">        
@@ -36,7 +36,7 @@
 @*This is where Ace is shown*@
 <div id="editor"></div>
 
-<div id="language">@Model._projectFileType.Remove(0,1)</div>
+<div id="language">@Model._aceExtension</div>
 
 <form method="post">
 	@Html.HiddenFor(model => model._id, new { htmlAttributes = new { @class = "editor" } })
@@ -56,7 +56,8 @@
 		aceEditor.setTheme("ace/theme/chrome");
 		// default mode
 		var language = $('#language').text();
-		$('#language').hide();
+		$('#language');
+		alert(language);
 		aceEditor.getSession().setMode("ace/mode/" + language);
 		return aceEditor;
 	})(); 

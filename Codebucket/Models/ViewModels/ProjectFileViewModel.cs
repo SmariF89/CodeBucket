@@ -28,6 +28,8 @@ namespace Codebucket.Models.ViewModels
         [Display(Name = "Type")]
         public string _projectFileType { get; set; }
 
+        public string _aceExtension { get; set; }
+
         [Required]
         [Display(Name ="Data")]
         public string _projectFileData { get; set; }

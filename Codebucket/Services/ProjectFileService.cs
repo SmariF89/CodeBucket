@@ -36,6 +36,7 @@ namespace Codebucket.Services
 					_projectID = item._projectID,
                     _projectFileName = item._projectFileName,
                     _projectFileType = item._projectFileType,
+                    _aceExtension = item._aceExtension,
                     _projectFileData = item._projectFileData
                 });
             }
@@ -83,6 +84,7 @@ namespace Codebucket.Services
                 viewModel._projectFileData = newProjectFile._projectFileData.ToString();
                 viewModel._projectFileName = newProjectFile._projectFileName.ToString();
                 viewModel._projectFileType = newProjectFile._projectFileType.ToString();
+                viewModel._aceExtension = newProjectFile._aceExtension.ToString();
 
                 return viewModel;
             }
@@ -99,6 +101,12 @@ namespace Codebucket.Services
             return fileType.Substring(fileType.LastIndexOf('.') + 1);
         }
 
+        public String getAceExtensionByProjectId(int projectId)
+        {
+            return (from projectFile in _db._projectFiles
+                    where projectFile._projectID == projectId
+                    select projectFile._aceExtension).FirstOrDefault();
+        }
 
         public void addProjectFile(CreateProjectFileViewModel model)
         {
@@ -106,6 +114,7 @@ namespace Codebucket.Services
             newProjectFile._projectFileName = model._projectFileName + "." + model._projectFileType;
             newProjectFile._projectFileData = model._projectFileData;
             newProjectFile._projectFileType = "." + model._projectFileType;
+            newProjectFile._aceExtension = getAceExtensionByProjectId(model._projectID);
             newProjectFile._projectID = model._projectID;
 
             _db._projectFiles.Add(newProjectFile);
