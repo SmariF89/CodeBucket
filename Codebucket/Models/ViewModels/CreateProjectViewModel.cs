@@ -12,7 +12,7 @@ namespace Codebucket.Models.ViewModels
         [Required]
         [Display(Name ="Project Name")]
         public string _projectName { get; set; }
-        public List<SelectListItem> projectType { get; set; }
+        public List<SelectListItem> _projectType { get; set; }
 
         [Required]
         public int _projectTypeId { get; set; }

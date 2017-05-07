@@ -226,10 +226,12 @@
     <Compile Include="Models\Entities\ProjectFile.cs" />
     <Compile Include="Models\Entities\ProjectMember.cs" />
     <Compile Include="Models\Entities\ProjectOwner.cs" />
+    <Compile Include="Models\Validation\IfMemberExists.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\AddMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateProjectFileViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateProjectViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ProjectFileViewModel.cs" />
@@ -596,6 +598,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\logo.jpg" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="favicon.ico" />
@@ -659,13 +662,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
     <Content Include="Views\Project\createNewProject.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\ProjectFile\addProjectMember.cshtml" />
     <Content Include="Views\ProjectFile\listAllProjectFiles.cshtml" />
     <Content Include="Views\ProjectFile\updateProjectFile.cshtml" />
     <Content Include="Views\ProjectFile\displayProject.cshtml" />
+    <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
