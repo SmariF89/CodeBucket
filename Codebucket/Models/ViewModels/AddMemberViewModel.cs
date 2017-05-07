@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Codebucket.Models.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace Codebucket.Models.ViewModels
 {
     public class AddMemberViewModel
     {
-        [Required]
+        [IfMemberExists]
         [Display(Name ="Username")]
         public string _userName  { get; set; }
         public string _project { get; set; }

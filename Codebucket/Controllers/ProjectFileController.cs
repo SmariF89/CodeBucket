@@ -110,12 +110,12 @@ namespace Codebucket.Controllers
         {
             int? currId = model._projectID;
 
-            bool member = _projectFileService.usernameExists(model._userName);
+            /*bool member = _projectFileService.usernameExists(model._userName);
             if(member == false)
             {
                 ModelState.AddModelError(string.Empty,"Member does not exist!");
                 return View(model);
-            }
+            }*/
 
             if (!ModelState.IsValid)
             {
