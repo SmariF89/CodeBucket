@@ -1,12 +1,6 @@
 ﻿using Codebucket.Models;
 using Codebucket.Models.Entities;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
 
 namespace Codebucket.Utilities
 {
@@ -14,6 +8,7 @@ namespace Codebucket.Utilities
     {
         private ApplicationDbContext _db;
         private static ExceptionService theInstance = null;
+
         public static ExceptionService Instance
         {
             get
@@ -26,6 +21,7 @@ namespace Codebucket.Utilities
             }
         }
 
+        // Saves a Exception log to the database
         public void LogException(Exception ex, string currentController, string currentAction)
         {
             _db = new ApplicationDbContext();         

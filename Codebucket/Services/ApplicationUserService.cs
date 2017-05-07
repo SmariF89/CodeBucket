@@ -10,12 +10,15 @@ namespace Codebucket.Services
     {
         private ApplicationDbContext _db;
 
+        #region Cunstuctor
         // Constructor, makes a new instance of database connection.
         public ApplicationUserService()
         {
             _db = new ApplicationDbContext();
         }
+        #endregion
 
+        #region Get project members and owners
         // Get all project owners by project ID, Returns a list of the entitiy ProjectOwner.
         public List<ProjectOwner> getAllProjectOwnersByProjectId(int? id)
         {
@@ -45,21 +48,22 @@ namespace Codebucket.Services
         {
             if (id != null || id > 0)
             {
-                List<ProjectMemberViewModel> newProjectMemberViewModel = new List<ProjectMemberViewModel>();
-                List<ProjectMember> newProjectMember = getAllProjectMembersByProjectId(id);
+                List<ProjectMemberViewModel> projectMemberViewModel = new List<ProjectMemberViewModel>();
+                List<ProjectMember> projectMember = getAllProjectMembersByProjectId(id);
 
-                foreach (var item in newProjectMember)
+                foreach (var item in projectMember)
                 {
-                    newProjectMemberViewModel.Add(new ProjectMemberViewModel
+                    projectMemberViewModel.Add(new ProjectMemberViewModel
                     {
                         _projectID = item._projectID,
                         _userName = item._userName
                     });
                 }
 
-                return newProjectMemberViewModel;
+                return projectMemberViewModel;
             }
             return null;
         }
+        #endregion
     }
 }
