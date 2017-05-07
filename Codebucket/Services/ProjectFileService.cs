@@ -62,14 +62,22 @@ namespace Codebucket.Services
             return null;
         }
 
+        public String getFileTypeByProjectId(int projectId)
+        {
+            string fileType = (from projectFile in _db._projectFiles
+                               where projectFile._projectID == projectId
+                               select projectFile._projectFileType).FirstOrDefault();
 
-        public void addProjectFile(ProjectFileViewModel model)
+            return fileType.Substring(fileType.LastIndexOf('.') + 1);
+        }
+
+
+        public void addProjectFile(CreateProjectFileViewModel model)
         {
             ProjectFile newProjectFile = new ProjectFile();
-			// Id comes in automatically
-			newProjectFile._projectFileName = model._projectFileName;
+            newProjectFile._projectFileName = model._projectFileName + "." + model._projectFileType;
             newProjectFile._projectFileData = model._projectFileData;
-            newProjectFile._projectFileType = model._projectFileType;
+            newProjectFile._projectFileType = "." + model._projectFileType;
             newProjectFile._projectID = model._projectID;
 
             _db._projectFiles.Add(newProjectFile);

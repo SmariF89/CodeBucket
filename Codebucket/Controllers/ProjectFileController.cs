@@ -19,39 +19,28 @@ namespace Codebucket.Controllers
 		#region Create new file in current project.
 		// GET: createNewProjectFile
 		[HttpGet]
-		public ActionResult createNewProjectFile()
+		public ActionResult createNewProjectFile(int? id)
 		{
-			List<Project> list = _projectFileService.getAllProjects();
-
-            ProjectFileViewModel file = new ProjectFileViewModel();
-			
-            file.project = list;
-            
-
-			return View(file);
+            CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+            model._projectID = id.Value;
+			return View(model);
 		}
 	
-
         // POST: createNewProjectFile
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult createNewProjectFile(ProjectFileViewModel model)
+        public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
         {
-            if (!ModelState.IsValid)
+            model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
+            model._projectFileData = "";
+
+            if (ModelState.IsValid)
             {
-                ProjectFileViewModel viewModel = new ProjectFileViewModel();
-                viewModel._projectFileName = model._projectFileName;
-                viewModel._projectFileType = model._projectFileType;
-                viewModel._projectFileData = model._projectFileData;
-
-                return View("createNewProjectFile", model);
+                _projectFileService.addProjectFile(model);
+                return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
             }
-
             else
             {
-
-                _projectFileService.addProjectFile(model);
-                return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
+                return View("createNewProjectFile", model);
             }
 
             
@@ -99,9 +88,7 @@ namespace Codebucket.Controllers
         public ActionResult listAllProjectFiles(int? id)
         {
             currentProjectId = id;
-
             return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
-
         }
         #endregion
 
