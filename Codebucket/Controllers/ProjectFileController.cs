@@ -22,13 +22,18 @@ namespace Codebucket.Controllers
 		public ActionResult createNewProjectFile(int? id)
 		{
 			CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+          
 			model._projectID = id.Value;
+   
+
 			return View(model);
 		}
 	
 		// POST: createNewProjectFile
+        
 		[HttpPost]
-		public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
 		{
 			model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
 			model._projectFileData = "";
@@ -69,8 +74,7 @@ namespace Codebucket.Controllers
 		[HttpPost]
 		public ActionResult updateProjectFile(ProjectFileViewModel model)
 		{
-            // Check if id of model is empty.
-			if (model._id != 0)
+			if (ModelState.IsValid)
 			{
 				_projectFileService.updateProjectFile(model);
 				return View(model);
@@ -84,9 +88,22 @@ namespace Codebucket.Controllers
 		{
 			currentProjectId = id;
 			ProjectViewModel model = _projectService.getProjectByProjectId(currentProjectId);
+          
 
-			return View(model);
-		}
+            if(_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+            {
+                model._isProjectOwner = true;
+                
+            }
+
+            else
+            {
+                model._isProjectOwner = false;
+                
+            }
+            return View(model);
+
+        }
 
 		#region List all files in current project.
 		// GET: getProjectFileById

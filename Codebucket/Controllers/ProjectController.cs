@@ -48,6 +48,7 @@ namespace Codebucket.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult createNewProject(FormCollection collection)
         {
             string userName = User.Identity.Name;
