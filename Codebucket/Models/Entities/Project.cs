@@ -12,6 +12,7 @@ namespace Codebucket.Models.Entities
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        
         public string _projectName { get; set; }
     }
 }

@@ -48,6 +48,18 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult createNewProject(FormCollection collection)
         {
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new CreateProjectViewModel();
+                viewModel._projectName = collection["_projectName"];
+
+
+                return View("CreateNewProject", viewModel);
+            }
+
+            else
+            { 
+
             string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
             CreateProjectViewModel model = new CreateProjectViewModel();
 
@@ -56,6 +68,7 @@ namespace Codebucket.Controllers
             _projectService.addProject(model, ownerName);
 
             return RedirectToAction("Index", "Home");
+            }
         }
         #endregion
 
