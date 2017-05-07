@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Codebucket - @ViewBag.Title</title>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <img src="~/Content/logoBlueFade.jpg" alt="logo" width="200" height="50" class="CodebucketLogo"/>
+        <a href="/"><img src="~/Content/logoBlueFade.jpg" alt="logo" width="200" height="50" class="CodebucketLogo"/></a>
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,12 +32,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                
-               
+         
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    @*@<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>*@
                 </ul>
                     @if (!User.Identity.IsAuthenticated)
                     {

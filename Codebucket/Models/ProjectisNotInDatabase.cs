@@ -11,24 +11,25 @@ namespace Codebucket.Models
 {
     public class ProjectisNotInDatabase : ValidationAttribute
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            ProjectService _service = new ProjectService();
-            string data = value as string;
+        
+        //protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        //{
+        //    ProjectService _service = new ProjectService();
+        //    string data = value as string;
 
-            if(data == "")
-            {
-                return new ValidationResult("Project Name is required!");
-            }
+        //    if(data == "")
+        //    {
+        //        return new ValidationResult("Project Name is required!");
+        //    }
 
-            else if (_service.createNewProjectIsValid(data))
-            {
-                return ValidationResult.Success;
-            }
-            else
-            {
-                return new ValidationResult("This project already exists!!!!!");
-            }
-        }
+        //    //else if (_service.createNewProjectIsValid(data))
+        //    {
+        //        return ValidationResult.Success;
+        //    }
+        //    else
+        //    {
+        //        return new ValidationResult("This project already exists!!!!!");
+        //    }
+        //}
     }
 }

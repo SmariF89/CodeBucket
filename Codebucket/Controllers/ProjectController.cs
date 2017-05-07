@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using Codebucket.Utilities;
 using Codebucket.Handlers;
 
-namespace Codebucket.Controllers
+namespace Codebucket.Controllers    
 {
     public class ProjectController : Controller
     {
@@ -51,7 +51,9 @@ namespace Codebucket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult createNewProject(FormCollection collection)
         {
-            if(!ModelState.IsValid)
+            string userName = User.Identity.Name;
+
+            if (!ModelState.IsValid)
             {
                 CreateProjectViewModel viewModel = new CreateProjectViewModel();
                 viewModel._projectName = collection["_projectName"];
@@ -65,7 +67,7 @@ namespace Codebucket.Controllers
                 model._projectName = collection["_projectName"];
                 model._projectTypeId = Int32.Parse(collection["radioChoice"]);
 
-                if (_projectService.createNewProjectIsValid(model._projectName))
+                if (_projectService.createNewProjectIsValid(model._projectName, userName))
                 {
                     _projectService.addProject(model, ownerName);
                     return RedirectToAction("Index", "Project");
