@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Codebucket.Utilities;
+using Codebucket.Handlers;
 
 namespace Codebucket.Controllers
 {
@@ -19,6 +21,10 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            int a = 0;
+
+            a = 10 / a;      
+
             string userName = User.Identity.Name;
 
             return View(_projectService.getAllProjectsByApplicationUserId(userName));

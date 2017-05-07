@@ -22,18 +22,6 @@ namespace Codebucket.Services
             return null;
         }
 
-        public bool isProjectOwner(int? id)
-        {
-            return false;
-        }
-
-        public bool isProjectMember(int? id)
-        {
-            return false;
-        }
-
-        
-
         public List<ProjectOwner> getAllProjectOwnersByProjectId(int? id)
         {
             List<ProjectOwner> newProjectOwner = (from projectOwner in _db._projectOwners
