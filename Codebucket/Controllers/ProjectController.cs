@@ -40,7 +40,7 @@ namespace Codebucket.Controllers
         public ActionResult createNewProject()
         {
             CreateProjectViewModel model = new CreateProjectViewModel();
-            model.projectType = _projectService.populateDropdownData();
+            //model._projectType = _projectService.populateDropdownData();
             return View(model);
         }
 
@@ -54,13 +54,11 @@ namespace Codebucket.Controllers
                 var viewModel = new CreateProjectViewModel();
                 viewModel._projectName = collection["_projectName"];
 
-
                 return View("CreateNewProject", viewModel);
             }
 
             else
             { 
-
             string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
             CreateProjectViewModel model = new CreateProjectViewModel();
 

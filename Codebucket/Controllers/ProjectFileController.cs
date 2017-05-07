@@ -36,7 +36,9 @@ namespace Codebucket.Controllers
             if (ModelState.IsValid)
             {
                 _projectFileService.addProjectFile(model);
-                return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
+                ProjectViewModel viewModel = _projectService.getProjectByProjectId(model._projectID);
+                //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
+                return View("displayProject", viewModel);
             }
             else
             {
@@ -77,7 +79,7 @@ namespace Codebucket.Controllers
         public ActionResult displayProject(int? id)
         {
             currentProjectId = id;
-            ProjectViewModel model = _projectService.getProjectByProjectId(id);
+            ProjectViewModel model = _projectService.getProjectByProjectId(currentProjectId);
 
             return View(model);
         }
@@ -108,7 +110,7 @@ namespace Codebucket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult addProjectMember(AddMemberViewModel model)
         {
-            int? currId = model._projectID;
+            int currId = model._projectID;
 
             if (!ModelState.IsValid)
             {
