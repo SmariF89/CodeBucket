@@ -88,12 +88,13 @@ namespace Codebucket.Services
 		{
 			if (file._id != 0)
 			{
-				ProjectFile projectFiles = (from projectFile in _db._projectFiles
-											where projectFile.ID == file._id
-											select projectFile).FirstOrDefault();
+				//ProjectFile projectFiles = (from projectFile in _db._projectFiles
+				//							where projectFile.ID == file._id
+				//							select projectFile).FirstOrDefault();
 
-				projectFiles._projectFileData = file._projectFileData;
-				_db._projectFiles.Add(projectFiles);
+				//projectFiles._projectFileData = file._projectFileData;
+				//_db._projectFiles.Add(projectFiles);
+				_db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
 				_db.SaveChanges();
 			}
 		}

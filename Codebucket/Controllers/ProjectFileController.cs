@@ -36,9 +36,14 @@ namespace Codebucket.Controllers
             if (ModelState.IsValid)
             {
                 _projectFileService.addProjectFile(model);
+                return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
+            }
+            else
+            {
+                return View("createNewProjectFile", model);
             }
 
-            return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
+            
         }
 		#endregion
 
