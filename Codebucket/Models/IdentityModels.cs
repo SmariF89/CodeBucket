@@ -26,6 +26,7 @@ namespace Codebucket.Models
         public DbSet<ProjectOwner> _projectOwners { get; set; }
         public DbSet<ProjectMember> _projectMembers { get; set; }
         public DbSet<FileType> _fileTypes { get; set; }
+        public DbSet<ExceptionLogger> _exceptions { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

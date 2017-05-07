@@ -40,7 +40,6 @@ namespace Codebucket.Services
                 });
             }
 
-
             return newProjectFileViewModel;
         }
 
