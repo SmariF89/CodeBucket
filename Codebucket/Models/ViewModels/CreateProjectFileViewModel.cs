@@ -18,7 +18,8 @@ namespace Codebucket.Models.ViewModels
         [Display(Name = "File data")]
         public string _projectFileData { get; set; }
 
-        
+        public bool _isUserProjectOwner { get; set; }
+
         public int _projectID { get; set; }
     }
 }

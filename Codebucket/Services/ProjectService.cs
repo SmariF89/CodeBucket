@@ -189,20 +189,30 @@ namespace Codebucket.Services
         #endregion
 
         #region Validation For creating new Project.
-        public bool createNewProjectIsValid(string projectName)
+        public bool createNewProjectIsValid(string projectName, string userName)
         {
             Project foundProject = new Project();
 
-            foundProject = (from project in _db._projects
-                          where project._projectName == projectName
-                          select project).SingleOrDefault();
+            List<ProjectOwner> projectsOwnedByUser = (from ownedProject in _db._projectOwners
+                                                      where ownedProject._userName == userName
+                                                      select ownedProject).ToList();
 
-            if (foundProject == null)
+            List<ProjectViewModel> listOfProjects = new List<ProjectViewModel>();
+
+            foreach(ProjectOwner item in projectsOwnedByUser)
             {
-                return true;
+                listOfProjects.Add(getProjectByProjectId(item._projectID));                       
             }
-
-            return false;
+            
+            foreach(ProjectViewModel item in listOfProjects)
+            {
+                if(projectName == item._projectName)
+                {
+                    return false;
+                }
+            }
+            
+            return true;
         }
         #endregion
     }
