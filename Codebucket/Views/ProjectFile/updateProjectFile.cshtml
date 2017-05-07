@@ -36,11 +36,13 @@
 @*This is where Ace is shown*@
 <div id="editor"></div>
 
+<div id="language">@Model._projectFileType.Remove(0,1)</div>
+
 <form method="post">
 	@Html.HiddenFor(model => model._id, new { htmlAttributes = new { @class = "editor" } })
 
 	<textarea class="editor">@Model._projectFileData</textarea>
-	@Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" } ).
+	@Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" } )
 	<button type="submit" class="SaveButtonEdit">Save</button>
 </form>
 
@@ -53,9 +55,11 @@
 		// default theme
 		aceEditor.setTheme("ace/theme/chrome");
 		// default mode
-		aceEditor.getSession().setMode("ace/mode/javascript");
+		var language = $('#language').text();
+		$('#language').hide();
+		aceEditor.getSession().setMode("ace/mode/" + language);
 		return aceEditor;
-	})();
+	})(); 
 
 	$('#theme').change(function () {
 		var e = document.getElementById("theme");
