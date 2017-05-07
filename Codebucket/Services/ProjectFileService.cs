@@ -22,14 +22,14 @@ namespace Codebucket.Services
 
         #region Get project file and get all project files
         // Get all project files by project id, returns a list of the type ProjectFileViewModel.
-        public List<ProjectFileViewModel> getAllProjectFilesByProjectId(int? id)
+        public List<ProjectFileViewModel> getAllProjectFilesByProjectId(int? projectId)
         {
-            if (id != null || id > 0)
+            if (projectId != null || projectId > 0)
             {
                 List<ProjectFileViewModel> projectFileViewModels = new List<ProjectFileViewModel>();
 
                 List<ProjectFile> projectFiles = (from projectFile in _db._projectFiles
-                                                  where projectFile._projectID == id
+                                                  where projectFile._projectID == projectId
                                                   select projectFile).ToList();
 
                 foreach (var item in projectFiles)
@@ -51,16 +51,16 @@ namespace Codebucket.Services
         }
 
         // Get project file by project id, returns a viewmodel of the type ProjectFileViewModel
-        public ProjectFileViewModel getProjectFileById(int? id) //TODO:: change name to getProjectFileByProjectId
+        public ProjectFileViewModel getProjectFileByProjectId(int? projectId)
         {
-            if (id != null || id > 0)
+            if (projectId != null || projectId > 0)
             {
                 return new ProjectFileViewModel
                 {
-                    _id = _db._projectFiles.Find(id).ID,
-                    _projectFileData = _db._projectFiles.Find(id)._projectFileData.ToString(),
-                    _projectFileName = _db._projectFiles.Find(id)._projectFileName.ToString(),
-                    _projectFileType = _db._projectFiles.Find(id)._projectFileType.ToString()
+                    _id = _db._projectFiles.Find(projectId).ID,
+                    _projectFileData = _db._projectFiles.Find(projectId)._projectFileData.ToString(),
+                    _projectFileName = _db._projectFiles.Find(projectId)._projectFileName.ToString(),
+                    _projectFileType = _db._projectFiles.Find(projectId)._projectFileType.ToString()
                 };
             }
 
@@ -70,18 +70,22 @@ namespace Codebucket.Services
 
         #region Get file type
         // Get file type by project id, returns a string.
-        public String getFileTypeByProjectId(int projectId)
+        public String getFileTypeByProjectId(int? projectId)
         {
-            string fileType = (from projectFile in _db._projectFiles
-                               where projectFile._projectID == projectId
-                               select projectFile._projectFileType).FirstOrDefault();
+            if (projectId != null || projectId > 0)
+            {
+                string fileType = (from projectFile in _db._projectFiles
+                                   where projectFile._projectID == projectId
+                                   select projectFile._projectFileType).FirstOrDefault();
 
-            return fileType.Substring(fileType.LastIndexOf('.') + 1);
+                return fileType.Substring(fileType.LastIndexOf('.') + 1);
+            }
+            return null;
         }
         #endregion
 
         #region Add project file
-        public void addProjectFile(CreateProjectFileViewModel model)
+        public void addProjectFile(CreateProjectFileViewModel model) // TODO:: Add a if check ?
         {
             ProjectFile newProjectFile = new ProjectFile()
             {
@@ -100,9 +104,17 @@ namespace Codebucket.Services
         // Checks if username exists in the database, returns a bool value if true or not.
         public bool usernameExists(string username)
         {
-            return (from user in _db.Users
-                    where user.UserName == username
-                    select user).Any();
+            if (username != null)
+            {
+                return (from user in _db.Users
+                        where user.UserName == username
+                        select user).Any();
+            }
+            else
+            {
+                throw new Exception();
+            }
+            
         }
 
         // Checks if username is owner of project, returns a bool value if true or not.
