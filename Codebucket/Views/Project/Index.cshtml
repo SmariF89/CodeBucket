@@ -5,29 +5,27 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Owned projects</h2>
-<ul>
+<h2>My projects</h2>
+<ul class="collection">
     @foreach (ProjectViewModel item in Model)
     {
         if (item._isProjectOwner)
         {
             <li>
-                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id })
+                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
             </li>
         }
-
-        
     }
 </ul>
 
-<h2>Member projects</h2>
-<ul>
+<h2>Participating</h2>
+<ul class="collection">
     @foreach (ProjectViewModel item in Model)
     {
         if (!item._isProjectOwner)
         {
             <li>
-                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id })
+                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
             </li>
         }
     }
