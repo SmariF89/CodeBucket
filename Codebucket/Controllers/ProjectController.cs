@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using Codebucket.Utilities;
 using Codebucket.Handlers;
 
-namespace Codebucket.Controllers
+namespace Codebucket.Controllers    
 {
     public class ProjectController : Controller
     {
