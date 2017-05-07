@@ -23,10 +23,10 @@ namespace Codebucket.Controllers
 		{
 			List<Project> list = _projectFileService.getAllProjects();
 
-			ProjectFileViewModel file = new ProjectFileViewModel()
-			{
-				project = list
-			};
+            ProjectFileViewModel file = new ProjectFileViewModel();
+			
+            file.project = list;
+            
 
 			return View(file);
 		}
@@ -34,14 +34,27 @@ namespace Codebucket.Controllers
 
         // POST: createNewProjectFile
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult createNewProjectFile(ProjectFileViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _projectFileService.addProjectFile(model);
+                ProjectFileViewModel viewModel = new ProjectFileViewModel();
+                viewModel._projectFileName = model._projectFileName;
+                viewModel._projectFileType = model._projectFileType;
+                viewModel._projectFileData = model._projectFileData;
+
+                return View("createNewProjectFile", model);
             }
 
-            return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
+            else
+            {
+
+                _projectFileService.addProjectFile(model);
+                return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
+            }
+
+            
         }
 		#endregion
 

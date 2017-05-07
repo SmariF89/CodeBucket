@@ -46,6 +46,7 @@ namespace Codebucket.Controllers
 
         // POST: CreateNewProject
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult createNewProject(FormCollection collection)
         {
             if(!ModelState.IsValid)
@@ -83,6 +84,7 @@ namespace Codebucket.Controllers
 
         // POST: UpdateProject
         [HttpPost]
+
         public ActionResult updateProject(ProjectViewModel model)
         {
             return null;
