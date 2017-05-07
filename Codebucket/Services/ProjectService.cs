@@ -199,13 +199,21 @@ namespace Codebucket.Services
         #endregion
 
         #region Validation For creating new Project.
-        public bool createNewProjectIsValid()
+        public bool createNewProjectIsValid(string projectName)
         {
+            Project foundProject = new Project();
 
+            foundProject = (from project in _db._projects
+                          where project._projectName == projectName
+                          select project).SingleOrDefault();
 
-            return true;
+            if (foundProject == null)
+            {
+                return true;
+            }
+
+            return false;
         }
-
         #endregion
     }
 }

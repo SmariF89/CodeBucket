@@ -44,8 +44,8 @@ namespace Codebucket.Controllers
             
             return View(model);
         }
-
-        // POST: CreateNewProject
+        
+        
         [HttpPost]
         public ActionResult createNewProject(FormCollection collection)
         {
@@ -53,23 +53,29 @@ namespace Codebucket.Controllers
             {
                 CreateProjectViewModel viewModel = new CreateProjectViewModel();
                 viewModel._projectName = collection["_projectName"];
-
-
-                return View("CreateNewProject", viewModel);
+                return View("createNewProject", viewModel);
             }
             else
-            { 
-            string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
-            CreateProjectViewModel model = new CreateProjectViewModel();
+            {               
+                string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
+                CreateProjectViewModel model = new CreateProjectViewModel();
+                
+                model._projectName = collection["_projectName"];
+                model._projectTypeId = Int32.Parse(collection["radioChoice"]);
 
-            model._projectName = collection["_projectName"];
-            model._projectTypeId = Int32.Parse(collection["radioChoice"]);
-
-            _projectService.addProject(model, ownerName);
-    
-            return RedirectToAction("Index", "Home");
-            }
+                if (_projectService.createNewProjectIsValid(model._projectName))
+                {
+                    _projectService.addProject(model, ownerName);
+                    return RedirectToAction("Index", "Project");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "This project already exits!");
+                    return View("createNewProject", model);
+                }
+            }         
         }
+        
         #endregion
 
         #region Update project TODO::needed?

@@ -7,6 +7,7 @@
     <div class="form-horizontal">
         <h4>ProjectFileViewModel</h4>
         <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @if (Model.project != null)
         {
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
