@@ -93,6 +93,7 @@ namespace Codebucket.Services
         }
         #endregion
 
+        #region Get single project by id.   
         public ProjectViewModel getProjectByProjectId(int? id)
         {
             ProjectViewModel newProjectById = new ProjectViewModel();
@@ -124,6 +125,7 @@ namespace Codebucket.Services
 
             return newProjectById;
         }
+        #endregion
 
         #region Add project by current user name
 
@@ -194,6 +196,16 @@ namespace Codebucket.Services
 
             return fileTypes;
         }
+        #endregion
+
+        #region Validation For creating new Project.
+        public bool createNewProjectIsValid()
+        {
+
+
+            return true;
+        }
+
         #endregion
     }
 }

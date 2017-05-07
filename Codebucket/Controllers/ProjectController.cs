@@ -41,6 +41,7 @@ namespace Codebucket.Controllers
         {
             CreateProjectViewModel model = new CreateProjectViewModel();
             model.projectType = _projectService.populateDropdownData();
+            
             return View(model);
         }
 
@@ -53,8 +54,9 @@ namespace Codebucket.Controllers
 
             model._projectName = collection["_projectName"];
             model._projectTypeId = Int32.Parse(collection["radioChoice"]);
-            _projectService.addProject(model, ownerName);
 
+            _projectService.addProject(model, ownerName);
+    
             return RedirectToAction("Index", "Home");
         }
         #endregion
