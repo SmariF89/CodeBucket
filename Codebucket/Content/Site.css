@@ -25,10 +25,53 @@ textarea {
 
 /* Ace editor*/
 #editor {
-	position: absolute;
-	width: 600px;
-	height: 600px;
-	right: 0;
+    position: relative;
+    clear: both;
+    height: 425px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.SideBySide{
+    float: left;
+    width: 80px;
+    height: 74px;
+    margin: 10px;
+}
+
+#ProjectFileName{
+    position: absolute;
+    width: auto;
+    padding: 6px 9px 0 9px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    text-align: center;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+
+
+
+}
+
+.SaveButtonEdit{
+    clear:both;
+    right: 245px;
+    position: absolute;
+    width: 80px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    text-align: center;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+
 }
 
 .field-validation-error {
@@ -46,5 +89,4 @@ textarea {
     display:block;
     width:150px;
 }
-
 
