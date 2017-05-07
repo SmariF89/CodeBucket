@@ -21,10 +21,6 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            int a = 0;
-
-            a = 10 / a;      
-
             string userName = User.Identity.Name;
 
             return View(_projectService.getAllProjectsByApplicationUserId(userName));
