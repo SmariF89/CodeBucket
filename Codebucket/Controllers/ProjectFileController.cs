@@ -19,29 +19,33 @@ namespace Codebucket.Controllers
 		#region Create new file in current project.
 		// GET: createNewProjectFile
 		[HttpGet]
-		public ActionResult createNewProjectFile()
+		public ActionResult createNewProjectFile(int? id)
 		{
-			List<Project> list = _projectFileService.getAllProjects();
-
-			ProjectFileViewModel file = new ProjectFileViewModel()
-			{
-				project = list
-			};
-
-			return View(file);
+            CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+            model._projectID = id.Value;
+			return View(model);
 		}
 	
-
         // POST: createNewProjectFile
         [HttpPost]
-        public ActionResult createNewProjectFile(ProjectFileViewModel model)
+        public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
         {
+            model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
+            model._projectFileData = "";
+
             if (ModelState.IsValid)
             {
                 _projectFileService.addProjectFile(model);
+                ProjectViewModel viewModel = _projectService.getProjectByProjectId(model._projectID);
+                //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
+                return View("displayProject", viewModel);
+            }
+            else
+            {
+                return View("createNewProjectFile", model);
             }
 
-            return RedirectToAction("displayProject", "ProjectFile", new { currentProjectId });
+            
         }
 		#endregion
 
@@ -62,7 +66,8 @@ namespace Codebucket.Controllers
 		[HttpPost]
 		public ActionResult updateProjectFile(ProjectFileViewModel model)
 		{
-			if (ModelState.IsValid)
+            // Check if id of model is empty.
+			if (model._id != 0)
 			{
 				_projectFileService.updateProjectFile(model);
 				return View(model);
@@ -75,7 +80,7 @@ namespace Codebucket.Controllers
         public ActionResult displayProject(int? id)
         {
             currentProjectId = id;
-            ProjectViewModel model = _projectService.getProjectByProjectId(id);
+            ProjectViewModel model = _projectService.getProjectByProjectId(currentProjectId);
 
             return View(model);
         }
@@ -86,9 +91,7 @@ namespace Codebucket.Controllers
         public ActionResult listAllProjectFiles(int? id)
         {
             currentProjectId = id;
-
             return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
-
         }
         #endregion
 
@@ -105,18 +108,28 @@ namespace Codebucket.Controllers
 
         // POST: AddProjectMember
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult addProjectMember(AddMemberViewModel model)
         {
-            int? currId = model._projectID;
+            int currId = model._projectID;
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                AddMemberViewModel viewModel = new AddMemberViewModel();
+                viewModel._userName = model._userName;
+
+                return View("addProjectMember", viewModel);
+            }
+
+            else
+            {
+
                 _projectService.addProjectMember(model);
                 ProjectViewModel model2 = _projectService.getProjectByProjectId(currId);
 
-                return View("displayProject" , model2);
+                return View("displayProject", model2);
             }
-            return HttpNotFound();
+            
         }
 
 		#endregion

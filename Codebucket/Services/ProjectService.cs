@@ -36,6 +36,8 @@ namespace Codebucket.Services
             return newProjectViewModel;
         }
 
+
+
         public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ref List<ProjectViewModel> model, string userName)
         {
             List<Project> newOwnerProjects = new List<Project>();
@@ -55,7 +57,7 @@ namespace Codebucket.Services
                     _id = item.ID,
                     _projectName = item._projectName,
                     _isProjectOwner = true,
-                    _projectTypeId = item.ID,
+                    _projectFileTypeId = item._projectFileTypeId,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
                     _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)
                 });
@@ -83,7 +85,7 @@ namespace Codebucket.Services
                     _id = item.ID,
                     _projectName = item._projectName,
                     _isProjectOwner = false,
-                    _projectTypeId = item.ID,
+                    _projectFileTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
                     _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)
                 });
@@ -96,34 +98,21 @@ namespace Codebucket.Services
         #region Get single project by id.   
         public ProjectViewModel getProjectByProjectId(int? id)
         {
-            ProjectViewModel newProjectById = new ProjectViewModel();
-            Project newProject = new Project();
-            //FileType newFileType = new FileType();
-            ProjectFile newProjectFile = new ProjectFile();
-            List<ProjectFileViewModel> newProjectFileViewModel = new List<ProjectFileViewModel>();            
-            List<SelectListItem> newSelectListItem = populateDropdownData();
+            Project entity = _db._projects.Find(id);
+            ProjectViewModel model = new ProjectViewModel();
 
-            newProject = (from project in _db._projects
-                          where project.ID == id
-                          select project).FirstOrDefault();
+            model._id = entity.ID;
+            model._projectName = entity._projectName;
+            model._projectFileTypeId = entity._projectFileTypeId;
+            model._isProjectOwner = false;
+            model._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
 
-            newProjectFile = (from projectFile in _db._projectFiles
-                           where projectFile._projectID == id
-                           select projectFile).FirstOrDefault();
+            List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
+            model._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
+            //_projectFileService.getAllProjectFilesByProjectId(id);
+            //model._projectFiles = modelFiles;
 
-            //newFileType = (from fileType in _db._fileTypes
-            //                  where fileType.ID == newProjectFile.ID
-            //               select fileType).FirstOrDefault();
-
-            newProjectById._id = id.Value;
-            newProjectById._isProjectOwner = false;
-            newProjectById._projectName = newProject._projectName;
-            newProjectById._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
-            newProjectById._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
-            newProjectById._projectType = newSelectListItem;
-            //newProjectById._projectTypeId = newFileType.ID;
-
-            return newProjectById;
+            return model;
         }
         #endregion
 
@@ -134,6 +123,7 @@ namespace Codebucket.Services
             Project newProject = new Project();
 
             newProject._projectName = model._projectName;
+            newProject._projectFileTypeId = model._projectTypeId;
             
             _db._projects.Add(newProject);
             _db.SaveChanges();

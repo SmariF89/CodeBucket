@@ -40,11 +40,10 @@ namespace Codebucket.Controllers
         public ActionResult createNewProject()
         {
             CreateProjectViewModel model = new CreateProjectViewModel();
-            model.projectType = _projectService.populateDropdownData();
+            model._projectType = _projectService.populateDropdownData();
             
             return View(model);
         }
-        
         
         [HttpPost]
         public ActionResult createNewProject(FormCollection collection)
@@ -70,8 +69,8 @@ namespace Codebucket.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "This project already exits!");
-                    return View("createNewProject", model);
+                    ModelState.AddModelError(string.Empty, "This project already exists.");
+                    return View("createNewProject");
                 }
             }         
         }
