@@ -19,23 +19,20 @@ namespace Codebucket.Controllers
 		#region Create new file in current project.
 		// GET: createNewProjectFile
 		[HttpGet]
-		public ActionResult createNewProjectFile()
+		public ActionResult createNewProjectFile(int? id)
 		{
-			List<Project> list = _projectFileService.getAllProjects();
-
-			ProjectFileViewModel file = new ProjectFileViewModel()
-			{
-				project = list
-			};
-
-			return View(file);
+            CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+            model._projectID = id.Value;
+			return View(model);
 		}
 	
-
         // POST: createNewProjectFile
         [HttpPost]
-        public ActionResult createNewProjectFile(ProjectFileViewModel model)
+        public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
         {
+            model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
+            model._projectFileData = "";
+
             if (ModelState.IsValid)
             {
                 _projectFileService.addProjectFile(model);
@@ -86,9 +83,7 @@ namespace Codebucket.Controllers
         public ActionResult listAllProjectFiles(int? id)
         {
             currentProjectId = id;
-
             return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
-
         }
         #endregion
 
