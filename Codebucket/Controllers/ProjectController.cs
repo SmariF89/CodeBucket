@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Codebucket.Utilities;
+using Codebucket.Handlers;
 
 namespace Codebucket.Controllers
 {
@@ -40,35 +42,41 @@ namespace Codebucket.Controllers
         public ActionResult createNewProject()
         {
             CreateProjectViewModel model = new CreateProjectViewModel();
-            //model._projectType = _projectService.populateDropdownData();
+            model._projectType = _projectService.populateDropdownData();
+            
             return View(model);
         }
-
-        // POST: CreateNewProject
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult createNewProject(FormCollection collection)
         {
             if(!ModelState.IsValid)
             {
-                var viewModel = new CreateProjectViewModel();
+                CreateProjectViewModel viewModel = new CreateProjectViewModel();
                 viewModel._projectName = collection["_projectName"];
-
-                return View("CreateNewProject", viewModel);
+                return View("createNewProject", viewModel);
             }
-
             else
-            { 
-            string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
-            CreateProjectViewModel model = new CreateProjectViewModel();
+            {               
+                string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
+                CreateProjectViewModel model = new CreateProjectViewModel();
+                
+                model._projectName = collection["_projectName"];
+                model._projectTypeId = Int32.Parse(collection["radioChoice"]);
 
-            model._projectName = collection["_projectName"];
-            model._projectTypeId = Int32.Parse(collection["radioChoice"]);
-            _projectService.addProject(model, ownerName);
-
-            return RedirectToAction("Index", "Home");
-            }
+                if (_projectService.createNewProjectIsValid(model._projectName))
+                {
+                    _projectService.addProject(model, ownerName);
+                    return RedirectToAction("Index", "Project");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "This project already exists.");
+                    return View("createNewProject");
+                }
+            }         
         }
+        
         #endregion
 
         #region Update project TODO::needed?
@@ -82,7 +90,6 @@ namespace Codebucket.Controllers
 
         // POST: UpdateProject
         [HttpPost]
-
         public ActionResult updateProject(ProjectViewModel model)
         {
             return null;

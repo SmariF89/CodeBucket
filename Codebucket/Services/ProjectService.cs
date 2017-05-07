@@ -95,6 +95,7 @@ namespace Codebucket.Services
         }
         #endregion
 
+        #region Get single project by id.   
         public ProjectViewModel getProjectByProjectId(int? id)
         {
             Project entity = _db._projects.Find(id);
@@ -113,6 +114,7 @@ namespace Codebucket.Services
 
             return model;
         }
+        #endregion
 
         #region Add project by current user name
 
@@ -183,6 +185,24 @@ namespace Codebucket.Services
             _db._fileTypes.ToList().ForEach((x) => { fileTypes.Add(new SelectListItem() { Value = x.ID.ToString(), Text = x._description }); });
 
             return fileTypes;
+        }
+        #endregion
+
+        #region Validation For creating new Project.
+        public bool createNewProjectIsValid(string projectName)
+        {
+            Project foundProject = new Project();
+
+            foundProject = (from project in _db._projects
+                          where project._projectName == projectName
+                          select project).SingleOrDefault();
+
+            if (foundProject == null)
+            {
+                return true;
+            }
+
+            return false;
         }
         #endregion
     }
