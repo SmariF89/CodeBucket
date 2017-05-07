@@ -118,16 +118,26 @@ namespace Codebucket.Controllers
 
         // POST: AddProjectMember
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult addProjectMember(AddMemberViewModel model)
         {
             int? currId = model._projectID;
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                AddMemberViewModel viewModel = new AddMemberViewModel();
+                viewModel._userName = model._userName;
+
+                return View("addProjectMember", viewModel);
+            }
+
+            else
+            {
+
                 _projectService.addProjectMember(model);
                 ProjectViewModel model2 = _projectService.getProjectByProjectId(currId);
 
-                return View("displayProject" , model2);
+                return View("displayProject", model2);
             }
             return HttpNotFound();
         }
