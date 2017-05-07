@@ -9,88 +9,88 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-	[ValidateInput(false)]
-	public class ProjectFileController : Controller
-	{
-		private ProjectFileService _projectFileService = new ProjectFileService();
-		private ProjectService _projectService = new ProjectService();
-		private int? currentProjectId;
+    [ValidateInput(false)]
+    public class ProjectFileController : Controller
+    {
+        private ProjectFileService _projectFileService = new ProjectFileService();
+        private ProjectService _projectService = new ProjectService();
+        private int? currentProjectId;
 
-		#region Create new file in current project.
-		// GET: createNewProjectFile
-		[HttpGet]
-		public ActionResult createNewProjectFile(int? id)
-		{
-			CreateProjectFileViewModel model = new CreateProjectFileViewModel();
-          
-			model._projectID = id.Value;
-   
+        #region Create new file in current project.
+        // GET: createNewProjectFile
+        [HttpGet]
+        public ActionResult createNewProjectFile(int? id)
+        {
+            CreateProjectFileViewModel model = new CreateProjectFileViewModel();
 
-			return View(model);
-		}
-	
-		// POST: createNewProjectFile
-        
-		[HttpPost]
+            model._projectID = id.Value;
+
+
+            return View(model);
+        }
+
+        // POST: createNewProjectFile
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
-		{
-			model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
-			model._projectFileData = "";
+        {
+            model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
+            model._projectFileData = "";
 
-			if (!ModelState.IsValid)
-			{
+            if (!ModelState.IsValid)
+            {
                 CreateProjectFileViewModel viewModel = new CreateProjectFileViewModel();
                 viewModel._projectFileName = model._projectFileName;
 
                 return View("createNewProjectFile", viewModel);
             }
-			else
-			{
+            else
+            {
                 _projectFileService.addProjectFile(model);
                 ProjectViewModel viewModel = _projectService.getProjectByProjectId(model._projectID);
                 //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
                 return View("displayProject", viewModel);
             }
 
-			
-		}
-		#endregion
 
-		#region Update file in current project.
-		// GET: updateProjectFile
-		[HttpGet]
-		public ActionResult updateProjectFile(int? id)
-		{
-			if (id.HasValue)
-			{
-				ProjectFileViewModel model = _projectFileService.getProjectFileById(id);
-				return View(model);
-			}
-			return null;
-		}
+        }
+        #endregion
 
-		// POST: updateProjectFile
-		[HttpPost]
-		public ActionResult updateProjectFile(ProjectFileViewModel model)
-		{
-			if (ModelState.IsValid)
-			{
-				_projectFileService.updateProjectFile(model);
-				return View(model);
-			}
-			return HttpNotFound();
-		}
-		#endregion
+        #region Update file in current project.
+        // GET: updateProjectFile
+        [HttpGet]
+        public ActionResult updateProjectFile(int id)
+        {
+            if (id != 0)
+            {
+                ProjectFileViewModel model = _projectFileService.getProjectFileByProjectId(id);
+                return View(model);
+            }
+            return null;
+        }
 
-		[HttpGet]
-		public ActionResult displayProject(int? id)
-		{
-			currentProjectId = id;
-			ProjectViewModel model = _projectService.getProjectByProjectId(currentProjectId);
-          
+        // POST: updateProjectFile
+        [HttpPost]
+        public ActionResult updateProjectFile(ProjectFileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _projectFileService.updateProjectFile(model);
+                return View(model);
+            }
+            return HttpNotFound();
+        }
+        #endregion
 
-            if(_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+        [HttpGet]
+        public ActionResult displayProject(int? id)
+        {
+            currentProjectId = id;
+            ProjectViewModel model = _projectService.getProjectByProjectId(currentProjectId);
+
+
+            if (_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
             {
                 model._isProjectOwner = true;
                 
