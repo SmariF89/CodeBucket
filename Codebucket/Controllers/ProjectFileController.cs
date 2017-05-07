@@ -22,7 +22,10 @@ namespace Codebucket.Controllers
 		public ActionResult createNewProjectFile(int? id)
 		{
 			CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+          
 			model._projectID = id.Value;
+   
+
 			return View(model);
 		}
 	
@@ -85,9 +88,22 @@ namespace Codebucket.Controllers
 		{
 			currentProjectId = id;
 			ProjectViewModel model = _projectService.getProjectByProjectId(currentProjectId);
+          
 
-			return View(model);
-		}
+            if(_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+            {
+                model._isProjectOwner = true;
+                
+            }
+
+            else
+            {
+                model._isProjectOwner = false;
+                
+            }
+            return View(model);
+
+        }
 
 		#region List all files in current project.
 		// GET: getProjectFileById
