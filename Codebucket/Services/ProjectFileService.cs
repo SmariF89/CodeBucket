@@ -44,6 +44,15 @@ namespace Codebucket.Services
             return newProjectFileViewModel;
         }
 
+        public bool usernameExists(string username)
+        {
+            bool userExists = (from user in _db.Users
+                                 where user.UserName == username
+                                 select user).Any();
+
+            return userExists; 
+        }
+
         public ProjectFileViewModel getProjectFileById(int? id) 
         {
             if (id.HasValue) 
