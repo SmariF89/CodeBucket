@@ -1,10 +1,8 @@
 ﻿using Codebucket.Models;
 using Codebucket.Models.Entities;
 using Codebucket.Models.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Codebucket.Services
 {
@@ -20,14 +18,14 @@ namespace Codebucket.Services
 
         // Get all project owners by project ID, Returns a list of the entitiy ProjectOwner.
         public List<ProjectOwner> getAllProjectOwnersByProjectId(int? id)
-        {            
+        {
             if (id != null || id > 0)
             {
                 return (from projectOwner in _db._projectOwners
                         where projectOwner._projectID == id
                         select projectOwner).ToList();
             }
-            return null;            
+            return null;
         }
 
         // Get all project members by project ID, returns a list of the entity ProjectMember.
@@ -45,23 +43,23 @@ namespace Codebucket.Services
         // Get all project members by project id, returns a list of viewModel ProjectMemberViewModel.
         public List<ProjectMemberViewModel> getAllProjectMemberViewModelsByProjectId(int? id)
         {
-            List<ProjectMemberViewModel> newProjectMemberViewModel = new List<ProjectMemberViewModel>();
-            List<ProjectMember> newProjectMember = getAllProjectMembersByProjectId(id);
-
-            //List<ProjectMember> newProjectMember = new List<ProjectMember>();
-            //newProjectMember = getAllProjectMembersByProjectId(id);
-
-
-            foreach (var item in newProjectMember)
+            if (id != null || id > 0)
             {
-                newProjectMemberViewModel.Add(new ProjectMemberViewModel
-                {
-                    _projectID = item._projectID,
-                    _userName = item._userName
-                });
-            }
+                List<ProjectMemberViewModel> newProjectMemberViewModel = new List<ProjectMemberViewModel>();
+                List<ProjectMember> newProjectMember = getAllProjectMembersByProjectId(id);
 
-            return newProjectMemberViewModel;
+                foreach (var item in newProjectMember)
+                {
+                    newProjectMemberViewModel.Add(new ProjectMemberViewModel
+                    {
+                        _projectID = item._projectID,
+                        _userName = item._userName
+                    });
+                }
+
+                return newProjectMemberViewModel;
+            }
+            return null;
         }
     }
 }
