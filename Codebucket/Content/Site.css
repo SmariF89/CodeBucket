@@ -129,14 +129,45 @@ ul.nav a:hover {
     padding-left: 18px;
 }
 
-.typeLogo {
-    padding-left: 13px;
+.typeLogo{
+    padding-left: 1px;
+    padding-right: 1px;
+    float: right;
 }
 
-.modal-body iframe {
+.projectLink{
+    float: right;
+}
+
+.modal-body iframe{
 	width:100% !important;
 }
 
-.check {
-	background-color: #ffffff;
+td img{
+    height: 6%; 
+    width: 6%;
+}
+
+td{
+    font-size: 20px;
+}
+
+td a{
+    font-size: 25px;
+    text-decoration: none !important;
+    color: rgb(38,166,154);
+}
+
+td a:hover{
+    color: rgb(38,166,154);
+}
+
+#viewInstr {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.check{
+    background-color: #ffffff;
 }
