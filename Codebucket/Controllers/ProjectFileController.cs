@@ -76,7 +76,6 @@ namespace Codebucket.Controllers
             {
                 model._projectFileData = "";
             }
-
             if (model._id != 0) 
             {
                 _projectFileService.updateProjectFile(model);

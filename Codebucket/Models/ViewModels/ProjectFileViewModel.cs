@@ -27,6 +27,7 @@ namespace Codebucket.Models.ViewModels
 
         public string _aceExtension { get; set; }
         
+        [Required]
         [Display(Name ="Data")]
         public string _projectFileData { get; set; }
         public int _projectID { get; set; }
