@@ -72,6 +72,11 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult updateProjectFile(ProjectFileViewModel model)
         {
+            if(model._projectFileData == null)
+            {
+                model._projectFileData = "";
+            }
+
             if (model._id != 0) 
             {
                 _projectFileService.updateProjectFile(model);
