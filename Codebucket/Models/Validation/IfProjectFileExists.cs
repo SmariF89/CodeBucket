@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Codebucket.Models.Validation
 {
-    public class IfProjectFileExists : ValidationAttribute 
+    public class IfProjectFileExists : ValidationAttribute
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
 

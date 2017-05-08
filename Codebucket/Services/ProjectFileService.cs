@@ -51,17 +51,18 @@ namespace Codebucket.Services
         }
 
         // Get project file by project id, returns a viewmodel of the type ProjectFileViewModel
-        public ProjectFileViewModel getProjectFileByProjectId(int projectId)
+        public ProjectFileViewModel getProjectFileByProjectFileId(int projectFileId)
         {
-            if (projectId > 0)
+            if (projectFileId > 0)
             {
                 return new ProjectFileViewModel
                 {
-                    _id = _db._projectFiles.Find(projectId).ID,
-                    _projectFileData = _db._projectFiles.Find(projectId)._projectFileData.ToString(),
-                    _projectFileName = _db._projectFiles.Find(projectId)._projectFileName.ToString(),
-                    _projectFileType = _db._projectFiles.Find(projectId)._projectFileType.ToString(),
-                    _aceExtension = _db._projectFiles.Find(projectId)._aceExtension.ToString()
+                    _id = _db._projectFiles.Find(projectFileId).ID,
+                    _projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString(),
+                    _projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString(),
+                    _projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString(),
+                    _projectID = _db._projectFiles.Find(projectFileId)._projectID,
+                    _aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString(),
                 };
             }
 
