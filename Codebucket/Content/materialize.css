@@ -4354,6 +4354,7 @@ nav .input-field input {
 nav .input-field input:focus, nav .input-field input[type=text]:valid, nav .input-field input[type=password]:valid, nav .input-field input[type=email]:valid, nav .input-field input[type=url]:valid, nav .input-field input[type=date]:valid {
   border: none;
   box-shadow: none;
+  color: #e91e63;
 }
 
 nav .input-field label {

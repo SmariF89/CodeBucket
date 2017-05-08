@@ -108,14 +108,21 @@ ul.nav a:hover { color: #000000 !important; }
 
 
 .row {
-    margin-left: auto;
-    margin-right: auto;
-    width: 500px;
+    margin: 0px auto 0;
 }
 
 #loginForm {
     margin: 0 auto;
 }
 
+.wrap 
+{
+    width:400px;
+    overflow:hidden;
+    margin:auto;
+}
 
-
+#buttonControl{
+    padding-left:50px;
+    padding-top: 160px;
+}
