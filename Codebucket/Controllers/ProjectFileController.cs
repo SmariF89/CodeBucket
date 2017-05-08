@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-    //[ValidateInput(false)] ////////////////////////////////////// neeeded ? keep for a bit just in case!!!
+    [ValidateInput(false)] ////////////////////////////////////// neeeded ? keep for a bit just in case!!!
     public class ProjectFileController : Controller
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
@@ -67,7 +67,8 @@ namespace Codebucket.Controllers
         {
             if (id != 0)
             {
-                ProjectFileViewModel model = _projectFileService.getProjectFileByProjectFileId(id);
+                ProjectFileViewModel model = new ProjectFileViewModel();
+                model = _projectFileService.getProjectFileByProjectFileId(id);
                 return View(model);
             }
             return null;
