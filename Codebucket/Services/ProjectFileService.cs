@@ -61,7 +61,7 @@ namespace Codebucket.Services
                     _projectFileData = _db._projectFiles.Find(projectId)._projectFileData.ToString(),
                     _projectFileName = _db._projectFiles.Find(projectId)._projectFileName.ToString(),
                     _projectFileType = _db._projectFiles.Find(projectId)._projectFileType.ToString(),
-                    _aceExtension = getAceExtensionByProjectId(projectId).ToString()
+                    _aceExtension = _db._projectFiles.Find(projectId)._aceExtension.ToString()
                 };
             }
 
