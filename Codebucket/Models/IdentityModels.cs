@@ -19,6 +19,7 @@ namespace Codebucket.Models
         }
     }
 
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Project> _projects { get; set; }

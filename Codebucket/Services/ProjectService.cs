@@ -32,10 +32,41 @@ namespace Codebucket.Services
 
             newProjectViewModel = getAllOwnerProjectsByApplicationUserId(ref newProjectViewModel, userName);
             newProjectViewModel = getAllMemberProjectsByApplicationUserId(ref newProjectViewModel, userName);
+            getProjectLogo(ref newProjectViewModel);
 
             return newProjectViewModel;
         }
 
+        private void getProjectLogo(ref List<ProjectViewModel> model)
+        {
+            foreach (var item in model)
+            {
+                if (item._projectFiles[0]._projectFileType == ".html")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/html.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".css")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/css.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".cpp")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/cplusplus.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".cs")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/csharp.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".java")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/java.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".js")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/javascript.png";
+                }
+            }
+        }
 
 
         public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ref List<ProjectViewModel> model, string userName)
