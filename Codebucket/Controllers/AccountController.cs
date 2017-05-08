@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Codebucket.Models;
+using Codebucket.Models.Entities;
 
 namespace Codebucket.Controllers
 {
@@ -101,7 +102,8 @@ namespace Codebucket.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Contact()
+        [HttpGet]
+        public ActionResult Contact(ContactLogger model)
         {
             ViewBag.Message = "Your contact page.";
 

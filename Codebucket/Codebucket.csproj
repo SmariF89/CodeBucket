@@ -230,6 +230,7 @@
     </Compile>
     <Compile Include="Handlers\CustomHandleErrorAttribute.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\ContactLogger.cs" />
     <Compile Include="Models\Entities\ExceptionLogger.cs" />
     <Compile Include="Models\Entities\FileType.cs" />
     <Compile Include="Models\Entities\Project.cs" />
