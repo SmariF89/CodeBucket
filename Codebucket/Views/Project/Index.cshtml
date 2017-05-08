@@ -34,69 +34,84 @@
 
     <h2>Participating</h2>
     <ul class="collection">
+
+        @{int counter = 0;}
+        
         @foreach (ProjectViewModel item in Model)
         {
             if (!item._isProjectOwner)
             {
+                counter++;
                 <li>
                     @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
                 </li>
             }
         }
-        <li class="collection-item">You are not a participant of any project.</li>
+
+        @if (counter == 0)
+        {
+            <li class="collection-item">You are not a participant of any project.</li>
+        }    
     </ul>
 </div>
 
+
 <div class="row movies-poster" style="display:none;">
     <h2>My projects</h2>
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            if (item._isProjectOwner)
+    <div class="jumbotron">
+        <div class="row">
+            @foreach (var item in Model)
             {
-                string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
-                <div class="col-sm-2 col-md-2">
-                    <div class="panel panel-default" style="min-height:200px;">
-                        <div id="projectTitle">
-                            <h4>
-                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
-                            </h4>
-                        </div>
-                        <div class="panel-body">
-                            <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
-                            <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
-                            </a>
+                if (item._isProjectOwner)
+                {
+                    string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
+                    <div class="col-sm-2 col-md-2">
+                        <div class="panel panel-default" style="min-height:200px;">
+                            <div id="projectTitle">
+                                <h4>
+                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             }
-        }
+        </div>
     </div>
     <h2>Participating</h2>
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            if (!item._isProjectOwner)
+    <div class="jumbotron">
+        <div class="row">
+            @foreach (var item in Model)
             {
-                string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
-                <div class="col-sm-2 col-md-2">
-                    <div class="panel panel-default" style="min-height:200px;">
-                        <div id="projectTitle">
-                            <h4>
-                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
-                            </h4>
-                        </div>
-                        <div class="panel-body">
-                            <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
-                                <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
-                            </a>
+                if (!item._isProjectOwner)
+                {
+                    string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
+                    
+                    <div class="col-sm-2 col-md-2">
+                        <div class="panel panel-default" style="min-height:200px;">
+                            <div id="projectTitle">
+                                <h4>
+                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             }
-        }
+        </div>
     </div>
 </div>
+
 
 @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
 

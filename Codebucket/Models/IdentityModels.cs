@@ -19,8 +19,19 @@ namespace Codebucket.Models
         }
     }
 
+    public interface IAppDataContext
+    {
+        IDbSet<Project> _projects { get; set; }
+        IDbSet<ProjectFile> _projectFiles { get; set; }
+        IDbSet<ProjectOwner> _projectOwners { get; set; }
+        IDbSet<ProjectMember> _projectMembers { get; set; }
+        IDbSet<FileType> _fileTypes { get; set; }
+        IDbSet<ExceptionLogger> _exceptions { get; set; }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+        int SaveChanges();
+    }
+
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //IAppDataContext
     {
         public DbSet<Project> _projects { get; set; }
         public DbSet<ProjectFile> _projectFiles { get; set; }

@@ -72,6 +72,10 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult updateProjectFile(ProjectFileViewModel model)
         {
+            if(model._projectFileData == null)
+            {
+                model._projectFileData = "";
+            }
             if (model._id != 0) 
             {
                 _projectFileService.updateProjectFile(model);
@@ -83,10 +87,15 @@ namespace Codebucket.Controllers
 
         #region List all files in current project.
         [HttpGet]
-        public ActionResult displayProject(int? id)
+
+        //The parameter was int? id if it matters TODO: Eyða fyrir skil
+        public ActionResult displayProject(int id) 
         {
             ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name , id);
-
+           
+            string owner = _projectFileService.getOwnerName(id);
+            model._projectOwnerName = owner;
+            
             return View(model);
         }
         #endregion
