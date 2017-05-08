@@ -48,7 +48,7 @@ namespace Codebucket.Controllers
             else
             {
                 _projectFileService.addProjectFile(model);
-                ProjectViewModel viewModel = _projectService.getProjectByProjectId(model._projectID);
+                ProjectViewModel viewModel = _projectService.getProjectByProjectId(User.Identity.Name ,model._projectID);
                 //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
                 return View("displayProject", viewModel);
             }
@@ -85,20 +85,9 @@ namespace Codebucket.Controllers
         public ActionResult displayProject(int? id)
         {
             currentProjectId = id;
-            ProjectViewModel model = _projectService.getProjectByProjectId(currentProjectId);
+            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name ,currentProjectId);
 
 
-            if (_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
-            {
-                model._isProjectOwner = true;
-                
-            }
-
-            else
-            {
-                model._isProjectOwner = false;
-                
-            }
             return View(model);
 
         }
@@ -143,7 +132,7 @@ namespace Codebucket.Controllers
 			{
 
 				_projectService.addProjectMember(model);
-				ProjectViewModel model2 = _projectService.getProjectByProjectId(currId);
+				ProjectViewModel model2 = _projectService.getProjectByProjectId(User.Identity.Name, currId);
 
 				return View("displayProject", model2);
 			}
