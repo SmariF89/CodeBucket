@@ -5,51 +5,73 @@
     ViewBag.Title = "My projects";
 }
 
+<!--RADIO BUTTONS-->
 <div class="row" style="margin-bottom: 25px; margin-top: 25px; ">
+    <p id="viewInstr">View as</p>
     <div class="pull-right">
         <div class="btn-group btn-group-justified movie-views" data-toggle="buttons">
-            <label class="btn btn-default active">
+            <label class="btn btn-basic active">
                 <input type="radio" name="options" id="option1" autocomplete="off" value="list" checked>List
             </label>
-            <label class="btn btn-default">
+            <label class="btn btn-basic">
                 <input type="radio" name="options" id="option2" autocomplete="off" value="poster">Icons
             </label>
         </div>
     </div>
 </div>
 
-<div class="row movies-list">
-    <h2>My projects</h2>
-    <ul class="collection">
-        @foreach (ProjectViewModel item in Model)
-        {
-            if (item._isProjectOwner)
-            {
-                <li>
-                    @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                </li>
-            }
-        }
-    </ul>
 
-    <h2>Participating</h2>
-    <ul class="collection">
-        @foreach (ProjectViewModel item in Model)
-        {
-            if (!item._isProjectOwner)
+<!--TABLE-->
+<div class="row movies-list">
+    <h2 style="font-weight: bold;">My projects</h2>
+    <table class="highlight bordered">
+        <tbody>
+            @foreach (ProjectViewModel item in Model)
             {
-                <li>
-                    @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                </li>
+                if (item._isProjectOwner)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                        </td>
+                        <td>
+                            <figure>
+                                <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                            </figure>
+                        </td>
+                    </tr>
+                }
             }
-        }
-        <li class="collection-item">You are not a participant of any project.</li>
-    </ul>
+        </tbody>
+    </table>
+
+    <h2 style="font-weight: bold;">Participating</h2>
+    <table class="highlight bordered">
+        <tbody>
+            @foreach (ProjectViewModel item in Model)
+            {
+                if (!item._isProjectOwner)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                        </td>
+                        <td>
+                            <figure>
+                                <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                            </figure>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
 
 
+<!--ICONS-->
 <div class="row movies-poster" style="display:none;">
-    <h2>My projects</h2>
+    <h2 style="font-weight: bold;">My projects</h2>
     <div class="jumbotron">
         <div class="row">
             @foreach (var item in Model)
@@ -57,7 +79,7 @@
                 if (item._isProjectOwner)
                 {
                     string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
-                    <div class="col-sm-2 col-md-2">
+                    <div class="col-sm-1 col-md-2">
                         <div class="panel panel-default" style="min-height:200px;">
                             <div id="projectTitle">
                                 <h4>
@@ -75,7 +97,7 @@
             }
         </div>
     </div>
-    <h2>Participating</h2>
+    <h2 style="font-weight: bold;">Participating</h2>
     <div class="jumbotron">
         <div class="row">
             @foreach (var item in Model)

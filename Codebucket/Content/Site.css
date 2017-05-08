@@ -113,10 +113,36 @@ ul.nav a:hover { color: #000000 !important; }
 }
 
 .typeLogo{
-    padding-left: 13px;
+    padding-left: 1px;
+    padding-right: 1px;
+    float: right;
 }
 
-.modal-body iframe
-{
+.projectLink{
+    float: right;
+}
+
+.modal-body iframe{
 	width:100% !important;
+}
+
+td img{
+    height: 6%; 
+    width: 6%;
+}
+
+td{
+    font-size: 20px;
+}
+
+td a{
+    font-size: 25px;
+    text-decoration: none !important;
+    color: rgb(38,166,154)
+}
+
+#viewInstr{
+    font-style: italic;
+    font-weight: bold;
+    font-size: 18px;
 }
