@@ -4,18 +4,10 @@
     ViewBag.Title = "Log in";
 }
 
-
-
-
-
-
-
-        <section class="row">
+<section class="row">
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "col s12", role = "form" }))
-            {
-        @Html.AntiForgeryToken()
-
-
+	{
+		@Html.AntiForgeryToken()
 
         <div class="wrap">
 
@@ -32,7 +24,6 @@
 
             </div>
 
-
             <div class="input-field col s12">
                 <i class="material-icons prefix">vpn_key</i>
                 @Html.PasswordFor(m => m.Password, new { @id = "icon_prefix", @class = "validate" })
@@ -40,72 +31,50 @@
                 <div class="col-md-10">
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validate" })
                 </div>
-
             </div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="input-field col s12">
-                
-                    @Html.CheckBoxFor(m => m.RememberMe, new { @disabled ="true"})
-                    @Html.LabelFor(m => m.RememberMe)
-                </div>
-                
+                @Html.CheckBoxFor(m => m.RememberMe, new { @disabled ="true"})
+                @Html.LabelFor(m => m.RememberMe)
+			</div>
 
             <div id="buttonControl">
                 <div class="input-field col s8">
                     <input type="submit" value="Log in" class="btn waves-effect waves-light col s12" />
-                    
                 </div>
-
 
                 <div class="input-field col s8">
                     <a class="btn waves-effect waves-light col s12" href="@Url.Action("Register")">Register</a>
-
                 </div>
             </div>
 
             
         </div>
 
-
-
-        
-
-                            @* Enable this once you have account confirmation enabled for password reset functionality
-                                <p>
-                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                                </p>*@
-    }
-
-           
+        @* Enable this once you have account confirmation enabled for password reset functionality
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>*@
+}     
            
 </section>
 
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+<div class="col-md-4">
+    <section id="socialLoginForm">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
 </div>
     
-   
-
 <script src="//cdn.muicss.com/mui-0.9.3/js/mui.min.js"></script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-
-
 <script type="text/javascript">
     $(function() {
 
         Materialize.updateTextFields();
-
-        
-
-
     });
-
-
 </script>
