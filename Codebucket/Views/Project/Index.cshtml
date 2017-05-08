@@ -27,9 +27,10 @@
             <li>
                 @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
             </li>
-        }
+        }        
     }
+    <li class="collection-item">You are not a participant of any project.</li>
 </ul>
 
-@Html.ActionLink("CREATE NEW PROJECT", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+@Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
 
