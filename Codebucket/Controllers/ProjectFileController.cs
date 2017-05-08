@@ -41,6 +41,7 @@ namespace Codebucket.Controllers
             {
                 CreateProjectFileViewModel viewModel = new CreateProjectFileViewModel();
                 viewModel._projectFileName = model._projectFileName;
+                viewModel._projectID = model._projectID;
 
                 return View("createNewProjectFile", viewModel);
             }
@@ -88,15 +89,6 @@ namespace Codebucket.Controllers
 
             return View(model);
         }
-
-
-
-        //// GET: getProjectFileById
-        //[HttpGet]
-        //public ActionResult listAllProjectFiles(int? id)
-        //{
-        //    return View(_projectFileService.getAllProjectFilesByProjectId(id));
-        //}
         #endregion
 
         #region Add member to current project.
@@ -121,19 +113,17 @@ namespace Codebucket.Controllers
             {
                 AddMemberViewModel viewModel = new AddMemberViewModel();
                 viewModel._userName = model._userName;
+                viewModel._projectID = model._projectID;
 
                 return View("addProjectMember", viewModel);
             }
-
             else
             {
-
                 _projectService.addProjectMember(model);
                 ProjectViewModel model2 = _projectService.getProjectByProjectId(User.Identity.Name, currId);
 
                 return View("displayProject", model2);
             }
-
         }
         #endregion
 

@@ -13,25 +13,24 @@ namespace Codebucket.Models.Validation
         private ProjectFileService _projectFileService = new ProjectFileService();
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var member = (AddMemberViewModel)validationContext.ObjectInstance;
+            AddMemberViewModel member = (AddMemberViewModel)validationContext.ObjectInstance;
 
             if(member._userName == null)
             {
                 return new ValidationResult("User name is required!");
             }
-
-            else if(_projectFileService.usernameExists(member._userName))
+            else if(_projectFileService.isProjectMember(member._userName, member._projectID))
+            {
+                return new ValidationResult("This user is already in this project!");
+            }
+            else if(_projectFileService.userIsInDataBase(member._userName))
             {
                 return ValidationResult.Success;
             }
-
             else
             {
                 return new ValidationResult("Member does not exist!");
             }
-           
-
-
         }
     }
 }

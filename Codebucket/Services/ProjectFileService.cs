@@ -110,29 +110,33 @@ namespace Codebucket.Services
 
         #region Check if owner or username exists
         // Checks if username exists in the database, returns a bool value if true or not.
-        public bool usernameExists(string username)
+        public bool userIsInDataBase(string username)
         {
-            if (username != null)
-            {
-                return (from user in _db.Users
-                        where user.UserName == username
-                        select user).Any();
-            }
-            else
-            {
-                throw new Exception();
-            }
-            
+            string getUserName = (from user in _db.Users
+                                  where user.UserName == username
+                                  select user.UserName).FirstOrDefault();
+
+            return (getUserName == username);           
+        }
+        
+        // Checks if username is owner of project, returns a bool value if true or not.
+        public bool isProjectOwner(string username, int projectID) 
+        {
+            ProjectOwner ownerInProject = (from owned in _db._projectOwners
+                                           where owned._userName == username && owned._projectID == projectID
+                                           select owned).FirstOrDefault();
+
+            return (ownerInProject != null);
         }
 
         // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectOwner(string username, int projectID) // FIXME:: does this work?
+        public bool isProjectMember(string username, int projectID) 
         {
-            ProjectOwner own = (from owned in _db._projectOwners
-                                where owned._userName == username && owned._projectID == projectID
-                                select owned).FirstOrDefault();
+            ProjectMember memberInProject = (from member in _db._projectMembers
+                                             where member._userName == username && member._projectID == projectID
+                                             select member).FirstOrDefault();
 
-            return (own != null);
+            return (memberInProject != null);
         }
         #endregion
 

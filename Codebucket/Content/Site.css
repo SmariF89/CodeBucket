@@ -106,3 +106,17 @@ ul.nav a:hover { color: #000000 !important; }
 
 
 .navbar-inverse { background-color: #26a69a !important; }
+
+
+#projectTitle{
+    padding-left: 18px;
+}
+
+.typeLogo{
+    padding-left: 13px;
+}
+
+.modal-body iframe
+{
+	width:100% !important;
+}
