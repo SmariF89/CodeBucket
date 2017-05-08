@@ -139,5 +139,22 @@ namespace Codebucket.Services
             }
         }
         #endregion
+
+        #region Validation for creating new file.
+        public bool projectFileExists(string projectFileName, int projectID)
+        {
+            List<ProjectFileViewModel> projectFiles = getAllProjectFilesByProjectId(projectID);
+
+            foreach(ProjectFileViewModel item in projectFiles)
+            {
+                if(projectFileName == item._projectFileName)
+                {
+                    return true; 
+                }
+            }
+
+            return false;
+        }
+        #endregion
     }
 }

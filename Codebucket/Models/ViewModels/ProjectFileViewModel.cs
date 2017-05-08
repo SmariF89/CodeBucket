@@ -1,4 +1,5 @@
 ﻿using Codebucket.Models.Entities;
+using Codebucket.Models.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,19 +12,16 @@ namespace Codebucket.Models.ViewModels
     public class ProjectFileViewModel
     {
         public int _id { get; set; }
-
         
         public IEnumerable<Project> project { get; set; }
 		public IEnumerable<SelectListItem> projects { get; set; }
         public ProjectFile _projectFile { get; set; }
-
         
-
+        [IfProjectFileExists]
         [Display(Name = "File name")]
         [Required]
         public string _projectFileName { get; set; }
-
-
+        
         [Required]
         [Display(Name = "Type")]
         public string _projectFileType { get; set; }

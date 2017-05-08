@@ -5,7 +5,7 @@
     ViewBag.Title = "Project Overview";
 }
 
-<h2>My current project</h2>
+<h2>@Model._projectName</h2>
 
 <div class="collection">
     <ul>
@@ -38,10 +38,9 @@
     <br />
     @Html.ActionLink("Add member", "addProjectMember", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back", "../Project/Index", null , new { @class = "waves-effect waves-light btn" })
     </div>
 }
-
 else
 {
     <div>

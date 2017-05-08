@@ -228,7 +228,8 @@
     <Compile Include="Models\Entities\ProjectFile.cs" />
     <Compile Include="Models\Entities\ProjectMember.cs" />
     <Compile Include="Models\Entities\ProjectOwner.cs" />
-    <Compile Include="Models\ProjectisNotInDatabase.cs" />
+    <Compile Include="Models\Validation\IfProjectFileExists.cs" />
+    <Compile Include="Models\Validation\ProjectisNotInDatabase.cs" />
     <Compile Include="Models\Validation\IfMemberExists.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

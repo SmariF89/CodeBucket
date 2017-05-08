@@ -52,8 +52,6 @@ namespace Codebucket.Controllers
                 //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
                 return View("displayProject", viewModel);
             }
-
-
         }
         #endregion
 
