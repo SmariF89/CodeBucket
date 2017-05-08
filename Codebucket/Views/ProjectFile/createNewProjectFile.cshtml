@@ -34,8 +34,9 @@
 }
 
 <div>
-    @Html.ActionLink("Back", "displayProject", new { Model._projectID } , new { @class = "waves-effect waves-light btn" })
+
+    @Html.ActionLink("Back", "displayProject", new { id = Model._projectID }, new { @class = "waves-effect waves-light btn" })
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")}
+@Scripts.Render("~/bundles/jqueryval")}
