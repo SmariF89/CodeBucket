@@ -61,7 +61,7 @@ namespace Codebucket.Services
                     _projectFileData = _db._projectFiles.Find(projectId)._projectFileData.ToString(),
                     _projectFileName = _db._projectFiles.Find(projectId)._projectFileName.ToString(),
                     _projectFileType = _db._projectFiles.Find(projectId)._projectFileType.ToString(),
-                    _aceExtension = getAceExtensionByProjectId(projectId)
+                    _aceExtension = getAceExtensionByProjectId(projectId).ToString()
                 };
             }
 
@@ -86,9 +86,10 @@ namespace Codebucket.Services
 
         public String getAceExtensionByProjectId(int projectId)
         {
-            return (from projectFile in _db._projectFiles
+            string ext = (from projectFile in _db._projectFiles
                     where projectFile._projectID == projectId
                     select projectFile._aceExtension).FirstOrDefault();
+            return ext;
         }
         #endregion
 
