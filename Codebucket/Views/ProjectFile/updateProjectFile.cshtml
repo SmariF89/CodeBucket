@@ -35,10 +35,12 @@
 	@Html.HiddenFor(model => model._projectFileType, new { htmlAttributes = new { @class = "editor" } })
 	@Html.HiddenFor(model => model._projectFile, new { htmlAttributes = new { @class = "editor" } })
 	@Html.HiddenFor(model => model._aceExtension, new { htmlAttributes = new { @class = "editor" } })
+    @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "editor" } })
 
 	<textarea class="editor">@Model._projectFileData</textarea>
 	@Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" } )
 	<button type="submit" class="SaveButtonEdit">Save</button>
+    @Html.ActionLink("Back", "displayProject", new { id = Model._projectID }, new { @class = "waves-effect waves-light btn" })
 </form>
 
 @section scripts

@@ -67,7 +67,7 @@ namespace Codebucket.Controllers
         {
             if (id != 0)
             {
-                ProjectFileViewModel model = _projectFileService.getProjectFileByProjectId(id);
+                ProjectFileViewModel model = _projectFileService.getProjectFileByProjectFileId(id);
                 return View(model);
             }
             return null;
@@ -92,10 +92,15 @@ namespace Codebucket.Controllers
 
         #region List all files in current project.
         [HttpGet]
-        public ActionResult displayProject(int? id)
+
+        //The parameter was int? id if it matters TODO: Eyða fyrir skil
+        public ActionResult displayProject(int id) 
         {
             ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name , id);
-
+           
+            string owner = _projectFileService.getOwnerName(id);
+            model._projectOwnerName = owner;
+            
             return View(model);
         }
         #endregion

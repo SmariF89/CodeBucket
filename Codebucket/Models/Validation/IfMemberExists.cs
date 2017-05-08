@@ -17,7 +17,7 @@ namespace Codebucket.Models.Validation
 
             if(member._userName == null)
             {
-                return new ValidationResult("User name is required!");
+                return new ValidationResult("Username is required!");
             }
             else if(_projectFileService.isProjectMember(member._userName, member._projectID))
             {
@@ -29,7 +29,7 @@ namespace Codebucket.Models.Validation
             }
             else
             {
-                return new ValidationResult("Member does not exist!");
+                return new ValidationResult("Username does not exist!");
             }
         }
     }
