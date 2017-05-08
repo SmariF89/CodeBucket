@@ -623,6 +623,7 @@
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

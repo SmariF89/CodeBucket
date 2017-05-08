@@ -4,20 +4,13 @@
     ViewBag.Title = "createNewProjectFile";
 }
 
-<<<<<<< HEAD
-<h2>Add file</h2>
-=======
 <h2>Create new file</h2>
->>>>>>> 31cfdeb61e3f8eec0bae00d905e808dda782bef1
-
-<h3>@Model._projectID</h3>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CreateProjectFileViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
