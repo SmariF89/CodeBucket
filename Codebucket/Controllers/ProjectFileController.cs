@@ -71,7 +71,7 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult updateProjectFile(ProjectFileViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model._id != 0) 
             {
                 _projectFileService.updateProjectFile(model);
                 return View(model);
@@ -135,7 +135,6 @@ namespace Codebucket.Controllers
             }
 
         }
-
         #endregion
 
         //[HttpGet]
@@ -161,5 +160,6 @@ namespace Codebucket.Controllers
         //	return HttpNotFound();
         //}
     }
+
 
 }

@@ -18,13 +18,6 @@
                 <option value="xcode">xcode</option>
             </select>
         </div>
-        @*<div class="SideBySide">
-            <label for="mode" class="control-label">Language Mode:</label>
-            <select id="mode" class="form-control">
-                <option value="javascript">javascript</option>
-                <option value="html">html</option>
-            </select>
-        </div>*@
         <div class="SideBySide">
             <label>Project Name</label>
         <div id="ProjectFileName">        
@@ -36,10 +29,12 @@
 @*This is where Ace is shown*@
 <div id="editor"></div>
 
-<div id="language">@Model._aceExtension</div>
-
 <form method="post">
 	@Html.HiddenFor(model => model._id, new { htmlAttributes = new { @class = "editor" } })
+	@Html.HiddenFor(model => model._projectFileName, new { htmlAttributes = new { @class = "editor" } })
+	@Html.HiddenFor(model => model._projectFileType, new { htmlAttributes = new { @class = "editor" } })
+	@Html.HiddenFor(model => model._projectFile, new { htmlAttributes = new { @class = "editor" } })
+	@Html.HiddenFor(model => model._aceExtension, new { htmlAttributes = new { @class = "editor" } })
 
 	<textarea class="editor">@Model._projectFileData</textarea>
 	@Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" } )
@@ -64,7 +59,6 @@
 		// default mode
 		var language = $('#language').text();
 		$('#language');
-		alert(language);
 		aceEditor.getSession().setMode("ace/mode/" + language);
 		return aceEditor;
 	})(); 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Codebucket.Models.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Codebucket.Models.ViewModels
 {
     public class CreateProjectFileViewModel
     {
+        [IfProjectFileExists]
         [Required]
         [Display(Name ="File name")]
         public string _projectFileName { get; set; }

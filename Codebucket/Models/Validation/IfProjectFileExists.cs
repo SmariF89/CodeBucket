@@ -20,12 +20,11 @@ namespace Codebucket.Models.Validation
             {
                 return new ValidationResult("File name is required!");
             }
-
-            else if (_projectFileService.projectFileExists(projectFile._projectFileName, projectFile._projectID))
+            
+            if (!_projectFileService.projectFileExists(projectFile._projectFileName, projectFile._projectID))
             {
                 return ValidationResult.Success;
             }
-
             else
             {
                 return new ValidationResult("A file with this name is already in Project!");
