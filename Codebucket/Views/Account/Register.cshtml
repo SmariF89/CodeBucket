@@ -24,7 +24,6 @@
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-
         </div>
     </div>
 
@@ -41,13 +40,9 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" });
-
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         </div>
     </div>
-
-
-
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

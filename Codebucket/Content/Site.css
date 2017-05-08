@@ -52,9 +52,6 @@ textarea {
     background-color: #ffffff;
     border: 1px solid #cccccc;
     border-radius: 4px;
-
-
-
 }
 
 .SaveButtonEdit{
@@ -71,12 +68,10 @@ textarea {
     background-color: #ffffff;
     border: 1px solid #cccccc;
     border-radius: 4px;
-
 }
 
 .field-validation-error {
     color:red;
-    
 }
 
 .input-validation-error {
@@ -98,13 +93,17 @@ textarea {
     color: #ffffff !important;
 }
 
-ul.nav a:hover { color: #000000 !important; }
+ul.nav a:hover { 
+	color: #000000 !important; 
+}
 
 .nav.navbar-nav li a {
    color: #ffffff;
 }
 
-.navbar-inverse { background-color: #26a69a !important; }
+.navbar-inverse {
+	background-color: #26a69a !important; 
+}
 
 
 .row {
@@ -115,30 +114,29 @@ ul.nav a:hover { color: #000000 !important; }
     margin: 0 auto;
 }
 
-.wrap 
-{
+.wrap {
     width:400px;
     overflow:hidden;
     margin:auto;
 }
 
-#buttonControl{
+#buttonControl {
     padding-left:50px;
     padding-top: 160px;
 }
 
-
-
-
-#projectTitle{
+#projectTitle {
     padding-left: 18px;
 }
 
-.typeLogo{
+.typeLogo {
     padding-left: 13px;
 }
 
-.modal-body iframe
-{
+.modal-body iframe {
 	width:100% !important;
+}
+
+.check {
+	background-color: #ffffff;
 }
