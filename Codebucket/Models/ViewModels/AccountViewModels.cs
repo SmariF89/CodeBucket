@@ -48,12 +48,12 @@ namespace Codebucket.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="Username field is required")]
         [Display(Name = "Username")]
        
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Password field is required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
