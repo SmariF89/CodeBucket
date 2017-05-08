@@ -4,7 +4,7 @@
     ViewBag.Title = "createNewProjectFile";
 }
 
-<h2>createNewProjectFile</h2>
+<h2>Create new file</h2>
 
 
 @using (Html.BeginForm()) 
@@ -33,7 +33,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back", "displayProject", new { Model._projectID }, new { @class = "waves-effect waves-light btn" })
 </div>
 
 @section Scripts {
