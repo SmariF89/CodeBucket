@@ -5,7 +5,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>AddMemberViewModel</h4>
+        <h4>Add member to project.</h4>
         <hr />
         <div class="form-group">
             @Html.LabelFor(model => model._userName, "User name", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -16,11 +16,8 @@
         </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
-
-        
        <div class="form-group">
-            @Html.LabelFor(model => model._projectID, "Project", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._projectID, "", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "form-control" } })
             </div>
@@ -34,5 +31,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "displayProject", new { id = Model._projectID }, new { @class = "waves-effect waves-light btn" })
+    @Html.ActionLink("Back", "displayProject", new { id = Model._projectID }, new { @class = "waves-effect waves-light btn" })
 </div>
