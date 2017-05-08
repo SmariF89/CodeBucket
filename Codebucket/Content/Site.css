@@ -52,9 +52,6 @@ textarea {
     background-color: #ffffff;
     border: 1px solid #cccccc;
     border-radius: 4px;
-
-
-
 }
 
 .SaveButtonEdit{
@@ -71,12 +68,10 @@ textarea {
     background-color: #ffffff;
     border: 1px solid #cccccc;
     border-radius: 4px;
-
 }
 
 .field-validation-error {
     color:red;
-    
 }
 
 .input-validation-error {
@@ -98,17 +93,39 @@ textarea {
     color: #ffffff !important;
 }
 
-ul.nav a:hover { color: #000000 !important; }
+ul.nav a:hover { 
+	color: #000000 !important; 
+}
 
 .nav.navbar-nav li a {
    color: #ffffff;
 }
 
+.navbar-inverse {
+	background-color: #26a69a !important; 
+}
 
-.navbar-inverse { background-color: #26a69a !important; }
 
+.row {
+    margin: 0px auto 0;
+}
 
-#projectTitle{
+#loginForm {
+    margin: 0 auto;
+}
+
+.wrap {
+    width:400px;
+    overflow:hidden;
+    margin:auto;
+}
+
+#buttonControl {
+    padding-left:50px;
+    padding-top: 160px;
+}
+
+#projectTitle {
     padding-left: 18px;
 }
 
@@ -138,11 +155,19 @@ td{
 td a{
     font-size: 25px;
     text-decoration: none !important;
-    color: rgb(38,166,154)
+    color: rgb(38,166,154);
 }
 
-#viewInstr{
+td a:hover{
+    color: rgb(38,166,154);
+}
+
+#viewInstr {
     font-style: italic;
     font-weight: bold;
     font-size: 18px;
+}
+
+.check{
+    background-color: #ffffff;
 }

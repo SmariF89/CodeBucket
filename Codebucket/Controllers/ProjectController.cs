@@ -43,7 +43,8 @@ namespace Codebucket.Controllers
         {
             CreateProjectViewModel model = new CreateProjectViewModel();
             model._projectType = _projectService.populateDropdownData();
-            
+
+
             return View(model);
         }
         

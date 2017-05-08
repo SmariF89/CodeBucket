@@ -608,6 +608,7 @@
     <Content Include="Ace\src-noconflict\worker-php.js" />
     <Content Include="Ace\src-noconflict\worker-xml.js" />
     <Content Include="Ace\src-noconflict\worker-xquery.js" />
+    <Content Include="Content\AboutUs.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -620,9 +621,13 @@
     <Content Include="Content\Logos\html.png" />
     <Content Include="Content\Logos\java.png" />
     <Content Include="Content\Logos\javascript.png" />
+    <Content Include="Content\Logos\transparentLogo.png" />
+    <Content Include="Content\Logos\WhiteBackLogo.jpg" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\Twitter\Elvis.png" />
+    <Content Include="Content\Twitter\Sebastian.png" />
+    <Content Include="Content\Twitter\Swindell.png" />
     <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -694,7 +699,7 @@
     <Content Include="Views\ProjectFile\listAllProjectFiles.cshtml" />
     <Content Include="Views\ProjectFile\updateProjectFile.cshtml" />
     <Content Include="Views\ProjectFile\displayProject.cshtml" />
-    <Content Include="Views\Shared\CustomError.cshtml" />
+    <Content Include="Views\Shared\MaliciousInputError.cshtml" />
     <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
     <Content Include="Views\Account\About.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />

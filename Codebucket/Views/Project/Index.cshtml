@@ -66,6 +66,8 @@
             }
         </tbody>
     </table>
+    <br />
+    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
 </div>
 
 
@@ -100,10 +102,12 @@
     <h2 style="font-weight: bold;">Participating</h2>
     <div class="jumbotron">
         <div class="row">
+            @{int counter = 0;}
             @foreach (var item in Model)
-            {
+            {    
                 if (!item._isProjectOwner)
                 {
+                    counter++;
                     string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
                     <div class="col-sm-2 col-md-2">
                         <div class="panel panel-default" style="min-height:200px;">
@@ -121,10 +125,15 @@
                     </div>
                 }
             }
+            @if (counter == 0)
+            {
+                <p class="alert-danger">You are not a participant of any project.</p>
+            }   
         </div>
     </div>
+    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
 </div>
 
 
-@Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+
 
