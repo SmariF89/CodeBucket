@@ -172,5 +172,19 @@ namespace Codebucket.Services
             return false;
         }
         #endregion
+
+
+        public string getOwnerName (int projectID)
+        {
+
+            ProjectOwner ownerInProject = (from owned in _db._projectOwners
+                                           where owned._projectID == projectID
+                                           select owned).FirstOrDefault();
+
+            string owner = ownerInProject._userName;
+
+            return owner;
+
+        }
     }
 }
