@@ -17,7 +17,6 @@ namespace Codebucket.Models.ViewModels
 		public IEnumerable<SelectListItem> projects { get; set; }
         public ProjectFile _projectFile { get; set; }
         
-        [IfProjectFileExists]
         [Display(Name = "File name")]
         [Required]
         public string _projectFileName { get; set; }
@@ -27,7 +26,7 @@ namespace Codebucket.Models.ViewModels
         public string _projectFileType { get; set; }
 
         public string _aceExtension { get; set; }
-
+        
         [Required]
         [Display(Name ="Data")]
         public string _projectFileData { get; set; }
