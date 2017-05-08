@@ -14,7 +14,6 @@ namespace Codebucket.Controllers
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
         private ProjectService _projectService = new ProjectService();
-        private int? currentProjectId;
 
         #region Create new file in current project.
         // GET: createNewProjectFile
@@ -81,88 +80,86 @@ namespace Codebucket.Controllers
         }
         #endregion
 
+        #region List all files in current project.
         [HttpGet]
         public ActionResult displayProject(int? id)
         {
-            currentProjectId = id;
-            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name ,currentProjectId);
-
+            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name , id);
 
             return View(model);
+        }
+
+
+
+        //// GET: getProjectFileById
+        //[HttpGet]
+        //public ActionResult listAllProjectFiles(int? id)
+        //{
+        //    return View(_projectFileService.getAllProjectFilesByProjectId(id));
+        //}
+        #endregion
+
+        #region Add member to current project.
+        // GET: AddProjectMember
+        [HttpGet]
+        public ActionResult addProjectMember(int? id)
+        {
+            AddMemberViewModel model = new AddMemberViewModel();
+            model._projectID = id.Value;
+
+            return View(model);
+        }
+
+        // POST: AddProjectMember
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addProjectMember(AddMemberViewModel model)
+        {
+            int currId = model._projectID;
+
+            if (!ModelState.IsValid)
+            {
+                AddMemberViewModel viewModel = new AddMemberViewModel();
+                viewModel._userName = model._userName;
+
+                return View("addProjectMember", viewModel);
+            }
+
+            else
+            {
+
+                _projectService.addProjectMember(model);
+                ProjectViewModel model2 = _projectService.getProjectByProjectId(User.Identity.Name, currId);
+
+                return View("displayProject", model2);
+            }
 
         }
 
-		#region List all files in current project.
-		// GET: getProjectFileById
-		[HttpGet]
-		public ActionResult listAllProjectFiles(int? id)
-		{
-			currentProjectId = id;
-			return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
-		}
-		#endregion
+        #endregion
 
-		#region Add member to current project.   
-		// GET: AddProjectMember
-		[HttpGet]
-		public ActionResult addProjectMember(int? id)
-		{
-			AddMemberViewModel model = new AddMemberViewModel();
-			model._projectID = id.Value;
+        //[HttpGet]
+        //      public ActionResult showEditorForProjectFile(int? id)
+        //      {
+        //	if (id.HasValue)
+        //	{
+        //		ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
+        //		return View(model);
+        //	}
+        //	return null;
+        //      }
 
-			return View(model);
-		}
-
-		// POST: AddProjectMember
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult addProjectMember(AddMemberViewModel model)
-		{
-			int currId = model._projectID;
-
-			if (!ModelState.IsValid)
-			{
-				AddMemberViewModel viewModel = new AddMemberViewModel();
-				viewModel._userName = model._userName;
-
-				return View("addProjectMember", viewModel);
-			}
-
-			else
-			{
-
-				_projectService.addProjectMember(model);
-				ProjectViewModel model2 = _projectService.getProjectByProjectId(User.Identity.Name, currId);
-
-				return View("displayProject", model2);
-			}
-			
-		}
-
-		#endregion
-
-		//[HttpGet]
-		//      public ActionResult showEditorForProjectFile(int? id)
-		//      {
-		//	if (id.HasValue)
-		//	{
-		//		ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
-		//		return View(model);
-		//	}
-		//	return null;
-		//      }
-
-		//[HttpPost]
-		//public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		_projectFileService.updateProjectFile(model);
-		//		//showEditorForProjectFile(model._id);
-		//		return View(model);
-		//	}
-		//	return HttpNotFound();
-		//}
-	}
+        //[HttpPost]
+        //public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
+        //{
+        //	if (ModelState.IsValid)
+        //	{
+        //		_projectFileService.updateProjectFile(model);
+        //		//showEditorForProjectFile(model._id);
+        //		return View(model);
+        //	}
+        //	return HttpNotFound();
+        //}
+    }
 
 }
