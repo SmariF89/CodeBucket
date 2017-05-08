@@ -62,7 +62,7 @@ namespace Codebucket.Controllers
         {
             if (id != 0)
             {
-                ProjectFileViewModel model = _projectFileService.getProjectFileByProjectId(id);
+                ProjectFileViewModel model = _projectFileService.getProjectFileByProjectFileId(id);
                 return View(model);
             }
             return null;
