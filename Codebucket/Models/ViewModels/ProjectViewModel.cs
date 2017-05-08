@@ -12,6 +12,8 @@ namespace Codebucket.Models.ViewModels
     {
         public int _id { get; set; }
         public string _projectName { get; set; }
+
+        public string _projectOwnerName { get; set; }
         public int _projectFileTypeId { get; set; }
         public bool _isProjectOwner { get; set; }
         public string _thumbnailUrl { get; set; }

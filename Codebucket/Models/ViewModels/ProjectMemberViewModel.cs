@@ -12,5 +12,7 @@ namespace Codebucket.Models.ViewModels
 
         
         public string _userName { get; set; }
+
+       
     }
 }
