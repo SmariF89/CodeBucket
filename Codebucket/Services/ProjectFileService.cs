@@ -129,7 +129,7 @@ namespace Codebucket.Services
         public bool isProjectOwner(string username, int projectID) // FIXME:: does this work?
         {
             ProjectOwner own = (from owned in _db._projectOwners
-                                where owned._projectID == projectID
+                                where owned._userName == username && owned._projectID == projectID
                                 select owned).FirstOrDefault();
 
             return (own != null);

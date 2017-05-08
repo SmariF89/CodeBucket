@@ -63,6 +63,34 @@ namespace Codebucket.Services
                 });
             }
 
+            foreach(var item in model)
+            {
+                if (item._projectFiles[0]._projectFileType == ".html")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/html.png";
+                }
+                else if(item._projectFiles[0]._projectFileType == ".css")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/css.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".cpp")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/cplusplus.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".cs")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/csharp.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".java")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/java.png";
+                }
+                else if (item._projectFiles[0]._projectFileType == ".js")
+                {
+                    item._thumbnailUrl = "~/Content/Logos/javascript.png";
+                }
+            }
+
             return model;
         }
 
@@ -96,7 +124,7 @@ namespace Codebucket.Services
         #endregion
 
         #region Get single project by id.   
-        public ProjectViewModel getProjectByProjectId(int? id)
+        public ProjectViewModel getProjectByProjectId(string userName, int? id)
         {
             Project entity = _db._projects.Find(id);
             ProjectViewModel model = new ProjectViewModel();
@@ -104,7 +132,7 @@ namespace Codebucket.Services
             model._id = entity.ID;
             model._projectName = entity._projectName;
             model._projectFileTypeId = entity._projectFileTypeId;
-            model._isProjectOwner = false;
+            model._isProjectOwner = _projectFileService.isProjectOwner(userName, id.Value);
             model._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
 
             List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
@@ -203,7 +231,7 @@ namespace Codebucket.Services
 
             foreach(ProjectOwner item in projectsOwnedByUser)
             {
-                listOfProjects.Add(getProjectByProjectId(item._projectID));                       
+                listOfProjects.Add(getProjectByProjectId(userName, item._projectID));                       
             }
             
             foreach(ProjectViewModel item in listOfProjects)

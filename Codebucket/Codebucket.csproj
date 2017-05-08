@@ -614,6 +614,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\logo.jpg" />
     <Content Include="Content\logoBlueFade.jpg" />
+    <Content Include="Content\Logos\cplusplus.png" />
+    <Content Include="Content\Logos\csharp.png" />
+    <Content Include="Content\Logos\css.png" />
+    <Content Include="Content\Logos\html.png" />
+    <Content Include="Content\Logos\java.png" />
+    <Content Include="Content\Logos\javascript.png" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="favicon.ico" />
