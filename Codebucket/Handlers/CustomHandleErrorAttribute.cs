@@ -13,9 +13,6 @@ namespace Codebucket.Handlers
         {
             //Get the exception
             Exception ex = filterContext.Exception;
-                      
-            //Set the view name to be returned, maybe return different error view for different exception types
-            string viewName = "Error";
 
             //Get current controller and action
             string currentController = (string)filterContext.RouteData.Values["controller"];
@@ -24,9 +21,20 @@ namespace Codebucket.Handlers
             //Example using singleton logger class in Utilities folder which write exception to file
             ExceptionService.Instance.LogException(ex, currentController, currentActionName);
 
-            if (ex is DivideByZeroException)
+            //Set the view name to be returned, maybe return different error view for different exception types
+            string viewName;
+
+            if (ex is HttpRequestValidationException)
             {
-                viewName = "CustomError";
+                viewName = "MaliciousInputError";
+            }
+            else if (ex is Exception)
+            {
+                viewName = "Error";
+            }
+            else
+            {
+                viewName = "Error";
             }
             ///TODO::Add more to this.
 

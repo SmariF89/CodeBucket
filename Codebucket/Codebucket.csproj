@@ -694,7 +694,7 @@
     <Content Include="Views\ProjectFile\listAllProjectFiles.cshtml" />
     <Content Include="Views\ProjectFile\updateProjectFile.cshtml" />
     <Content Include="Views\ProjectFile\displayProject.cshtml" />
-    <Content Include="Views\Shared\CustomError.cshtml" />
+    <Content Include="Views\Shared\MaliciousInputError.cshtml" />
     <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
     <Content Include="Views\Account\About.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />

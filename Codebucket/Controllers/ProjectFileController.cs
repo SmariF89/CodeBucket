@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-    [ValidateInput(false)]
+    //[ValidateInput(false)] ////////////////////////////////////// neeeded ? keep for a bit just in case!!!
     public class ProjectFileController : Controller
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
@@ -20,6 +20,7 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult createNewProjectFile(int? id)
         {
+            
             CreateProjectFileViewModel model = new CreateProjectFileViewModel();
 
             model._projectID = id.Value;
@@ -34,6 +35,7 @@ namespace Codebucket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
         {
+
             model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
             model._projectFileData = "";
 
@@ -48,15 +50,18 @@ namespace Codebucket.Controllers
             else
             {
                 _projectFileService.addProjectFile(model);
-                ProjectViewModel viewModel = _projectService.getProjectByProjectId(User.Identity.Name ,model._projectID);
+                ProjectViewModel viewModel = _projectService.getProjectByProjectId(User.Identity.Name, model._projectID);
                 //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
                 return View("displayProject", viewModel);
             }
+        
+
         }
         #endregion
 
         #region Update file in current project.
         // GET: updateProjectFile
+        [ValidateInput(false)]
         [HttpGet]
         public ActionResult updateProjectFile(int id)
         {
@@ -67,7 +72,7 @@ namespace Codebucket.Controllers
             }
             return null;
         }
-
+        [ValidateInput(false)]
         // POST: updateProjectFile
         [HttpPost]
         public ActionResult updateProjectFile(ProjectFileViewModel model)
