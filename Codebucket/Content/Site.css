@@ -126,3 +126,19 @@ ul.nav a:hover { color: #000000 !important; }
     padding-left:50px;
     padding-top: 160px;
 }
+
+
+
+
+#projectTitle{
+    padding-left: 18px;
+}
+
+.typeLogo{
+    padding-left: 13px;
+}
+
+.modal-body iframe
+{
+	width:100% !important;
+}
