@@ -153,6 +153,9 @@ namespace Codebucket.Services
         {
             List<ProjectFileViewModel> projectFiles = getAllProjectFilesByProjectId(projectID);
 
+            string fileEnding = projectFiles[0]._projectFileType;
+            projectFileName = projectFileName + fileEnding;
+
             foreach(ProjectFileViewModel item in projectFiles)
             {
                 if(projectFileName == item._projectFileName)
