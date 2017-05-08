@@ -14,7 +14,7 @@ namespace Codebucket.Controllers
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
         private ProjectService _projectService = new ProjectService();
-        private int? currentProjectId;
+        //private int? currentProjectId;
 
         #region Create new file in current project.
         // GET: createNewProjectFile
@@ -72,7 +72,7 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult updateProjectFile(ProjectFileViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model._id != 0) 
             {
                 _projectFileService.updateProjectFile(model);
                 return View(model);
@@ -84,27 +84,28 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult displayProject(int? id)
         {
-            currentProjectId = id;
-            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name ,currentProjectId);
+            
+            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name , id);
 
 
             return View(model);
 
         }
 
-		#region List all files in current project.
-		// GET: getProjectFileById
-		[HttpGet]
-		public ActionResult listAllProjectFiles(int? id)
-		{
-			currentProjectId = id;
-			return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
-		}
-		#endregion
+        //      #region List all files in current project.
+        //      // GET: getProjectFileById
 
-		#region Add member to current project.   
-		// GET: AddProjectMember
-		[HttpGet]
+        //      [HttpGet]
+        //public ActionResult listAllProjectFiles(int? id)
+        //{
+        //	currentProjectId = id;
+        //	return View(_projectFileService.getAllProjectFilesByProjectId(currentProjectId));
+        //}
+        //#endregion
+
+        #region Add member to current project.   
+        // GET: AddProjectMember
+        [HttpGet]
 		public ActionResult addProjectMember(int? id)
 		{
 			AddMemberViewModel model = new AddMemberViewModel();

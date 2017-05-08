@@ -6,6 +6,7 @@
 
 <h2>Create new file</h2>
 
+<h3>@Model._projectID</h3>
 
 @using (Html.BeginForm()) 
 {
@@ -33,7 +34,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back", "displayProject", new { Model._projectID }, new { @class = "waves-effect waves-light btn" })
+    @Html.ActionLink("Back", "displayProject", new { Model._projectID } , new { @class = "waves-effect waves-light btn" })
 </div>
 
 @section Scripts {
