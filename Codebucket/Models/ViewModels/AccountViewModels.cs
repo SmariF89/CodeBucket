@@ -65,6 +65,7 @@ namespace Codebucket.Models
     public class RegisterViewModel
     {
         [Required]
+        [RegularExpression(@"^[a-zA-Z0-9]{3,42}$", ErrorMessage = "Usernames must range from 3 to 42 and must only contain letters and digits")]
         [Display(Name = "Username")]
         public string UserName { get; set; }
 
