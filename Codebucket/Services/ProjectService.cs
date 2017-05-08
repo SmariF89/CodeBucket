@@ -129,10 +129,12 @@ namespace Codebucket.Services
             _db.SaveChanges();
 
             string extension = _db._fileTypes.Where(x => x.ID == model._projectTypeId).SingleOrDefault()._extension;
+            string aceExtension = _db._fileTypes.Where(x => x.ID == model._projectTypeId).SingleOrDefault()._aceExtension;
 
             ProjectFile defaultFile = new ProjectFile();
             defaultFile._projectFileName = "index" + "." + extension;
             defaultFile._projectFileType = "." + extension;
+            defaultFile._aceExtension = aceExtension;
             defaultFile._projectFileData = "<p>Hello world!</p>";
             defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).FirstOrDefault().ID;
 

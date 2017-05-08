@@ -40,10 +40,10 @@ namespace Codebucket.Services
                         _projectID = item._projectID,
                         _projectFileName = item._projectFileName,
                         _projectFileType = item._projectFileType,
+                        _aceExtension = item._aceExtension,
                         _projectFileData = item._projectFileData
                     });
                 }
-
                 return projectFileViewModels;
             }
 
@@ -51,16 +51,17 @@ namespace Codebucket.Services
         }
 
         // Get project file by project id, returns a viewmodel of the type ProjectFileViewModel
-        public ProjectFileViewModel getProjectFileByProjectId(int? projectId)
+        public ProjectFileViewModel getProjectFileByProjectId(int projectId)
         {
-            if (projectId != null || projectId > 0)
+            if (projectId > 0)
             {
                 return new ProjectFileViewModel
                 {
                     _id = _db._projectFiles.Find(projectId).ID,
                     _projectFileData = _db._projectFiles.Find(projectId)._projectFileData.ToString(),
                     _projectFileName = _db._projectFiles.Find(projectId)._projectFileName.ToString(),
-                    _projectFileType = _db._projectFiles.Find(projectId)._projectFileType.ToString()
+                    _projectFileType = _db._projectFiles.Find(projectId)._projectFileType.ToString(),
+                    _aceExtension = _db._projectFiles.Find(projectId)._aceExtension.ToString()
                 };
             }
 
@@ -82,18 +83,25 @@ namespace Codebucket.Services
             }
             return null;
         }
+
+        public String getAceExtensionByProjectId(int projectId)
+        {
+            string ext = (from projectFile in _db._projectFiles
+                    where projectFile._projectID == projectId
+                    select projectFile._aceExtension).FirstOrDefault();
+            return ext;
+        }
         #endregion
 
         #region Add project file
-        public void addProjectFile(CreateProjectFileViewModel model) // TODO:: Add a if check ?
+        public void addProjectFile(CreateProjectFileViewModel model)
         {
-            ProjectFile newProjectFile = new ProjectFile()
-            {
-                _projectFileName = model._projectFileName + "." + model._projectFileType,
-                _projectFileData = model._projectFileData,
-                _projectFileType = "." + model._projectFileType,
-                _projectID = model._projectID
-            };
+            ProjectFile newProjectFile = new ProjectFile();
+            newProjectFile._projectFileName = model._projectFileName + "." + model._projectFileType;
+            newProjectFile._projectFileData = model._projectFileData;
+            newProjectFile._projectFileType = "." + model._projectFileType;
+            newProjectFile._aceExtension = getAceExtensionByProjectId(model._projectID);
+            newProjectFile._projectID = model._projectID;
 
             _db._projectFiles.Add(newProjectFile);
             _db.SaveChanges();
@@ -137,6 +145,23 @@ namespace Codebucket.Services
                 _db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
                 _db.SaveChanges();
             }
+        }
+        #endregion
+
+        #region Validation for creating new file.
+        public bool projectFileExists(string projectFileName, int projectID)
+        {
+            List<ProjectFileViewModel> projectFiles = getAllProjectFilesByProjectId(projectID);
+
+            foreach(ProjectFileViewModel item in projectFiles)
+            {
+                if(projectFileName == item._projectFileName)
+                {
+                    return true; 
+                }
+            }
+
+            return false;
         }
         #endregion
     }

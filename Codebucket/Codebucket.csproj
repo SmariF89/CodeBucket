@@ -236,7 +236,8 @@
     <Compile Include="Models\Entities\ProjectFile.cs" />
     <Compile Include="Models\Entities\ProjectMember.cs" />
     <Compile Include="Models\Entities\ProjectOwner.cs" />
-    <Compile Include="Models\ProjectisNotInDatabase.cs" />
+    <Compile Include="Models\Validation\IfProjectFileExists.cs" />
+    <Compile Include="Models\Validation\ProjectisNotInDatabase.cs" />
     <Compile Include="Models\Validation\IfMemberExists.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -644,6 +645,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Test.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Web.config" />

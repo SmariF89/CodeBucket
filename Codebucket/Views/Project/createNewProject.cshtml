@@ -43,18 +43,17 @@
             <input name="radioChoice" type="radio" id="test6" value="6" />
             <label for="test6">JavaScript</label>
         </p>
-        
-
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
     
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
