@@ -34,16 +34,24 @@
 
     <h2>Participating</h2>
     <ul class="collection">
+
+        @{int counter = 0;}
+        
         @foreach (ProjectViewModel item in Model)
         {
             if (!item._isProjectOwner)
             {
+                counter++;
                 <li>
                     @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
                 </li>
             }
         }
-        <li class="collection-item">You are not a participant of any project.</li>
+
+        @if (counter == 0)
+        {
+            <li class="collection-item">You are not a participant of any project.</li>
+        }    
     </ul>
 </div>
 
