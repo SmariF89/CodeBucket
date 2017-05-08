@@ -55,17 +55,17 @@ namespace Codebucket.Services
         {
             if (projectFileId > 0)
             {
-                return new ProjectFileViewModel
-                {
-                    _id = _db._projectFiles.Find(projectFileId).ID,
-                    _projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString(),
-                    _projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString(),
-                    _projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString(),
-                    _projectID = _db._projectFiles.Find(projectFileId)._projectID,
-                    _aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString(),
-                };
-            }
+                ProjectFileViewModel model = new ProjectFileViewModel();
+                
+                model._id = _db._projectFiles.Find(projectFileId).ID;
+                model._projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString();
+                model._projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString();
+                model._projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString();
+                model._projectID = _db._projectFiles.Find(projectFileId)._projectID;
+                model._aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString();
 
+                return model;
+            }
             return null;
         }
         #endregion
