@@ -58,9 +58,9 @@ namespace Codebucket.Controllers
         #region Update file in current project.
         // GET: updateProjectFile
         [HttpGet]
-        public ActionResult updateProjectFile(int? id)
+        public ActionResult updateProjectFile(int id)
         {
-            if (id.HasValue)
+            if (id != 0)
             {
                 ProjectFileViewModel model = _projectFileService.getProjectFileByProjectId(id);
                 return View(model);

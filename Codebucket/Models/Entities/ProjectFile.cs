@@ -18,6 +18,7 @@ namespace Codebucket.Models.Entities
         public string _projectFileName { get; set; }
         [Display(Name = "File name: ")]
         public string _projectFileType { get; set; }
+        public string _aceExtension { get; set; }
         public string _projectFileData { get; set; }
     }
 }
