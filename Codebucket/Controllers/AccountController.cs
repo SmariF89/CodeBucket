@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Codebucket.Models;
+using Codebucket.Models.Entities;
+using Codebucket.Models.ViewModels;
+using Codebucket.Services;
 
 namespace Codebucket.Controllers
 {
@@ -17,6 +20,7 @@ namespace Codebucket.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationUserService _applicationUserService = new ApplicationUserService();
 
         public AccountController()
         {
@@ -101,11 +105,31 @@ namespace Codebucket.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult Contact()
+        {
+            ConctactLogViewModel model = new ConctactLogViewModel();
+            ViewBag.Message = "Your contact page.";
+
+            return View(model);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Contact(ConctactLogViewModel model)
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            if (ModelState.IsValid)
+            {
+                
+
+                _applicationUserService.addContactLog(model);
+
+                return RedirectToAction("Contact", "Account");
+            }
+            
+
+            return View(model);
         }
 
         //

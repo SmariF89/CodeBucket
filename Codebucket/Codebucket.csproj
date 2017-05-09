@@ -230,6 +230,7 @@
     </Compile>
     <Compile Include="Handlers\CustomHandleErrorAttribute.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\ContactLog.cs" />
     <Compile Include="Models\Entities\ExceptionLogger.cs" />
     <Compile Include="Models\Entities\FileType.cs" />
     <Compile Include="Models\Entities\Project.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\AddMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\ViewModels\ConctactLogViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateProjectFileViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateProjectViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
@@ -613,6 +615,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ContactUs.css" />
     <Content Include="Content\logo.jpg" />
     <Content Include="Content\logoBlueFade.jpg" />
     <Content Include="Content\Logos\cplusplus.png" />
