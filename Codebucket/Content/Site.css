@@ -46,7 +46,7 @@ textarea {
 
 .file-name {
     border:solid;
-    border-color:gainsboro;]
+    border-color:gainsboro;
 }
 
 #ProjectFileName{
@@ -143,6 +143,16 @@ ul.nav a:hover {
     padding-left: 1px;
     padding-right: 1px;
     float: right;
+    height: 6%; 
+    width: 6%;
+}
+
+.typeLogo2{
+    padding-left: 1px;
+    padding-right: 1px;
+    float: right;
+    height: 8%; 
+    width: 8%;
 }
 
 .projectLink{
@@ -151,11 +161,6 @@ ul.nav a:hover {
 
 .modal-body iframe{
 	width:100% !important;
-}
-
-td img{
-    height: 6%; 
-    width: 6%;
 }
 
 td{
@@ -182,8 +187,7 @@ td a:hover{
     background-color: #ffffff;
 }
 
-input[type="text"]
-{
+input[type="text"]{
     font-size:14px;
 }
 
