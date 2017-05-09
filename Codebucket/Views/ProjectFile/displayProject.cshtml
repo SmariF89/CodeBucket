@@ -1,47 +1,73 @@
 ﻿@model Codebucket.Models.ViewModels.ProjectViewModel
 @using Codebucket.Models.ViewModels
 
-@{ 
+@{
     ViewBag.Title = "Project Overview";
 }
 
-<h2>Project: @Model._projectName</h2>
-<h3>Project Owner: @Model._projectOwnerName</h3>
+@{string owner = "";}
+@if (@Model._isProjectOwner == true)
+{
+    owner = "you!";
+} 
+else
+{
+    owner = @Model._projectOwnerName;
+}
 
-<div class="collection">
-    <ul>
-        <li class="collection-header"><h4>Project files</h4></li>
+<h2>@Model._projectName</h2>
+<h3>Owned by @owner</h3>
+
+<table class="highlight bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Filename</th>
+            <th scope="col">Preview</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int counter = 1;}
         @foreach (ProjectFileViewModel item in Model._projectFiles)
         {
-            <li>
-                @Html.ActionLink(item._projectFileName, "updateProjectFile", new { id = item._id }, new { @class = "collection-item" })
-                
-                @if (Model._isProjectOwner == true && Model._projectFiles.Count > 1)
-                {
-                    @Html.ActionLink("Delete file", "deleteProjectFile", new { id = item._id }, new { @class = "btn btn-default" })
-                }
-            </li>
+            string preview = item._projectFileData.Length > 20 ? item._projectFileData.Substring(0, 20) + "..." : item._projectFileData + "...";
+            <tr>
+                <td scope="row">@counter</td>
+                <td>@Html.ActionLink(item._projectFileName, "updateProjectFile", new { id = item._id }, new { @class = "collection-item" })</td>
+                <td>@preview</td>
+                <td class="fileDel">
+                    @if (Model._isProjectOwner == true && Model._projectFiles.Count > 1)
+                    {
+                        <figure>
+                            <a href="/ProjectFile/deleteProjectFile/@item._id" title="Delete file">
+                                <img class="delSymbol" alt="not found" src="~/Content/Symbols/delete.png" />
+                            </a>
+                        </figure>
+                    }
+                </td>
+            </tr>
+            counter++;
         }
-    </ul>
-</div>
-
+    </tbody>
+</table>
 <ul class="collection with-header">
     <li class="collection-header"><h4>Project members</h4></li>
     @foreach (ProjectMemberViewModel item in Model._projectMembers)
     {
         <li class="collection-item">
-            
+
             @Html.DisplayFor(modelItem => item._userName)
-            
+
         </li>
     }
 </ul>
 
-    <br />
+<br />
 
 @if (Model._isProjectOwner == true)
 {
-    
+
     @Html.ActionLink("Add file", "createNewProjectFile", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
     <br />
     <br />
@@ -49,7 +75,7 @@
     <br />
     <br />
     <div>
-        @Html.ActionLink("Back", "../Project/Index", null , new { @class = "waves-effect waves-light btn" })
+        @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
     </div>
 }
 else
