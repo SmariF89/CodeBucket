@@ -14,9 +14,11 @@ namespace Codebucket.SocketHub
         }
         public void OnChange(object changeData, int documentID)
         {
-            Clients.Group(Convert.ToString(documentID), Context.ConnectionId).OnChange(changeData);
-            //Clients.All.OnChange(changeData);
+            Clients.Group(Convert.ToString(documentID), Context.ConnectionId).OnChange(changeData );
 
+            //Clients.All.OnChange(changeData);
         }
+
+  
     }
 }

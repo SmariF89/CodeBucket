@@ -256,7 +256,9 @@
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\ProjectFileService.cs" />
     <Compile Include="Services\ProjectService.cs" />
+    <Compile Include="SocketHub\ChatHub.cs" />
     <Compile Include="SocketHub\CodeHub.cs" />
+    <Compile Include="SocketHub\Startup.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Services\ExceptionService.cs" />
   </ItemGroup>

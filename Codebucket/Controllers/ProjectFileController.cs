@@ -143,6 +143,11 @@ namespace Codebucket.Controllers
         }
         #endregion
 
+        public ActionResult Chat()
+        {
+            return View();
+        }
+
         //[HttpGet]
         //      public ActionResult showEditorForProjectFile(int? id)
         //      {
