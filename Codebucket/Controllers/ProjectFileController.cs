@@ -154,12 +154,17 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult deleteProjectFile(int? id)
         {
-            if (id != null)
+            if (_projectFileService.doesProjectFileExist(id.Value))
             {
-                ProjectFileViewModel model = new ProjectFileViewModel();
-                model = _projectFileService.getProjectFileByProjectFileId(id.Value);
-                
-                return View(model);
+                int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
+
+                if (_projectFileService.isProjectOwner(User.Identity.Name,projectId))
+                {
+                    ProjectFileViewModel model = new ProjectFileViewModel();
+                    model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+
+                    return View(model);
+                }
             }
 
             return HttpNotFound();
