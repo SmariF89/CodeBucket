@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Codebucket.Models.Entities
 {
-    public class ContactLogger
+    public class ContactLog
     {
         [Key]
         public int ID { get; set; }
