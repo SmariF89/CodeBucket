@@ -62,15 +62,22 @@ namespace Codebucket.Controllers
         // GET: updateProjectFile
         [ValidateInput(false)]
         [HttpGet]
-        public ActionResult updateProjectFile(int id)
+        public ActionResult updateProjectFile(int? id)
         {
-            if (id != 0)
+            if (_projectFileService.doesProjectFileExist(id.Value))
             {
-                ProjectFileViewModel model = new ProjectFileViewModel();
-                model = _projectFileService.getProjectFileByProjectFileId(id);
-                return View(model);
+                int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
+
+                if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, projectId))
+                {
+                    ProjectFileViewModel model = new ProjectFileViewModel();
+                    model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+
+                    return View(model);
+                }
             }
-            return null;
+
+            return RedirectToAction("Index", "Project");
         }
         [ValidateInput(false)]
         // POST: updateProjectFile
@@ -94,8 +101,7 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult displayProject(int? id) 
         {
-            if (_projectFileService.isProjectMember(User.Identity.Name, id.Value) ||
-                _projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+            if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, id.Value))
             {
                 ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
 

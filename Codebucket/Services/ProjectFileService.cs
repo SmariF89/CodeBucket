@@ -120,6 +120,11 @@ namespace Codebucket.Services
             return (getUserName == username);           
         }
         
+        public bool isProjectOwnerOrMember(string username, int projectID)
+        {
+            return (isProjectOwner(username, projectID) || isProjectMember(username, projectID));
+        }
+
         // Checks if username is owner of project, returns a bool value if true or not.
         public bool isProjectOwner(string username, int projectID) 
         {
@@ -195,6 +200,13 @@ namespace Codebucket.Services
             ProjectFile fileToDel = _db._projectFiles.Find(id);
             _db._projectFiles.Remove(fileToDel);
             _db.SaveChanges();
+        }
+
+        public bool doesProjectFileExist(int id)
+        {
+            var doesProjectfileExist = _db._projectFiles.Find(id);
+
+            return (doesProjectfileExist != null);
         }
     }
 }
