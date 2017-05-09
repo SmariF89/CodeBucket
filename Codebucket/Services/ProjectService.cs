@@ -248,6 +248,14 @@ namespace Codebucket.Services
             
             return true;
         }
+
+        public bool projectExist(int? id)
+        {
+            var projectExist = _db._projects.Find(id);
+
+            return (projectExist != null);
+        }
+        
         #endregion
 
         public void deleteProject(ProjectViewModel model)
