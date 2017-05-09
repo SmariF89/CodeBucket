@@ -1,5 +1,5 @@
-﻿var documentID = @Model._id;a
-var documentID = $('#documentID').text();
+﻿var documentID = $('#documentID').text();
+$('#documentID').hide();
 
 var editor = (function () {
 	var aceEditor = ace.edit("editor");
