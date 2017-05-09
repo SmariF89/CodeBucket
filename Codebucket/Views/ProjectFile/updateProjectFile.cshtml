@@ -10,11 +10,11 @@
             <label for="theme" class="control-label">Theme:</label>
             <select id="theme" class="form-control">
                 <option value="ambiance">ambiance</option>
-                <option value="chrome" selected>chrome</option>
+                <option value="chrome">chrome</option>
                 <option value="clouds">clouds</option>
                 <option value="clouds_midnight">clouds_midnight</option>
                 <option value="github">github</option>
-                <option value="monokai">monokai</option>
+                <option value="monokai" selected>monokai</option>
                 <option value="xcode">xcode</option>
             </select>
         </div>
@@ -28,8 +28,12 @@
 
 @*This is where Ace is shown*@
 <div id="editor"></div>
+@*Automatic language detection connected to this div*@
+<div id="language">@Model._aceExtension</div>
 
-<form method="post">
+<div id="documentID">@Model._id</div>
+
+<form id = "data" method="post">
 	@Html.HiddenFor(model => model._id, new { htmlAttributes = new { @class = "editor" } })
 	@Html.HiddenFor(model => model._projectFileName, new { htmlAttributes = new { @class = "editor" } })
 	@Html.HiddenFor(model => model._projectFileType, new { htmlAttributes = new { @class = "editor" } })
@@ -39,13 +43,13 @@
 
 	<textarea class="editor">@Model._projectFileData</textarea>
 	@Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" } )
-	<button type="submit" class="SaveButtonEdit">Save</button>
+	<button type="submit" class="SaveButtonEdit" id="SaveButtonEdit">Save</button>
     @Html.ActionLink("Back", "displayProject", new { id = Model._projectID }, new { @class = "waves-effect waves-light btn" })
 </form>
 
-@section scripts
+@*@section scripts
 {
-<script src="~/Ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
@@ -53,45 +57,44 @@
 <script src="~/signalr/hubs"></script>
 <script>
 
-    var documentID = @Model._id;
+	var documentid = $('#documentid').stext();
 
 	var editor = (function () {
-		var aceEditor = ace.edit("editor");
+		var aceeditor = ace.edit("editor");
 		// default theme
-		aceEditor.setTheme("ace/theme/chrome");
+		aceeditor.settheme("ace/theme/monokai");
 		// default mode
 		var language = $('#language').text();
-		$('#language');
-		aceEditor.getSession().setMode("ace/mode/" + language);
-		return aceEditor;
-	})(); 
+		$('#language').hide();
+		aceeditor.getsession().setmode("ace/mode/" + language);
+		return aceeditor;
+	})();
 
 	$('#theme').change(function () {
-		var e = document.getElementById("theme");
-		var strTheme = e.options[e.selectedIndex].value;
-		editor.setTheme("ace/theme/" + strTheme);
+		var e = document.getelementbyid("theme");
+		var strtheme = e.options[e.selectedindex].value;
+		editor.settheme("ace/theme/" + strtheme);
 	});
 
 	$('#mode').change(function () {
-		var e = document.getElementById("mode");
-		var strMode = e.options[e.selectedIndex].value;
-		editor.getSession().setMode("ace/mode/" + strMode);
+		var e = document.getelementbyid("mode");
+		var strmode = e.options[e.selectedindex].value;
+		editor.getsession().setmode("ace/mode/" + strmode);
 	});
 
 	var textarea = $('textarea[class="editor"]').hide()
-	editor.getSession().setValue(textarea.val());
-	editor.getSession().on('change', function () {
-		textarea.val(editor.getSession().getValue());
+	editor.getsession().setvalue(textarea.val());
+	editor.getsession().on('change', function () {
+		textarea.val(editor.getsession().getvalue());
 	});
 
-
-	var codeHub = $.connection.codeHub;
+	var codehub = $.connection.codehub;
 	var silent = false;
     
-	codeHub.client.onChange = function (changeData) {
-	    console.log(changeData);
+	codehub.client.onchange = function (changedata) {
+	    console.log(changedata);
 	    silent = true;
-	    editor.getSession().getDocument().applyDelta(changeData);
+	    editor.getsession().getdocument().applydelta(changedata);
 	    silent = false;
 	};
 
@@ -120,18 +123,16 @@
 
 
 	$.connection.hub.start().done(function () {
-	    codeHub.server.joinDocument(documentID); //this is most likely not right
+	    codehub.server.joindocument(documentid); //this is most likely not right
 	    editor.on("change", function (obj) {
 	        if(silent){
 	            return;
 	        }
 	        console.log(obj);
-	        codeHub.server.onChange(obj, documentID);
+	        codehub.server.onchange(obj, documentid);
 	    });
 	});
-
-
 	
 
 </script>
-}
+}*@

@@ -65,5 +65,25 @@ namespace Codebucket.Services
             return null;
         }
         #endregion
+
+        public bool addContactLog(ConctactLogViewModel model)
+        {
+            if (model._contactName != null && model._contactEmail != null && model._contactEmail != null) // FIXME::?
+            {
+                ContactLog contactLog = new ContactLog
+                {
+                    _contactName = model._contactName,
+                    _contactEmail = model._contactEmail,
+                    _ContactMessage = model._contactEmail 
+                };
+
+                _db._contacts.Add(contactLog);
+                _db.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }
