@@ -202,6 +202,16 @@ namespace Codebucket.Services
             _db.SaveChanges();
         }
 
+        public void deleteProjectMember(int projectID)
+        {
+            ProjectMember memberToDel = (from member in _db._projectMembers
+                                         where member._projectID == projectID
+                                         select member).FirstOrDefault();
+
+            _db._projectMembers.Remove(memberToDel);
+            _db.SaveChanges();
+        }
+
         public bool doesProjectFileExist(int id)
         {
             var doesProjectfileExist = _db._projectFiles.Find(id);

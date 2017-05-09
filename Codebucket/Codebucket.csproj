@@ -712,6 +712,8 @@
     <Content Include="Views\Account\About.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />
     <Content Include="Views\ProjectFile\Chat.cshtml" />
+    <Content Include="Views\Shared\PageNotFound.cshtml" />
+    <Content Include="Views\Project\deleteProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
