@@ -38,9 +38,10 @@ textarea {
 
 .SideBySide{
     float: left;
-    width: 80px;
+    width: 150px;
     height: 74px;
     margin: 10px;
+
 
 }
 
@@ -68,17 +69,29 @@ textarea {
     clear:both;
     right: 245px;
     position: absolute;
-    width: 80px;
-    height: 34px;
+    width: 73px;
+    height: 40px;
     font-size: 14px;
     line-height: 1.428571429;
     text-align: center;
-    color: #555555;
+    background-color: #26a69a;
     vertical-align: middle;
-    background-color: #ffffff;
+    font-size: 17px;
+    padding-bottom: 8px;
+    color:#ffffff;
     border: 1px solid #cccccc;
     border-radius: 4px;
+    opacity: 1;
+ 
 }
+
+.SaveButtonEdit:hover{
+    color: #000000;
+    box-shadow: 2px 0 2px 0 #888888;
+  
+     opacity: 0.75;
+}
+
 
 .field-validation-error {
     color:red;
@@ -191,6 +204,7 @@ input[type="text"]{
     font-size:14px;
 }
 
+
 .fileDel{
     width: 13%;
 }
@@ -200,4 +214,39 @@ input[type="text"]{
     width: 40%;
     float: right;
     padding-right: 15px;
+}
+
+.chat{
+   border: 1px solid #cccccc;
+    border-radius: 4px;
+    opacity: 1;
+    margin-top: 30px;
+    text-align: center;
+    width: 700px;
+    margin-left: 160px;
+}
+
+.sendMessage{
+    background-color: #26a69a;
+    color: #ffffff;
+}
+
+/*displayProject.cshtml starts from here*/
+
+.AddFileDisplay{
+    float: right;
+    margin-left: 20px;
+}
+
+.AddMemberDisplay{
+    float: right;
+
+}
+
+.BackDisplayProject{
+    float: left;
+}
+
+.FileDisplayContainer{
+    margin-bottom: 200px;
 }
