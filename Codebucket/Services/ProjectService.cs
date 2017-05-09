@@ -129,25 +129,24 @@ namespace Codebucket.Services
         #region Get single project by id.   
         public ProjectViewModel getProjectByProjectId(string userName, int? id)
         {
-            try
-            {
-                Project entity = _db._projects.Find(id);
-                ProjectViewModel model = new ProjectViewModel();
 
-                model._id = entity.ID;
-                model._projectName = entity._projectName;
-                model._projectFileTypeId = entity._projectFileTypeId;
-                model._isProjectOwner = _projectFileService.isProjectOwner(userName, id.Value);
-                model._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
+            Project entity = _db._projects.Find(id);
+            ProjectViewModel model = new ProjectViewModel();
 
-                List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
-                model._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
-                return model;
-            }
-            catch (NullReferenceException ex)
-            {
-                throw ex;
-            }
+            //if (entity == null)
+            //{
+            //    return null;
+            //}
+
+            model._id = entity.ID;
+            model._projectName = entity._projectName;
+            model._projectFileTypeId = entity._projectFileTypeId;
+            model._isProjectOwner = _projectFileService.isProjectOwner(userName, id.Value);
+            model._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
+
+            List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
+            model._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
+            return model;
 
             
             
