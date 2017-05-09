@@ -6,13 +6,12 @@ using System.Web;
 
 namespace Codebucket.Models.Entities
 {
-    public class FileType
+    public class ContactLog
     {
         [Key]
         public int ID { get; set; }
-        public string _description { get; set; }
-        public string _extension { get; set; }
-        public string _aceExtension { get; set; }
-        public string _initialCode { get; set; }
+        public string _contactName { get; set; }
+        public string _contactEmail { get; set; }
+        public string _ContactMessage { get; set; }
     }
 }

@@ -10,7 +10,6 @@ namespace Codebucket.Models.Entities
     public class Project
     {
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public int _projectFileTypeId { get; set; }
         public string _projectName { get; set; }

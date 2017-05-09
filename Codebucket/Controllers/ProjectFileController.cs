@@ -142,7 +142,6 @@ namespace Codebucket.Controllers
         }
         #endregion
 
-
         [HttpGet]
         public ActionResult deleteProjectFile(int? id)
         {
@@ -156,7 +155,7 @@ namespace Codebucket.Controllers
 
             return HttpNotFound();
         }
-        
+
 
         [HttpPost, ActionName("deleteProjectFile")]
         [ValidateAntiForgeryToken]
@@ -171,10 +170,15 @@ namespace Codebucket.Controllers
             }
 
             int idOfProject = model._projectID;
-            
+
             _projectFileService.deleteProjectFile(id);
-            
+
             return RedirectToAction("displayProject" + "/" + idOfProject.ToString());
+        }
+
+        public ActionResult Chat()
+        {
+            return View();
         }
 
         //[HttpGet]
