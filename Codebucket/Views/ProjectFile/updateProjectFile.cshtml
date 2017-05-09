@@ -7,6 +7,11 @@
 
 <div class="form-group">
         <div class="SideBySide">
+            <div class="file-name">
+                <h2>@Model._projectFileName</h2>
+            </div>
+        </div>
+        <div class="SideBySide">
             <label for="theme" class="control-label">Theme:</label>
             <select id="theme" class="form-control">
                 <option value="ambiance">ambiance</option>
@@ -17,13 +22,7 @@
                 <option value="monokai" selected>monokai</option>
                 <option value="xcode">xcode</option>
             </select>
-        </div>
-        <div class="SideBySide">
-            <label>Project Name</label>
-        <div id="ProjectFileName">        
-           @Html.DisplayFor(m => m._projectFileName)
-        </div>
-    </div>
+        </div>     
 </div>
 
 @*This is where Ace is shown*@
