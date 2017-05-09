@@ -6,7 +6,7 @@
 }
 
 <h2>Project: @Model._projectName</h2>
-<h3>@Model._projectOwnerName</h3>
+<h3>Project Owner: @Model._projectOwnerName</h3>
 
 <div class="collection">
     <ul>
@@ -15,6 +15,11 @@
         {
             <li>
                 @Html.ActionLink(item._projectFileName, "updateProjectFile", new { id = item._id }, new { @class = "collection-item" })
+                
+                @if (Model._isProjectOwner == true && Model._projectFiles.Count > 1)
+                {
+                    @Html.ActionLink("Delete file", "deleteProjectFile", new { id = item._id }, new { @class = "btn btn-default" })
+                }
             </li>
         }
     </ul>
@@ -36,6 +41,7 @@
 
 @if (Model._isProjectOwner == true)
 {
+    
     @Html.ActionLink("Add file", "createNewProjectFile", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
     <br />
     <br />

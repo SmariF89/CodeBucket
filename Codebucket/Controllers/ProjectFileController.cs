@@ -20,7 +20,7 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult createNewProjectFile(int? id)
         {
-            
+
             CreateProjectFileViewModel model = new CreateProjectFileViewModel();
 
             model._projectID = id.Value;
@@ -54,7 +54,7 @@ namespace Codebucket.Controllers
                 //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
                 return View("displayProject", viewModel);
             }
-        
+
 
         }
         #endregion
@@ -78,11 +78,11 @@ namespace Codebucket.Controllers
         [HttpPost]
         public ActionResult updateProjectFile(ProjectFileViewModel model)
         {
-            if(model._projectFileData == null)
+            if (model._projectFileData == null)
             {
                 model._projectFileData = "";
             }
-            if (model._id != 0) 
+            if (model._id != 0)
             {
                 _projectFileService.updateProjectFile(model);
                 return View(model);
@@ -95,13 +95,13 @@ namespace Codebucket.Controllers
         [HttpGet]
 
         //The parameter was int? id if it matters TODO: Eyða fyrir skil
-        public ActionResult displayProject(int id) 
+        public ActionResult displayProject(int id)
         {
-            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name , id);
-           
+            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
+
             string owner = _projectFileService.getOwnerName(id);
             model._projectOwnerName = owner;
-            
+
             return View(model);
         }
         #endregion
@@ -141,6 +141,41 @@ namespace Codebucket.Controllers
             }
         }
         #endregion
+
+
+        [HttpGet]
+        public ActionResult deleteProjectFile(int? id)
+        {
+            if (id != null)
+            {
+                ProjectFileViewModel model = new ProjectFileViewModel();
+                model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+                
+                return View(model);
+            }
+
+            return HttpNotFound();
+        }
+        
+
+        [HttpPost, ActionName("deleteProjectFile")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ProjectFileViewModel model = new ProjectFileViewModel();
+            model = _projectFileService.getProjectFileByProjectFileId(id);
+
+            if (model._projectFileName == null)
+            {
+                // TODO: Delete project.
+            }
+
+            int idOfProject = model._projectID;
+            
+            _projectFileService.deleteProjectFile(id);
+            
+            return RedirectToAction("displayProject" + "/" + idOfProject.ToString());
+        }
 
         //[HttpGet]
         //      public ActionResult showEditorForProjectFile(int? id)

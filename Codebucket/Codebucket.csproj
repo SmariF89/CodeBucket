@@ -703,6 +703,8 @@
     <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
     <Content Include="Views\Account\About.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />
+    <Content Include="Views\ProjectFile\DeleteConfirmed.cshtml" />
+    <Content Include="Views\ProjectFile\deleteProjectFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

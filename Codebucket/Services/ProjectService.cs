@@ -158,7 +158,7 @@ namespace Codebucket.Services
             
             _db._projects.Add(newProject);
             _db.SaveChanges();
-
+            
             string extension = _db._fileTypes.Where(x => x.ID == model._projectTypeId).SingleOrDefault()._extension;
             string aceExtension = _db._fileTypes.Where(x => x.ID == model._projectTypeId).SingleOrDefault()._aceExtension;
 
