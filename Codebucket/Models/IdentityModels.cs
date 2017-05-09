@@ -27,7 +27,7 @@ namespace Codebucket.Models
         IDbSet<ProjectMember> _projectMembers { get; set; }
         IDbSet<FileType> _fileTypes { get; set; }
         IDbSet<ExceptionLogger> _exceptions { get; set; }
-        //IDbSet<ContactLog> _contacts { get; set; }
+        IDbSet<ContactLog> _contacts { get; set; }
 
         int SaveChanges();
     }

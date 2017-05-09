@@ -99,6 +99,7 @@ namespace Codebucket.Controllers
         {
             ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
 
+
             string owner = _projectFileService.getOwnerName(id);
             model._projectOwnerName = owner;
 

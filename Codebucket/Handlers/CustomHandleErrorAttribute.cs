@@ -28,6 +28,10 @@ namespace Codebucket.Handlers
             {
                 viewName = "MaliciousInputError";
             }
+            else if (ex is NullReferenceException)
+            {
+                viewName = "Error";
+            }
             else if (ex is Exception)
             {
                 viewName = "Error";
