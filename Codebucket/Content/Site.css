@@ -214,3 +214,23 @@ input[type="text"]
     background-color: #26a69a;
     color: #ffffff;
 }
+
+/*displayProject.cshtml starts from here*/
+
+.AddFileDisplay{
+    float: right;
+    margin-left: 20px;
+}
+
+.AddMemberDisplay{
+    float: right;
+
+}
+
+.BackDisplayProject{
+    float: left;
+}
+
+.FileDisplayContainer{
+    margin-bottom: 200px;
+}

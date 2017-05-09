@@ -38,21 +38,26 @@
 </ul>
 
     <br />
+<div class="FileDisplayContainer">
+    @if (Model._isProjectOwner == true)
+    {
 
-@if (Model._isProjectOwner == true)
-{
-    
-    @Html.ActionLink("Add file", "createNewProjectFile", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
-    <br />
-    <br />
-    @Html.ActionLink("Add member", "addProjectMember", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
-    <div>
-        @Html.ActionLink("Back", "../Project/Index", null , new { @class = "waves-effect waves-light btn" })
-    </div>
-}
-else
-{
-    <div>
-        @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
-    </div>
-}
+        <div class="AddFileDisplay">
+            @Html.ActionLink("Add file", "createNewProjectFile", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
+        </div>
+
+        <div class="AddMemberDisplay">
+            @Html.ActionLink("Add member", "addProjectMember", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
+        </div>
+
+        <div class="BackDisplayProject">
+            @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
+        </div>
+    }
+    else
+    {
+        <div class="BackDisplayProject">
+            @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
+        </div>
+    }
+</div>
