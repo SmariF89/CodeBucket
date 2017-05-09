@@ -189,5 +189,12 @@ namespace Codebucket.Services
 
             return owner;
         }
+
+        public void deleteProjectFile(int id)
+        {
+            ProjectFile fileToDel = _db._projectFiles.Find(id);
+            _db._projectFiles.Remove(fileToDel);
+            _db.SaveChanges();
+        }
     }
 }
