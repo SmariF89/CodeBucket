@@ -32,7 +32,7 @@ namespace Codebucket.Models
         int SaveChanges();
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //IAppDataContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>//, IAppDataContext
     {
         public DbSet<Project> _projects { get; set; }
         public DbSet<ProjectFile> _projectFiles { get; set; }
