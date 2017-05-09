@@ -19,13 +19,18 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult createNewProjectFile(int? id)
         {
+            if (_projectService.projectExist(id.Value))
+            {
+                if (_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+                {
+                    CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+                    model._projectID = id.Value;
 
-            CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+                    return View(model);
+                }
+            }
 
-            model._projectID = id.Value;
-
-
-            return View(model);
+            return HttpNotFound();
         }
 
         // POST: createNewProjectFile
@@ -111,6 +116,7 @@ namespace Codebucket.Controllers
                 return View(model);
             }
 
+            //return HttpNotFound();
             return RedirectToAction("Index", "Project");
         }
         #endregion
@@ -194,29 +200,6 @@ namespace Codebucket.Controllers
         {
             return View();
         }
-
-        //[HttpGet]
-        //      public ActionResult showEditorForProjectFile(int? id)
-        //      {
-        //	if (id.HasValue)
-        //	{
-        //		ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
-        //		return View(model);
-        //	}
-        //	return null;
-        //      }
-
-        //[HttpPost]
-        //public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
-        //{
-        //	if (ModelState.IsValid)
-        //	{
-        //		_projectFileService.updateProjectFile(model);
-        //		//showEditorForProjectFile(model._id);
-        //		return View(model);
-        //	}
-        //	return HttpNotFound();
-        //}
     }
 
 
