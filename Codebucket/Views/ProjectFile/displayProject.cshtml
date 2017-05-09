@@ -9,7 +9,7 @@
 @if (@Model._isProjectOwner == true)
 {
     owner = "you!";
-} 
+}
 else
 {
     owner = @Model._projectOwnerName;
@@ -56,14 +56,16 @@ else
     @foreach (ProjectMemberViewModel item in Model._projectMembers)
     {
         <li class="collection-item">
-
-            @Html.DisplayFor(modelItem => item._userName)
-
+            <div class="chip">
+                <img class="persImg" src="~/Content/Symbols/person.png" alt="Contact Person">
+                @Html.DisplayFor(modelItem => item._userName)
+            </div>
+            <a href="#!" class="secondary-content">Remove</a>
         </li>
     }
 </ul>
 
-    <br />
+<br />
 <div class="FileDisplayContainer">
     @if (Model._isProjectOwner == true)
     {

@@ -250,3 +250,16 @@ input[type="text"]{
 .FileDisplayContainer{
     margin-bottom: 200px;
 }
+
+.chip>img{
+    height: 29px;
+    width: 29px;
+}
+
+.collection {
+    margin: 1.5rem 850px 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 37px;
+    overflow: hidden;
+    position: relative;
+}
