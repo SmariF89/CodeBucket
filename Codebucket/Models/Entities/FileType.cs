@@ -13,5 +13,6 @@ namespace Codebucket.Models.Entities
         public string _description { get; set; }
         public string _extension { get; set; }
         public string _aceExtension { get; set; }
+        public string _initialCode { get; set; }
     }
 }
