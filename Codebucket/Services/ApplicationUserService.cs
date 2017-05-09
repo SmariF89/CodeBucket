@@ -68,13 +68,13 @@ namespace Codebucket.Services
 
         public bool addContactLog(ConctactLogViewModel model)
         {
-            if (model._contactName != null && model._contactEmail != null && model._contactEmail != null) // FIXME::?
+            if (model._contactName != null || model._contactEmail != null || model._contactEmail != null) // FIXME::?
             {
                 ContactLog contactLog = new ContactLog
                 {
                     _contactName = model._contactName,
                     _contactEmail = model._contactEmail,
-                    _ContactMessage = model._contactEmail 
+                    _ContactMessage = model._contactMessage
                 };
 
                 _db._contacts.Add(contactLog);
