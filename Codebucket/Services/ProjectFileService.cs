@@ -176,6 +176,10 @@ namespace Codebucket.Services
 
         public string getOwnerName (int projectID)
         {
+            if (_db._projects.Find(projectID) == null)
+            {
+                return null;
+            }
 
             ProjectOwner ownerInProject = (from owned in _db._projectOwners
                                            where owned._projectID == projectID
@@ -185,6 +189,13 @@ namespace Codebucket.Services
 
             return owner;
 
+        }
+
+        public void deleteProjectFile(int id)
+        {
+            ProjectFile fileToDel = _db._projectFiles.Find(id);
+            _db._projectFiles.Remove(fileToDel);
+            _db.SaveChanges();
         }
     }
 }

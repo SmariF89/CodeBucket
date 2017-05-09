@@ -221,6 +221,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationUserController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -230,7 +231,7 @@
     </Compile>
     <Compile Include="Handlers\CustomHandleErrorAttribute.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Entities\ContactLogger.cs" />
+    <Compile Include="Models\Entities\ContactLog.cs" />
     <Compile Include="Models\Entities\ExceptionLogger.cs" />
     <Compile Include="Models\Entities\FileType.cs" />
     <Compile Include="Models\Entities\Project.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\AddMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\ViewModels\ConctactLogViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateProjectFileViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateProjectViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
@@ -254,7 +256,9 @@
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\ProjectFileService.cs" />
     <Compile Include="Services\ProjectService.cs" />
+    <Compile Include="SocketHub\ChatHub.cs" />
     <Compile Include="SocketHub\CodeHub.cs" />
+    <Compile Include="SocketHub\Startup.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Services\ExceptionService.cs" />
   </ItemGroup>
@@ -614,6 +618,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ContactUs.css" />
     <Content Include="Content\logo.jpg" />
     <Content Include="Content\logoBlueFade.jpg" />
     <Content Include="Content\Logos\cplusplus.png" />
@@ -644,6 +649,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\cbUpdateProject.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -704,6 +710,10 @@
     <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
     <Content Include="Views\Account\About.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />
+    <Content Include="Views\ProjectFile\DeleteConfirmed.cshtml" />
+    <Content Include="Views\ProjectFile\deleteProjectFile.cshtml" />
+    <Content Include="Views\ProjectFile\Chat.cshtml" />
+    <Content Include="Views\Shared\PageNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
