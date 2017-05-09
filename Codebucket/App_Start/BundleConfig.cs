@@ -28,7 +28,8 @@ namespace Codebucket
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/Codebucket").Include(
-                      "~/Scripts/Test.js"));
-        }
+                      "~/Scripts/Test.js",
+					  "~/Scripts/cbUpdateProject.js"));
+		}
     }
 }
