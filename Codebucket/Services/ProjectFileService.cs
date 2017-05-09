@@ -188,7 +188,6 @@ namespace Codebucket.Services
             string owner = ownerInProject._userName;
 
             return owner;
-
         }
     }
 }

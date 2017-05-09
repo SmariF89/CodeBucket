@@ -29,7 +29,7 @@ namespace Codebucket.Models
         IDbSet<ExceptionLogger> _exceptions { get; set; }
         IDbSet<ContactLog> _contacts { get; set; }
 
-        int SaveChanges();
+        int SaveChanges(); 
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //IAppDataContext

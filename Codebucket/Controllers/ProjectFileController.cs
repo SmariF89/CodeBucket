@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-    [ValidateInput(false)] ////////////////////////////////////// neeeded ? keep for a bit just in case!!!
     public class ProjectFileController : Controller
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
@@ -95,14 +94,23 @@ namespace Codebucket.Controllers
         [HttpGet]
 
         //The parameter was int? id if it matters TODO: Eyða fyrir skil
-        public ActionResult displayProject(int id) 
+        public ActionResult displayProject(int? id) 
         {
 
-            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name , id);
-
-            string owner = _projectFileService.getOwnerName(id);
-            model._projectOwnerName = owner;
+            //// Working on
             
+
+            if (!(_projectFileService.isProjectMember(User.Identity.Name, id.Value) ||
+                _projectFileService.isProjectOwner(User.Identity.Name, id.Value)))
+            {
+                return RedirectToAction("Index", "Project");
+            }
+            
+
+            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
+
+            string owner = _projectFileService.getOwnerName(id.Value);
+            model._projectOwnerName = owner;
             return View(model);
         }
         #endregion
