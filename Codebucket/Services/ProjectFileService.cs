@@ -218,5 +218,19 @@ namespace Codebucket.Services
 
             return (doesProjectfileExist != null);
         }
+
+        public ProjectMemberViewModel getProjectMember(int projectID)
+        {
+            ProjectMemberViewModel member = new ProjectMemberViewModel();
+
+            ProjectMember memberFound = (from m in _db._projectMembers
+                                         where m._projectID == projectID
+                                         select m).FirstOrDefault();
+
+            member._userName = memberFound._userName;
+            member._projectID = memberFound._projectID;
+
+            return member;
+        }
     }
 }

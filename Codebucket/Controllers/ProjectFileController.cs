@@ -195,8 +195,29 @@ namespace Codebucket.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult deleteProjectMember(int? id)
+        {
+            ProjectMemberViewModel model = new ProjectMemberViewModel();
+            model = _projectFileService.getProjectMember(id.Value);
 
+            return View(model);
+        }
 
+        [HttpPost, ActionName("deleteProjectMember")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteProjectMemberConfirmed(int id)
+        {
+            ProjectMemberViewModel model = new ProjectMemberViewModel();
+            model = _projectFileService.getProjectMember(id);
+            
+            int idOfProject = model._projectID;
+
+            _projectFileService.deleteProjectMember(id);
+
+            return RedirectToAction("displayProject" + "/" + idOfProject.ToString());
+        }
+        
         //[HttpGet]
         //      public ActionResult showEditorForProjectFile(int? id)
         //      {
