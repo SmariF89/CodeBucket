@@ -1,0 +1,22 @@
+﻿@model Codebucket.Models.ViewModels.ProjectViewModel
+
+@{
+    ViewBag.Title = "deleteProject";
+}
+
+
+<div>
+    <h4>Are you sure you want to delete @Model._projectName from this project?</h4>
+
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" />
+
+                @Html.ActionLink("Back", "displayProject", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
+            </div>
+        }
+    </div>
+</div>
