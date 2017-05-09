@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
-    [ValidateInput(false)] ////////////////////////////////////// neeeded ? keep for a bit just in case!!!
     public class ProjectFileController : Controller
     {
         private ProjectFileService _projectFileService = new ProjectFileService();
@@ -63,15 +62,22 @@ namespace Codebucket.Controllers
         // GET: updateProjectFile
         [ValidateInput(false)]
         [HttpGet]
-        public ActionResult updateProjectFile(int id)
+        public ActionResult updateProjectFile(int? id)
         {
-            if (id != 0)
+            if (_projectFileService.doesProjectFileExist(id.Value))
             {
-                ProjectFileViewModel model = new ProjectFileViewModel();
-                model = _projectFileService.getProjectFileByProjectFileId(id);
-                return View(model);
+                int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
+
+                if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, projectId))
+                {
+                    ProjectFileViewModel model = new ProjectFileViewModel();
+                    model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+
+                    return View(model);
+                }
             }
-            return null;
+
+            return RedirectToAction("Index", "Project");
         }
         [ValidateInput(false)]
         // POST: updateProjectFile
@@ -93,17 +99,19 @@ namespace Codebucket.Controllers
 
         #region List all files in current project.
         [HttpGet]
-
-        //The parameter was int? id if it matters TODO: Eyða fyrir skil
-        public ActionResult displayProject(int id)
+        public ActionResult displayProject(int? id) 
         {
-            ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
+            if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, id.Value))
+            {
+                ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
 
+                string owner = _projectFileService.getOwnerName(id.Value);
+                model._projectOwnerName = owner;
 
-            string owner = _projectFileService.getOwnerName(id);
-            model._projectOwnerName = owner;
+                return View(model);
+            }
 
-            return View(model);
+            return RedirectToAction("Index", "Project");
         }
         #endregion
 
@@ -146,12 +154,17 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult deleteProjectFile(int? id)
         {
-            if (id != null)
+            if (_projectFileService.doesProjectFileExist(id.Value))
             {
-                ProjectFileViewModel model = new ProjectFileViewModel();
-                model = _projectFileService.getProjectFileByProjectFileId(id.Value);
-                
-                return View(model);
+                int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
+
+                if (_projectFileService.isProjectOwner(User.Identity.Name,projectId))
+                {
+                    ProjectFileViewModel model = new ProjectFileViewModel();
+                    model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+
+                    return View(model);
+                }
             }
 
             return HttpNotFound();

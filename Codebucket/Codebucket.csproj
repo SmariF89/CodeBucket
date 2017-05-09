@@ -631,6 +631,7 @@
     <Content Include="Content\Logos\WhiteBackLogo.jpg" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
+    <Content Include="Content\Symbols\delete.png" />
     <Content Include="Content\Twitter\Elvis.png" />
     <Content Include="Content\Twitter\Sebastian.png" />
     <Content Include="Content\Twitter\Swindell.png" />
@@ -710,8 +711,6 @@
     <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
     <Content Include="Views\Account\About.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />
-    <Content Include="Views\ProjectFile\DeleteConfirmed.cshtml" />
-    <Content Include="Views\ProjectFile\deleteProjectFile.cshtml" />
     <Content Include="Views\ProjectFile\Chat.cshtml" />
     <Content Include="Views\Shared\PageNotFound.cshtml" />
     <Content Include="Views\Project\deleteProject.cshtml" />

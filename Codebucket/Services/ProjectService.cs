@@ -131,30 +131,18 @@ namespace Codebucket.Services
         #region Get single project by id.   
         public ProjectViewModel getProjectByProjectId(string userName, int? id)
         {
-            try
-            {
-                Project entity = _db._projects.Find(id);
-                ProjectViewModel model = new ProjectViewModel();
+            Project entity = _db._projects.Find(id);
+            ProjectViewModel model = new ProjectViewModel();
 
-                model._id = entity.ID;
-                model._projectName = entity._projectName;
-                model._projectFileTypeId = entity._projectFileTypeId;
-                model._isProjectOwner = _projectFileService.isProjectOwner(userName, id.Value);
-                model._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
+            model._id = entity.ID;
+            model._projectName = entity._projectName;
+            model._projectFileTypeId = entity._projectFileTypeId;
+            model._isProjectOwner = _projectFileService.isProjectOwner(userName, id.Value);
+            model._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
 
-                List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
-                model._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
-                return model;
-            }
-            catch (NullReferenceException ex)
-            {
-                throw ex;
-            }
-            
-            //_projectFileService.getAllProjectFilesByProjectId(id);
-            //model._projectFiles = modelFiles;
-
-            
+            List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
+            model._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
+            return model;
         }
         #endregion
 
@@ -179,13 +167,8 @@ namespace Codebucket.Services
             defaultFile._projectFileType = "." + extension;
             defaultFile._aceExtension = aceExtension;
             defaultFile._projectFileData = defaultData;
-            //defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).FirstOrDefault().ID;
-            //defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).OrderByDescending(x => x.ID).GroupBy(x => x.ID).Select(x => x.FirstOrDefault());
-
             defaultFile._projectID = _db._projects.OrderByDescending(p => p.ID)
                                     .Select(p => p.ID).FirstOrDefault();
-
-
 
             _db._projectFiles.Add(defaultFile);
             _db.SaveChanges();
