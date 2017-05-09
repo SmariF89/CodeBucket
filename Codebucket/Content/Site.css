@@ -156,6 +156,16 @@ ul.nav a:hover {
     padding-left: 1px;
     padding-right: 1px;
     float: right;
+    height: 6%; 
+    width: 6%;
+}
+
+.typeLogo2{
+    padding-left: 1px;
+    padding-right: 1px;
+    float: right;
+    height: 8%;
+    width: 8%;
 }
 
 .projectLink{
@@ -164,11 +174,6 @@ ul.nav a:hover {
 
 .modal-body iframe{
 	width:100% !important;
-}
-
-td img{
-    height: 6%; 
-    width: 6%;
 }
 
 td{
@@ -195,9 +200,20 @@ td a:hover{
     background-color: #ffffff;
 }
 
-input[type="text"]
-{
+input[type="text"]{
     font-size:14px;
+}
+
+
+.fileDel{
+    width: 13%;
+}
+
+.delSymbol{
+    height: 40%;
+    width: 40%;
+    float: right;
+    padding-right: 15px;
 }
 
 .chat{
@@ -213,4 +229,24 @@ input[type="text"]
 .sendMessage{
     background-color: #26a69a;
     color: #ffffff;
+}
+
+/*displayProject.cshtml starts from here*/
+
+.AddFileDisplay{
+    float: right;
+    margin-left: 20px;
+}
+
+.AddMemberDisplay{
+    float: right;
+
+}
+
+.BackDisplayProject{
+    float: left;
+}
+
+.FileDisplayContainer{
+    margin-bottom: 200px;
 }

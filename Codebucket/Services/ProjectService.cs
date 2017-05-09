@@ -178,13 +178,8 @@ namespace Codebucket.Services
             defaultFile._projectFileType = "." + extension;
             defaultFile._aceExtension = aceExtension;
             defaultFile._projectFileData = defaultData;
-            //defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).FirstOrDefault().ID;
-            //defaultFile._projectID = _db._projects.Where(x => x._projectName == model._projectName).OrderByDescending(x => x.ID).GroupBy(x => x.ID).Select(x => x.FirstOrDefault());
-
             defaultFile._projectID = _db._projects.OrderByDescending(p => p.ID)
                                     .Select(p => p.ID).FirstOrDefault();
-
-
 
             _db._projectFiles.Add(defaultFile);
             _db.SaveChanges();
