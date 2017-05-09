@@ -176,6 +176,10 @@ namespace Codebucket.Services
 
         public string getOwnerName (int projectID)
         {
+            if (_db._projects.Find(projectID) == null)
+            {
+                return null;
+            }
 
             ProjectOwner ownerInProject = (from owned in _db._projectOwners
                                            where owned._projectID == projectID

@@ -97,8 +97,9 @@ namespace Codebucket.Controllers
         //The parameter was int? id if it matters TODO: Eyða fyrir skil
         public ActionResult displayProject(int id) 
         {
+
             ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name , id);
-           
+
             string owner = _projectFileService.getOwnerName(id);
             model._projectOwnerName = owner;
             
