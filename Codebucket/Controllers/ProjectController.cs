@@ -29,7 +29,8 @@ namespace Codebucket.Controllers
 
         #region Display all files in project selected, redirects action to ProjectFile/listAllProjectFiles
         [HttpGet]
-        public ActionResult displayProjectFiles(int? id) // FIXME::
+        // FIXME::Just calling a function in ProjectFileController. possible to remove ? or at least rename ?
+        public ActionResult displayProjectFiles(int? id) 
         {
             return RedirectToAction("displayProject", "ProjectFile", new { id });
         }
@@ -51,8 +52,6 @@ namespace Codebucket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult createNewProject(FormCollection collection)
         {
-            string userName = User.Identity.Name;
-
             if (!ModelState.IsValid)
             {
                 CreateProjectViewModel viewModel = new CreateProjectViewModel();
@@ -61,15 +60,14 @@ namespace Codebucket.Controllers
             }
             else
             {
-                string ownerName = System.Web.HttpContext.Current.User.Identity.Name;
                 CreateProjectViewModel model = new CreateProjectViewModel();
 
                 model._projectName = collection["_projectName"];
                 model._projectTypeId = Int32.Parse(collection["radioChoice"]);
 
-                if (_projectService.createNewProjectIsValid(model._projectName, userName))
+                if (_projectService.createNewProjectIsValid(model._projectName, User.Identity.Name))
                 {
-                    _projectService.addProject(model, ownerName);
+                    _projectService.addProject(model, User.Identity.Name);
                     return RedirectToAction("Index", "Project");
                 }
                 else
@@ -82,23 +80,6 @@ namespace Codebucket.Controllers
 
         #endregion
 
-        #region Update project TODO::needed?
-
-        // GET: UpdateProject
-        [HttpGet]
-        public ActionResult updateProject(int? id)
-        {
-            return null;
-        }
-
-        // POST: UpdateProject
-        [HttpPost]
-        public ActionResult updateProject(ProjectViewModel model)
-        {
-            return null;
-        }
-        #endregion
-        
         [HttpGet]
         public ActionResult deleteProject(int? id)
         {

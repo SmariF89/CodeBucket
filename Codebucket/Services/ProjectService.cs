@@ -239,7 +239,7 @@ namespace Codebucket.Services
 
             foreach(ProjectOwner item in projectsOwnedByUser)
             {
-                listOfProjects.Add(getProjectByProjectId(userName, item._projectID));                       
+                listOfProjects.Add(getProjectByProjectId(userName, item._projectID));
             }
             
             foreach(ProjectViewModel item in listOfProjects)
