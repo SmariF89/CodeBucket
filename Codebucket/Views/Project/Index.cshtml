@@ -1,166 +1,165 @@
-﻿<html>
-@model List<Codebucket.Models.ViewModels.ProjectViewModel>
+﻿@model List<Codebucket.Models.ViewModels.ProjectViewModel>
 @using Codebucket.Models.ViewModels
 
 @{
     ViewBag.Title = "My projects";
 }
-<body>
-    <!--RADIO BUTTONS-->
-    <div class="row" style="margin-bottom: 25px; margin-top: 25px; ">
-        <p id="viewInstr">View as</p>
-        <div class="pull-right">
-            <div class="btn-group btn-group-justified movie-views" data-toggle="buttons">
-                <label class="btn btn-basic active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" value="list" checked>List
-                </label>
-                <label class="btn btn-basic">
-                    <input type="radio" name="options" id="option2" autocomplete="off" value="poster">Icons
-                </label>
-            </div>
+
+<!--RADIO BUTTONS-->
+<div class="row" style="margin-bottom: 25px; margin-top: 25px; ">
+    <p id="viewInstr">View as</p>
+    <div class="pull-right">
+        <div class="btn-group btn-group-justified movie-views" data-toggle="buttons">
+            <label class="btn btn-basic active">
+                <input type="radio" name="options" id="option1" autocomplete="off" value="list" checked>List
+            </label>
+            <label class="btn btn-basic">
+                <input type="radio" name="options" id="option2" autocomplete="off" value="poster">Icons
+            </label>
         </div>
     </div>
+</div>
 
 
-    <!--TABLE-->
-    <div class="row movies-list">
-        <h2 style="font-weight: bold;">My projects</h2>
-        <table class="highlight bordered">
-            <tbody>
-                @{int numberOfOwnedProjects = 0;}
-                @foreach (ProjectViewModel item in Model)
-                {
-                    if (item._isProjectOwner)
-                    {
-                        numberOfOwnedProjects++;
-                    }
-                }
-
-                @foreach (ProjectViewModel item in Model)
-                {
-                    if (item._isProjectOwner)
-                    {
-                            <tr>
-                                <td class="ownerTD">
-                                    <figure>
-                                        <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
-                                    </figure>
-                                </td>
-                                <td>
-                                    @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                                </td>
-                                <td>
-                                    @if (numberOfOwnedProjects > 1)
-                                    {
-                                        <figure>
-                                            <a href="/Project/deleteProject/@item._id" title="Delete file">
-                                                <img title="Delete project" class="delSymbolProject" alt="Remove" src="~/Content/Symbols/delete.png" />
-                                            </a>
-                                        </figure>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    }
-            </tbody>
-        </table>
-
-        <h2 style="font-weight: bold;">Participating</h2>
-        <table class="highlight bordered">
-            <tbody>
-                @foreach (ProjectViewModel item in Model)
-                {
-                    if (!item._isProjectOwner)
-                    {
-                            <tr>
-                                <td>
-                                    <figure>
-                                        <img class="typeLogo2" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
-                                    </figure>
-                                </td>
-                                <td>
-                                    @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                                </td>
-                                <td>
-                                    <figure>
-                                        <img class="isProjectMember" alt="Member" src="~/Content/Symbols/person.png" />
-                                    </figure>
-                                </td>
-                            </tr>
-                        }
-                    }
-            </tbody>
-        </table>
-        <br />
-        @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
-    </div>
-
-
-    <!--ICONS-->
-    <div class="row movies-poster" style="display:none;">
-        <h2 style="font-weight: bold;">My projects</h2>
-        <div class="jumbotron">
-            <div class="row">
-                @foreach (var item in Model)
+<!--TABLE-->
+<div class="row movies-list">
+    <h2 style="font-weight: bold;">My projects</h2>
+    <table class="highlight bordered">
+        <tbody>
+            @{int numberOfOwnedProjects = 0;}
+            @foreach (ProjectViewModel item in Model)
             {
                 if (item._isProjectOwner)
                 {
-                    string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
-                        <div class="col-sm-1 col-md-2">
-                            <div class="panel panel-default" style="min-height:200px;">
-                                <div id="projectTitle">
-                                    <h4>
-                                        <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
-                                    </h4>
-                                </div>
-                                <div class="panel-body">
-                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
-                                        <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    numberOfOwnedProjects++;
+                }
+            }
+
+            @foreach (ProjectViewModel item in Model)
+            {
+                if (item._isProjectOwner)
+                {
+                        <tr>
+                            <td class="ownerTD">
+                                <figure>
+                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                                </figure>
+                            </td>
+                            <td>
+                                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                            </td>
+                            <td>
+                                @if (numberOfOwnedProjects > 1)
+                                {
+                                    <figure>
+                                        <a href="/Project/deleteProject/@item._id" title="Delete file">
+                                            <img title="Delete project" class="delSymbolProject" alt="Remove" src="~/Content/Symbols/delete.png" />
+                                        </a>
+                                    </figure>
+                                }
+                            </td>
+                        </tr>
                     }
                 }
-            </div>
-        </div>
-        <h2 style="font-weight: bold;">Participating</h2>
-        <div class="jumbotron">
-            <div class="row">
-                @{int counter = 0;}
-                @foreach (var item in Model)
+        </tbody>
+    </table>
+
+    <h2 style="font-weight: bold;">Participating</h2>
+    <table class="highlight bordered">
+        <tbody>
+            @foreach (ProjectViewModel item in Model)
+            {
+                if (!item._isProjectOwner)
                 {
-                    if (!item._isProjectOwner)
-                    {
-                        counter++;
-                        string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
-                        <div class="col-sm-2 col-md-2">
-                            <div class="panel panel-default" style="min-height:200px;">
-                                <div id="projectTitle">
-                                    <h4>
-                                        <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
-                                    </h4>
-                                </div>
-                                <div class="panel-body">
-                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
-                                        <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <tr>
+                            <td>
+                                <figure>
+                                    <img class="typeLogo2" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                                </figure>
+                            </td>
+                            <td>
+                                &nbsp @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                            </td>
+                            <td>
+                                <p class="addedBy">Added by <b>@item._projectOwnerName</b></p>
+                            </td>
+                            <td>
+                                <figure>
+                                    <img class="isProjectMember" alt="Member" src="~/Content/Symbols/GroupIcon.png" />
+                                </figure>
+                            </td>
+                        </tr>
                     }
                 }
-                @if (counter == 0)
-                {
-                    <p class="alert-danger">You are not a participant of any project.</p>
+        </tbody>
+    </table>
+    <br />
+    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+</div>
+
+
+<!--ICONS-->
+<div class="row movies-poster" style="display:none;">
+    <h2 style="font-weight: bold;">My projects</h2>
+    <div class="jumbotron">
+        <div class="row">
+            @foreach (var item in Model)
+        {
+            if (item._isProjectOwner)
+            {
+                string titleShort = item._projectName.Length > 10 ? item._projectName.Substring(0, 10) + "..." : item._projectName;
+                    <div class="col-sm-1 col-md-2">
+                        <div class="panel panel-default" style="min-height:200px;">
+                            <div class="projectTitle">
+                                <a href="/Project/deleteProject/@item._id" title="Delete file">
+                                    <img title="Delete project" class="delIconProject" id="delIcon" alt="Remove" src="~/Content/Symbols/quitIcon.png" />
+                                </a>
+                            </div>
+                            <div class="panel-body">
+                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
+                                </a>
+                                <a class="iconText" href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                            </div>
+                        </div>
+                    </div>
                 }
-            </div>
+            }
         </div>
-        @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
     </div>
-</body>
-</html>
-
-
-
-
+    <h2 style="font-weight: bold;">Participating</h2>
+    <div class="jumbotron">
+        <div class="row">
+            @{int counter = 0;}
+            @foreach (var item in Model)
+            {
+                if (!item._isProjectOwner)
+                {
+                    counter++;
+                    string titleShort = item._projectName.Length > 10 ? item._projectName.Substring(0, 10) + "..." : item._projectName;
+                    <div class="col-sm-2 col-md-2">
+                        <div class="panel panel-default" style="min-height:200px;">
+                            <div class="projectTitle">
+                                <p class="addedByIco">Added by @item._projectOwnerName</p>
+                                <img title="Invited by @item._projectOwnerName" class="delIconProject" id="delIcon" alt="Remove" src="~/Content/Symbols/GroupIcon.png" />
+                            </div>
+                            <div class="panel-body">
+                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
+                                </a>
+                                <h4>
+                                    <a class="iconText" href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @if (counter == 0)
+            {
+                <p>You are not a participant of any project.</p>
+            }
+        </div>
+    </div>
+    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+</div>

@@ -633,7 +633,9 @@
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="Content\Symbols\delete.png" />
+    <Content Include="Content\Symbols\GroupIcon.png" />
     <Content Include="Content\Symbols\person.png" />
+    <Content Include="Content\Symbols\quitIcon.png" />
     <Content Include="Content\Symbols\RemoveUser.png" />
     <Content Include="Content\Twitter\Elvis.png" />
     <Content Include="Content\Twitter\Sebastian.png" />
