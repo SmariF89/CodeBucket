@@ -88,11 +88,12 @@ namespace Codebucket.Services
 
             foreach (var item in newOwnerProjects)
             {
-                
+
                 model.Add(new ProjectViewModel
                 {
                     _id = item.ID,
                     _projectName = item._projectName,
+                    _projectOwnerName = _projectFileService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
                     _isProjectOwner = true,
                     _projectFileTypeId = item._projectFileTypeId,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
@@ -122,6 +123,7 @@ namespace Codebucket.Services
                     _id = item.ID,
                     _projectName = item._projectName,
                     _isProjectOwner = false,
+                    _projectOwnerName = _projectFileService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
                     _projectFileTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
                     _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)

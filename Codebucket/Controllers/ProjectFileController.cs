@@ -228,6 +228,30 @@ namespace Codebucket.Controllers
         }
         #endregion
 
+        #region Leave project.
+        [HttpGet]
+        public ActionResult leaveProject(int? projectID)
+        {
+            string userName = User.Identity.Name;
+            ProjectViewModel model = new ProjectViewModel();
+            model = _projectService.getProjectByProjectId(userName, projectID);
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("leaveProject")]
+        [ValidateAntiForgeryToken]
+        public ActionResult LeaveProjectConfirmed(int? projectID)
+        {
+            string userName = User.Identity.Name;
+            
+            _projectFileService.deleteProjectMemberByUserNameAndProjectID(userName, projectID.Value);
+
+            return RedirectToAction("Index", "Project");
+        }
+        #endregion 
+
+
         #region Chat.
         public ActionResult Chat()
         {

@@ -233,5 +233,14 @@ namespace Codebucket.Services
 
             return member;
         }
+
+        public void deleteProjectMemberByUserNameAndProjectID(string userName, int projectID)
+        {
+            ProjectMember memberFound = (from m in _db._projectMembers
+                                         where m._projectID == projectID && userName == m._userName
+                                         select m).FirstOrDefault();
+
+            deleteProjectMember(memberFound.ID);
+        }
     }
 }
