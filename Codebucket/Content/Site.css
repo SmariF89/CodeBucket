@@ -22,12 +22,12 @@ body {
     margin-top:30px;
 }
 
-/*.fb-follow {
-	margin: 0;
-	padding: 0;
-	position: relative;
-	left: 40%;
-}*/
+.fb-follow{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 40%;
+}
 
 footer{
      margin: 0;
@@ -63,19 +63,27 @@ textarea {
 #editor {
     position: relative;
     clear: both;
-    height: 425px;
+    height: 725px;
+    width: 100%;
     border: 1px solid #cccccc;
     border-radius: 4px;
 }
 
-.SideBySide{
+.FileName{
+    float:left;
+}
+
+.ThemeSelect{
+    float:right;
+}
+/*.SideBySide{
     float: left;
     width: 150px;
     height: 74px;
     margin: 10px;
 
 
-}
+}*/
 
 .file-name {
     border:solid;
@@ -236,6 +244,7 @@ input[type="text"]{
     margin-top: 30px;
     text-align: center;
     width: 700px;
+    margin-bottom: 150px;
     margin-left: 160px;
 }
 
@@ -353,3 +362,4 @@ input[type="text"]{
 .noMembers{
     font-size: 18px; 
 }
+

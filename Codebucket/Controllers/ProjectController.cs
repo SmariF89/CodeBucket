@@ -14,6 +14,7 @@ namespace Codebucket.Controllers
     public class ProjectController : Controller
     {
         private ProjectService _projectService = new ProjectService();
+        private ProjectFileService _projectFileService = new ProjectFileService();
 
         #region Display all projects by current user
 
@@ -68,11 +69,13 @@ namespace Codebucket.Controllers
                 if (_projectService.createNewProjectIsValid(model._projectName, User.Identity.Name))
                 {
                     _projectService.addProject(model, User.Identity.Name);
+
                     return RedirectToAction("Index", "Project");
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "This project already exists.");
+
                     return View("createNewProject");
                 }
             }
@@ -85,31 +88,43 @@ namespace Codebucket.Controllers
         {
             if (id != null)
             {
-                string userName = User.Identity.Name;
-                ProjectViewModel model = new ProjectViewModel();
-                // Skrítið að það þurfi að ná í project með username og id. Þá þarf 
-                // maður að declera userinn óþarflega oft. Þarf að laga?
-                model = _projectService.getProjectByProjectId(userName, id);
+                if (_projectService.projectExist(id.Value))
+                {
+                    if (_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+                    {
+                        ProjectViewModel model = new ProjectViewModel();
+                        model = _projectService.getProjectByProjectId(User.Identity.Name, id);
 
-                return View(model);
+                        return View(model);
+                    }
+                }
             }
+
             return HttpNotFound();
         }
 
         [HttpPost, ActionName("deleteProject")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            string userName = User.Identity.Name;
-            // Skrítið að það þurfi að ná í project með username og id. Þá þarf 
-            // maður að declera userinn óþarflega oft. Þarf að laga?
-            ProjectViewModel model = new ProjectViewModel();
-            model = _projectService.getProjectByProjectId(userName, id);
-            int idOfProject = model._id;
+            if (id != null)
+            {
+                if (_projectService.projectExist(id.Value))
+                {
+                    if (_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+                    {
+                        ProjectViewModel model = new ProjectViewModel();
+                        model = _projectService.getProjectByProjectId(User.Identity.Name, id.Value);
+                        int idOfProject = model._id;
 
-            _projectService.deleteProject(model);
+                        _projectService.deleteProject(model);
 
-            return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+
+            return HttpNotFound();
         }
     }
 }

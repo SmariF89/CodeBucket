@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Codebucket.Models.Entities;
 
+
 namespace Codebucket.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -19,7 +20,7 @@ namespace Codebucket.Models
         }
     }
 
-    public interface IAppDataContext
+    public interface IMyDataContext
     {
         IDbSet<Project> _projects { get; set; }
         IDbSet<ProjectFile> _projectFiles { get; set; }
@@ -29,10 +30,11 @@ namespace Codebucket.Models
         IDbSet<ExceptionLogger> _exceptions { get; set; }
         IDbSet<ContactLog> _contacts { get; set; }
 
-        int SaveChanges(); 
+        int SaveChanges();
+        //System.Data.Entity.Infrastructure.DbEntityEntry Entry(object entity);
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>//, IAppDataContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>//, IMyDataContext
     {
         public DbSet<Project> _projects { get; set; }
         public DbSet<ProjectFile> _projectFiles { get; set; }
