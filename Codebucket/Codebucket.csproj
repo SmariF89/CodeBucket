@@ -614,6 +614,7 @@
     <Content Include="Ace\src-noconflict\worker-xml.js" />
     <Content Include="Ace\src-noconflict\worker-xquery.js" />
     <Content Include="Content\AboutUs.css" />
+    <Content Include="Content\Bckgnd\b1.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -632,6 +633,8 @@
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="Content\Symbols\delete.png" />
+    <Content Include="Content\Symbols\person.png" />
+    <Content Include="Content\Symbols\RemoveUser.png" />
     <Content Include="Content\Twitter\Elvis.png" />
     <Content Include="Content\Twitter\Sebastian.png" />
     <Content Include="Content\Twitter\Swindell.png" />
