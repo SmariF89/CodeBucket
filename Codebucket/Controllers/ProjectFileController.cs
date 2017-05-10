@@ -224,28 +224,6 @@ namespace Codebucket.Controllers
             return RedirectToAction("displayProject" + "/" + idOfProject.ToString());
         }
         
-        //[HttpGet]
-        //      public ActionResult showEditorForProjectFile(int? id)
-        //      {
-        //	if (id.HasValue)
-        //	{
-        //		ProjectFileViewModel model =  _projectFileService.getProjectFileById(id);
-        //		return View(model);
-        //	}
-        //	return null;
-        //      }
-
-        //[HttpPost]
-        //public ActionResult showEditorForProjectFile(ProjectFileViewModel model)
-        //{
-        //	if (ModelState.IsValid)
-        //	{
-        //		_projectFileService.updateProjectFile(model);
-        //		//showEditorForProjectFile(model._id);
-        //		return View(model);
-        //	}
-        //	return HttpNotFound();
-        //}
     }
 
 

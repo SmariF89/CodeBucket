@@ -1,33 +1,34 @@
-﻿@model List<Codebucket.Models.ViewModels.ProjectViewModel>
+﻿<html>
+@model List<Codebucket.Models.ViewModels.ProjectViewModel>
 @using Codebucket.Models.ViewModels
 
 @{
     ViewBag.Title = "My projects";
 }
-
-<!--RADIO BUTTONS-->
-<div class="row" style="margin-bottom: 25px; margin-top: 25px; ">
-    <p id="viewInstr">View as</p>
-    <div class="pull-right">
-        <div class="btn-group btn-group-justified movie-views" data-toggle="buttons">
-            <label class="btn btn-basic active">
-                <input type="radio" name="options" id="option1" autocomplete="off" value="list" checked>List
-            </label>
-            <label class="btn btn-basic">
-                <input type="radio" name="options" id="option2" autocomplete="off" value="poster">Icons
-            </label>
+<body>
+    <!--RADIO BUTTONS-->
+    <div class="row" style="margin-bottom: 25px; margin-top: 25px; ">
+        <p id="viewInstr">View as</p>
+        <div class="pull-right">
+            <div class="btn-group btn-group-justified movie-views" data-toggle="buttons">
+                <label class="btn btn-basic active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" value="list" checked>List
+                </label>
+                <label class="btn btn-basic">
+                    <input type="radio" name="options" id="option2" autocomplete="off" value="poster">Icons
+                </label>
+            </div>
         </div>
     </div>
-</div>
 
 
-<!--TABLE-->
-<div class="row movies-list">
-    <h2 style="font-weight: bold;">My projects</h2>
-    <table class="highlight bordered">
-        <tbody>
-            @{int numberOfOwnedProjects = 0;}
-            @foreach (ProjectViewModel item in Model)
+    <!--TABLE-->
+    <div class="row movies-list">
+        <h2 style="font-weight: bold;">My projects</h2>
+        <table class="highlight bordered">
+            <tbody>
+                @{int numberOfOwnedProjects = 0;}
+                @foreach (ProjectViewModel item in Model)
             {
                 if (item._isProjectOwner)
                 {
@@ -35,118 +36,120 @@
                 }
             }
 
-            @foreach (ProjectViewModel item in Model)
+                @foreach (ProjectViewModel item in Model)
             {
                 if (item._isProjectOwner)
                 {
-                    <tr>
-                        <td>
-                            
-                            @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                            @if (numberOfOwnedProjects > 1)
-                            {
-                                @Html.ActionLink("Delete", "deleteProject", new { id = item._id }, new { @class = "btn btn-default" })
-                            }
-                        </td>
-                        <td>
-                            <figure>
-                                <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
-                            </figure>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+                        <tr>
+                            <td>
 
-    <h2 style="font-weight: bold;">Participating</h2>
-    <table class="highlight bordered">
-        <tbody>
-            @foreach (ProjectViewModel item in Model)
+                                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                                @if (numberOfOwnedProjects > 1)
+                                {
+                                    @Html.ActionLink("delete", "deleteProject", new { id = item._id }, new { @class = "glyphicon glyphicon-trash" })
+                                }
+                            </td>
+                            <td>
+                                <figure>
+                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                                </figure>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <h2 style="font-weight: bold;">Participating</h2>
+        <table class="highlight bordered">
+            <tbody>
+                @foreach (ProjectViewModel item in Model)
             {
                 if (!item._isProjectOwner)
                 {
-                    <tr>
-                        <td>
-                            @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                        </td>
-                        <td>
-                            <figure>
-                                <img class="typeLogo2" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
-                            </figure>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                            </td>
+                            <td>
+                                <figure>
+                                    <img class="typeLogo2" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                                </figure>
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
-    <br />
-    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
-</div>
+            </tbody>
+        </table>
+        <br />
+        @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+    </div>
 
 
-<!--ICONS-->
-<div class="row movies-poster" style="display:none;">
-    <h2 style="font-weight: bold;">My projects</h2>
-    <div class="jumbotron">
-        <div class="row">
-            @foreach (var item in Model)
+    <!--ICONS-->
+    <div class="row movies-poster" style="display:none;">
+        <h2 style="font-weight: bold;">My projects</h2>
+        <div class="jumbotron">
+            <div class="row">
+                @foreach (var item in Model)
             {
                 if (item._isProjectOwner)
                 {
                     string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
-                    <div class="col-sm-1 col-md-2">
-                        <div class="panel panel-default" style="min-height:200px;">
-                            <div id="projectTitle">
-                                <h4>
-                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
-                                </h4>
-                            </div>
-                            <div class="panel-body">
-                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
-                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
-                                </a>
+                        <div class="col-sm-1 col-md-2">
+                            <div class="panel panel-default" style="min-height:200px;">
+                                <div id="projectTitle">
+                                    <h4>
+                                        <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                                    </h4>
+                                </div>
+                                <div class="panel-body">
+                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                        <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
-    <h2 style="font-weight: bold;">Participating</h2>
-    <div class="jumbotron">
-        <div class="row">
-            @{int counter = 0;}
-            @foreach (var item in Model)
-            {    
-                if (!item._isProjectOwner)
+        <h2 style="font-weight: bold;">Participating</h2>
+        <div class="jumbotron">
+            <div class="row">
+                @{int counter = 0;}
+                @foreach (var item in Model)
                 {
-                    counter++;
-                    string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
-                    <div class="col-sm-2 col-md-2">
-                        <div class="panel panel-default" style="min-height:200px;">
-                            <div id="projectTitle">
-                                <h4>
-                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
-                                </h4>
-                            </div>
-                            <div class="panel-body">
-                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
-                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
-                                </a>
+                    if (!item._isProjectOwner)
+                    {
+                        counter++;
+                        string titleShort = item._projectName.Length > 13 ? item._projectName.Substring(0, 13) + "..." : item._projectName;
+                        <div class="col-sm-2 col-md-2">
+                            <div class="panel panel-default" style="min-height:200px;">
+                                <div id="projectTitle">
+                                    <h4>
+                                        <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                                    </h4>
+                                </div>
+                                <div class="panel-body">
+                                    <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                        <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
-            @if (counter == 0)
+                @if (counter == 0)
             {
-                <p class="alert-danger">You are not a participant of any project.</p>
-            }   
+                    <p class="alert-danger">You are not a participant of any project.</p>
+                }
+            </div>
         </div>
+        @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
     </div>
-    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
-</div>
+</body>
+</html>
 
 
 
