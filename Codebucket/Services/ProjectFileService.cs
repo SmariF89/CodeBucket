@@ -120,13 +120,13 @@ namespace Codebucket.Services
             return (getUserName == username);           
         }
         
-        public bool isProjectOwnerOrMember(string username, int projectID)
+        public bool isProjectOwnerOrMember(string username, int projectID) //MOVME::This belongs in ApplicationUserService??
         {
             return (isProjectOwner(username, projectID) || isProjectMember(username, projectID));
         }
 
         // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectOwner(string username, int projectID) 
+        public bool isProjectOwner(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
         {
             ProjectOwner ownerInProject = (from owned in _db._projectOwners
                                            where owned._userName == username && owned._projectID == projectID
@@ -136,12 +136,12 @@ namespace Codebucket.Services
         }
 
         // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectMember(string username, int projectID) 
+        public bool isProjectMember(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
         {
             ProjectMember memberInProject = (from member in _db._projectMembers
                                              where member._userName == username && member._projectID == projectID
                                              select member).FirstOrDefault();
-
+             
             return (memberInProject != null);
         }
         #endregion

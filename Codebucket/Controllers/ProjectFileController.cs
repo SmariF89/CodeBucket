@@ -39,10 +39,6 @@ namespace Codebucket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
         {
-
-            model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
-            model._projectFileData = "";
-
             if (!ModelState.IsValid)
             {
                 CreateProjectFileViewModel viewModel = new CreateProjectFileViewModel();
@@ -53,13 +49,13 @@ namespace Codebucket.Controllers
             }
             else
             {
+                model._projectFileType = _projectFileService.getFileTypeByProjectId(model._projectID);
+                model._projectFileData = "";
                 _projectFileService.addProjectFile(model);
                 ProjectViewModel viewModel = _projectService.getProjectByProjectId(User.Identity.Name, model._projectID);
-                //return RedirectToAction("displayProject", "ProjectFile", new { model._projectID });
+
                 return View("displayProject", viewModel);
             }
-
-
         }
         #endregion
 
@@ -87,7 +83,7 @@ namespace Codebucket.Controllers
         [ValidateInput(false)]
         // POST: updateProjectFile
         [HttpPost]
-        public ActionResult updateProjectFile(ProjectFileViewModel model)
+        public ActionResult updateProjectFile(ProjectFileViewModel model) // FIXME:: model.isvalid check, need id != 0?
         {
             if (model._projectFileData == null)
             {
@@ -116,20 +112,27 @@ namespace Codebucket.Controllers
                 return View(model);
             }
 
-            //return HttpNotFound();
-            return RedirectToAction("Index", "Project");
+            return HttpNotFound();
         }
         #endregion
 
         #region Add member to current project.
         // GET: AddProjectMember
         [HttpGet]
-        public ActionResult addProjectMember(int? id)
+        public ActionResult addProjectMember(int? projectID)
         {
-            AddMemberViewModel model = new AddMemberViewModel();
-            model._projectID = id.Value;
+            if (_projectService.projectExist(projectID))
+            {
+                if (_projectFileService.isProjectOwner(User.Identity.Name, projectID.Value))
+                {
+                    AddMemberViewModel model = new AddMemberViewModel();
+                    model._projectID = projectID.Value;
 
-            return View(model);
+                    return View(model);
+                }
+            }
+
+            return HttpNotFound();
         }
 
         // POST: AddProjectMember
@@ -137,8 +140,6 @@ namespace Codebucket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult addProjectMember(AddMemberViewModel model)
         {
-            int currId = model._projectID;
-
             if (!ModelState.IsValid)
             {
                 AddMemberViewModel viewModel = new AddMemberViewModel();
@@ -150,7 +151,7 @@ namespace Codebucket.Controllers
             else
             {
                 _projectService.addProjectMember(model);
-                ProjectViewModel model2 = _projectService.getProjectByProjectId(User.Identity.Name, currId);
+                ProjectViewModel model2 = _projectService.getProjectByProjectId(User.Identity.Name, model._projectID);
 
                 return View("displayProject", model2);
             }
