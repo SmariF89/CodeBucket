@@ -37,17 +37,20 @@ codeHub.client.onChange = function (changeData) {
 	console.log(changeData);
 	silent = true;
 	editor.getSession().getDocument().applyDelta(changeData);
+
+	
 	silent = false;
 };
 
 $.connection.hub.start().done(function () {
-	codeHub.server.joinDocument(documentID); //this is most likely not right
+	codeHub.server.joinDocument(documentID);
 	editor.on("change", function (obj) {
 		if (silent) {
 			return;
 		}
 		console.log(obj);
 		codeHub.server.onChange(obj, documentID);
+		
 	});
 });
 
