@@ -53,14 +53,21 @@ textarea {
     border-radius: 4px;
 }
 
-.SideBySide{
+.FileName{
+    float:left;
+}
+
+.ThemeSelect{
+    float:right;
+}
+/*.SideBySide{
     float: left;
     width: 150px;
     height: 74px;
     margin: 10px;
 
 
-}
+}*/
 
 .file-name {
     border:solid;
