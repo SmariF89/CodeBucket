@@ -77,12 +77,14 @@ namespace Codebucket.Services
                                                           where projectOwner._userName == userName
                                                           select projectOwner);
 
+            
             newOwnerProjects = (from a in _db._projects
                                 join b in ownerProjectsIds on a.ID equals b._projectID
                                 select a).ToList();
 
             foreach (var item in newOwnerProjects)
             {
+                
                 model.Add(new ProjectViewModel
                 {
                     _id = item.ID,
@@ -129,14 +131,8 @@ namespace Codebucket.Services
         #region Get single project by id.   
         public ProjectViewModel getProjectByProjectId(string userName, int? id)
         {
-
             Project entity = _db._projects.Find(id);
             ProjectViewModel model = new ProjectViewModel();
-
-            //if (entity == null)
-            //{
-            //    return null;
-            //}
 
             model._id = entity.ID;
             model._projectName = entity._projectName;
@@ -147,13 +143,6 @@ namespace Codebucket.Services
             List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
             model._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
             return model;
-
-            
-            
-            //_projectFileService.getAllProjectFilesByProjectId(id);
-            //model._projectFiles = modelFiles;
-
-            
         }
         #endregion
 
@@ -259,7 +248,60 @@ namespace Codebucket.Services
             
             return true;
         }
+
+        public bool projectExist(int? id)
+        {
+            var projectExist = _db._projects.Find(id);
+
+            return (projectExist != null);
+        }
+        
         #endregion
+
+        public void deleteProject(ProjectViewModel model)
+        {
+            // Delete all files in the project.
+            foreach (ProjectFileViewModel item in model._projectFiles)
+            {
+                _projectFileService.deleteProjectFile(item._id);
+            }
+
+            // Delete all members from the project.
+            foreach (ProjectMemberViewModel item in model._projectMembers)
+            {
+                _projectFileService.deleteProjectMember(item._projectID);
+            }
+
+            // Delete the owner of the project.
+            ProjectOwner ownerInProject = (from owner in _db._projectOwners
+                                           where owner._projectID == model._id
+                                           select owner).FirstOrDefault();
+
+            // Delete the project.
+            Project projectToDel = _db._projects.Find(model._id);
+            _db._projects.Remove(projectToDel);
+
+            _db._projectOwners.Remove(ownerInProject);
+            _db.SaveChanges();
+        }
+        
+        /*
+           ProjectOwner ownerInProject = (from owned in _db._projectOwners
+                                           where owned._projectID == projectID
+                                           select owned).FirstOrDefault();
+
+            string owner = ownerInProject._userName;
+
+            return owner;
+
+        }
+
+        public void deleteProjectFile(int id)
+        {
+            ProjectFile fileToDel = _db._projectFiles.Find(id);
+            _db._projectFiles.Remove(fileToDel);
+            _db.SaveChanges();
+         */
     }
 }
 

@@ -58,7 +58,10 @@ else
         <li class="collection-item">
 
             @Html.DisplayFor(modelItem => item._userName)
-
+            @if (Model._isProjectOwner == true)
+            {
+                @Html.ActionLink("Delete", "deleteProjectMember", new { id = item._projectID }, new { @class = "btn btn-default" })
+            }
         </li>
     }
 </ul>

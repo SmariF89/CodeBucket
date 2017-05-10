@@ -120,6 +120,11 @@ namespace Codebucket.Services
             return (getUserName == username);           
         }
         
+        public bool isProjectOwnerOrMember(string username, int projectID)
+        {
+            return (isProjectOwner(username, projectID) || isProjectMember(username, projectID));
+        }
+
         // Checks if username is owner of project, returns a bool value if true or not.
         public bool isProjectOwner(string username, int projectID) 
         {
@@ -190,11 +195,42 @@ namespace Codebucket.Services
             return owner;
         }
 
-        public void deleteProjectFile(int id)
+        public void deleteProjectFile(int? id)
         {
-            ProjectFile fileToDel = _db._projectFiles.Find(id);
+            ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
             _db._projectFiles.Remove(fileToDel);
             _db.SaveChanges();
+        }
+
+        public void deleteProjectMember(int projectID)
+        {
+            ProjectMember memberToDel = (from member in _db._projectMembers
+                                         where member._projectID == projectID
+                                         select member).FirstOrDefault();
+
+            _db._projectMembers.Remove(memberToDel);
+            _db.SaveChanges();
+        }
+
+        public bool doesProjectFileExist(int id)
+        {
+            var doesProjectfileExist = _db._projectFiles.Find(id);
+
+            return (doesProjectfileExist != null);
+        }
+
+        public ProjectMemberViewModel getProjectMember(int projectID)
+        {
+            ProjectMemberViewModel member = new ProjectMemberViewModel();
+
+            ProjectMember memberFound = (from m in _db._projectMembers
+                                         where m._projectID == projectID
+                                         select m).FirstOrDefault();
+
+            member._userName = memberFound._userName;
+            member._projectID = memberFound._projectID;
+
+            return member;
         }
     }
 }
