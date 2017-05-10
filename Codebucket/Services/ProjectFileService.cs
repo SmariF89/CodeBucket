@@ -120,13 +120,13 @@ namespace Codebucket.Services
             return (getUserName == username);           
         }
         
-        public bool isProjectOwnerOrMember(string username, int projectID)
+        public bool isProjectOwnerOrMember(string username, int projectID) //MOVME::This belongs in ApplicationUserService??
         {
             return (isProjectOwner(username, projectID) || isProjectMember(username, projectID));
         }
 
         // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectOwner(string username, int projectID) 
+        public bool isProjectOwner(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
         {
             ProjectOwner ownerInProject = (from owned in _db._projectOwners
                                            where owned._userName == username && owned._projectID == projectID
@@ -136,12 +136,12 @@ namespace Codebucket.Services
         }
 
         // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectMember(string username, int projectID) 
+        public bool isProjectMember(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
         {
             ProjectMember memberInProject = (from member in _db._projectMembers
                                              where member._userName == username && member._projectID == projectID
                                              select member).FirstOrDefault();
-
+             
             return (memberInProject != null);
         }
         #endregion
@@ -202,10 +202,10 @@ namespace Codebucket.Services
             _db.SaveChanges();
         }
 
-        public void deleteProjectMember(int projectID)
+        public void deleteProjectMember(int projectMemberID)
         {
             ProjectMember memberToDel = (from member in _db._projectMembers
-                                         where member._projectID == projectID
+                                         where member.ID == projectMemberID
                                          select member).FirstOrDefault();
 
             _db._projectMembers.Remove(memberToDel);
@@ -219,16 +219,17 @@ namespace Codebucket.Services
             return (doesProjectfileExist != null);
         }
 
-        public ProjectMemberViewModel getProjectMember(int projectID)
+        public ProjectMemberViewModel getProjectMemberByProjectMemberID(int projectMemberID)
         {
             ProjectMemberViewModel member = new ProjectMemberViewModel();
 
             ProjectMember memberFound = (from m in _db._projectMembers
-                                         where m._projectID == projectID
+                                         where m.ID == projectMemberID
                                          select m).FirstOrDefault();
 
             member._userName = memberFound._userName;
             member._projectID = memberFound._projectID;
+            member._id = memberFound.ID;
 
             return member;
         }

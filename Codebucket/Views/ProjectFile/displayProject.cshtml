@@ -14,7 +14,7 @@
         </div>
 
         <div class="AddMemberDisplay">
-            @Html.ActionLink("Add member", "addProjectMember", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
+            @Html.ActionLink("Add member", "addProjectMember", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
         </div>
 
         <div class="BackDisplayProject">
@@ -87,7 +87,7 @@ else
                     <td class="noMembers">You have not added anyone yet</td>
                 </tr>
                 <tr>
-                    <td class="noMembers">@Html.ActionLink("Click here to add the first one!", "addProjectMember", new { id = Model._id })</td>
+                    <td class="noMembers">@Html.ActionLink("Click here to add the first one!", "addProjectMember", new { projectID = Model._id })</td>
                 </tr>
             }
             @if (Model._projectMembers.Count == 0 && Model._isProjectOwner == false)
@@ -96,7 +96,8 @@ else
                     <td>There are no members yet</td>
                 </tr>
             }
-            @foreach (ProjectMemberViewModel item in Model._projectMembers)
+            @foreach (ProjectMemberViewModel item 
+                in Model._projectMembers)
             {
                 <tr>
                     <td>
@@ -108,7 +109,7 @@ else
                     <td>
                         @if (Model._isProjectOwner == true)
                         {
-                            <a href="/ProjectFile/deleteProjectMember/@item._projectID" title="Remove from project">
+                            <a href="/ProjectFile/deleteProjectMember?projectMemberID=@item._id" title="Remove from project">
                                 <img class="delSymbolMembers" alt="not found" src="~/Content/Symbols/RemoveUser.png" />
                             </a>
                         }
