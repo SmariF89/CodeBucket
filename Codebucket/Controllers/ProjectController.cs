@@ -21,8 +21,7 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            string userName = User.Identity.Name;
-            List<ProjectViewModel> modelList = _projectService.getAllProjectsByApplicationUserId(userName);
+            List<ProjectViewModel> modelList = _projectService.getAllProjectsByApplicationUserId(User.Identity.Name);
 
             return View(modelList);
         }
@@ -30,7 +29,7 @@ namespace Codebucket.Controllers
 
         #region Display all files in project selected, redirects action to ProjectFile/listAllProjectFiles
         [HttpGet]
-        public ActionResult displayProjectFiles(int? id)
+        public ActionResult displayProjectFiles(int? id) // FIXME::
         {
             return RedirectToAction("displayProject", "ProjectFile", new { id });
         }
