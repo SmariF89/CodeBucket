@@ -2,55 +2,77 @@
 @{
     ViewBag.Title = "Register";
 }
+<section class="row Register">
+    
 
-<h2>@ViewBag.Title.</h2>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "col s12", role = "form" }))
+    {
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
+        @Html.AntiForgeryToken()
+        <div class="wrap">
+            <h2>@ViewBag.Title.</h2>
+            <h4>Create a new account.</h4>
+            <hr />
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label input-lg" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label input-lg" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">perm_identity</i>
+                @Html.TextBoxFor(m => m.UserName, new { @id = "icon_prefix", @class = "validate" })
+                @Html.LabelFor(m => m.UserName, new { @class = "active control-label " })
+                <div class="col-md-10">
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "validate" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label input-lg " })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label input-lg" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="input-field col s12">
+                <i class="glyphicon glyphicon-envelope prefix"></i>
+                @Html.TextBoxFor(m => m.Email, new { @id = "icon_prefix", @class = "validate" })
+                @Html.LabelFor(m => m.Email, new { @class = "active control-label " })
+                <div class="col-md-10">
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validate" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
+
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">vpn_key</i>
+                    @Html.PasswordFor(m => m.Password, new { @id = "icon_prefix", @class = "validate" })
+                    @Html.LabelFor(m => m.Password, new { @class = "active " })
+                    <div class="col-md-10">
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validate" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">vpn_key</i>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @id = "icon_prefix", @class = "validate" })
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "active " })
+                    <div class="col-md-10">
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "validate" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div id="buttonControl">
+                    <div class="input-field col s8">
+                        <input type="submit" value="Register" class="btn waves-effect waves-light col s12" />
+                    </div>
+                </div>
+            </div>
+
+    }
+    </section>
+
+<script src="//cdn.muicss.com/mui-0.9.3/js/mui.min.js"></script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    $(function() {
+        Materialize.updateTextFields();
+	});
+
+</script>

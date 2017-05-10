@@ -52,6 +52,7 @@ footer{
     white-space: normal;
 }
 
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
@@ -68,8 +69,6 @@ textarea {
     border: 1px solid #cccccc;
     border-radius: 4px;
     margin-top: 50px;
-
-
 }
 
 #editor.setOptions{
@@ -156,6 +155,16 @@ ul.nav a:hover {
 
 .row {
     margin: 0px auto 0;
+}
+
+.Login{
+    margin-top: 200px;
+    margin-bottom: 250px;
+}
+
+.Register{
+    margin-top: 200px;
+    margin-bottom: 190px;
 }
 
 #loginForm {
@@ -370,4 +379,5 @@ input[type="text"]{
 .noMembers{
     font-size: 18px; 
 }
+
 
