@@ -3,13 +3,14 @@
 </head>
 <body>
 
-    <div class="content">
+    <div class="background-aboutSite">
         <div class="aboutUs">
             <img src="~/Content/Logos/transparentLogo.png" alt="whiteLogo" />
             <p class="description">
-                Share your coding thought with your friends, in real time ! <br />
-                Whether you want to pair program or just a place to store your files. Codebucket makes it easy
+                Share your coding thoughts with your friends, in real time! <br />
+                Whether you want to pair program or just a place to store your files. Codebucket makes it easy.
             </p>
+            @Html.ActionLink("Start coding now!", "Login", "Account", new { @class = "waves-effect waves-light btn" })
         </div>
         <div class="AboutTwitter">
             <h2 class="titleAbout">All the freedom you'd expect</h2>
