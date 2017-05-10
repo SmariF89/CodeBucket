@@ -60,7 +60,7 @@ else
             @Html.DisplayFor(modelItem => item._userName)
             @if (Model._isProjectOwner == true)
             {
-                @Html.ActionLink("Delete", "deleteProjectMember", new { id = item._projectID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Delete", "deleteProjectMember", new { id = item._projectID }, new { @class = "glyphicon glyphicon-trash" })
             }
         </li>
     }
