@@ -65,18 +65,22 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult updateProjectFile(int? id)
         {
-            if (_projectFileService.doesProjectFileExist(id.Value))
+            if (id != null)
             {
-                int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
-
-                if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, projectId))
+                if (_projectFileService.doesProjectFileExist(id.Value))
                 {
-                    ProjectFileViewModel model = new ProjectFileViewModel();
-                    model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+                    int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
 
-                    return View(model);
+                    if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, projectId))
+                    {
+                        ProjectFileViewModel model = new ProjectFileViewModel();
+                        model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+
+                        return View(model);
+                    }
                 }
             }
+            
 
             return RedirectToAction("Index", "Project");
         }
