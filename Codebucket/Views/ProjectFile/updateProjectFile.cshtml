@@ -40,14 +40,13 @@
     @Html.HiddenFor(model => model._aceExtension, new { htmlAttributes = new { @class = "editor" } })
     @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "editor" } })
 
-    <textarea class="editor">@Model._projectFileData</textarea>
-    @Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" })
-    
-	@Html.ActionLink("Back", "displayProject", new { id = Model._projectID, onclick = "BackBTN();" }, new { @class = "waves-effect waves-light btn" })
-	<button type="submit" class="SaveButtonEdit waves-effect waves-light btn">Save</button>
-</form>
-<div class="chat">
-    <h2 class="h2Chat">Chat</h2>
+        <textarea class="editor">@Model._projectFileData</textarea>
+        @Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" })
+        <button type="submit" class="SaveButtonEdit" @*id="SaveButtonEdit"*@>Save</button>
+        @Html.ActionLink("Back", "displayProject", new { id = Model._projectID, onclick = "BackBTN();" }, new { @class = "waves-effect waves-light btn"})
+    </form>
+    <div class="chat">
+        <h2 class="h2Chat">Chat</h2>
 
     <div class="container">
         <input type="text" id="message" class="message" />
@@ -149,19 +148,5 @@
             return encodedValue;
         }
 
-        window.onbeforeunload = function () {
-            return "You're leaving the site.";
-        };
-        $(document).ready(function () {
-            $('a[rel!=ext]').click(function () {
-                window.onbeforeunload = null;
-            });
-            function BackBTN() {
-                alert();
-                window.onbeforeunload = null;
-            }
-        });
-        
-	
 </script>
 }
