@@ -3,7 +3,6 @@
 
 @{
     ViewBag.Title = "Project Overview";
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
 }
 
 <div class="FileDisplayContainer">
@@ -18,16 +17,16 @@
             @Html.ActionLink("Add member", "addProjectMember", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
         </div>
 
-        <div class="BackDisplayProject">
-            @Html.ActionLink("Back", "~/Project/Index", null, new { @class = "waves-effect waves-light btn" })
-        </div>
     }
-    else
+    else if (Model._isProjectOwner == false)
     {
-        <div class="BackDisplayProject">
-            @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
+        <div class="AddMemberDisplay">
+            @Html.ActionLink("Leave project", "leaveProject", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
         </div>
     }
+        <div class="BackDisplayProject">
+            @Html.ActionLink("Back", "../Project/Index", null, new { @class = "btn btn-default" })
+        </div>
 </div>
 
 @{string owner = "";}

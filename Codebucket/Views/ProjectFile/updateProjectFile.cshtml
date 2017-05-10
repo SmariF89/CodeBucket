@@ -7,9 +7,9 @@
 
 <div class="form-group">
     <div class="SideBySide">
-        <div class="file-name">
+        
             <h2>@Model._projectFileName</h2>
-        </div>
+        
     </div>
     <div class="SideBySide">
         <label for="theme" class="control-label">Theme:</label>
@@ -42,15 +42,15 @@
 
         <textarea class="editor">@Model._projectFileData</textarea>
         @Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" })
-        <button type="submit" class="SaveButtonEdit waves-effect waves-light btn" @*id="SaveButtonEdit"*@>Save</button>
-        @Html.ActionLink("Back", "displayProject", new { id = Model._projectID, onclick = "BackBTN();" }, new { @class = "waves-effect waves-light btn"})
+        <button type="submit" class="SaveButtonEdit waves-effect waves-light btn" >Save</button>
+        @Html.ActionLink("Back", "displayProject", new { id = Model._projectID, onclick = "BackBTN();" }, new { @class = "btn btn-default" })
+
     </form>
     <div class="chat">
         <h2 class="h2Chat">Chat</h2>
-
     <div class="container">
         <input type="text" id="message" class="message" />
-        <input type="button" id="sendmessage" value="Send" class="sendMessage" />
+        <input type="button" id="sendmessage" value="Send" class="sendMessage waves-effect waves-light btn" />
         <input type="hidden" id="displayname" class="DisplayName" />
         <ul id="discussion"></ul>
     </div>
@@ -120,33 +120,33 @@
 
     @* here the chat option comes in*@
     
-    $(function () {
-            // Reference the auto-generated proxy for the hub.
-            var chat = $.connection.chatHub;
-            // Create a function that the hub can call back to display messages.
-            chat.client.addNewMessageToPage = function (name, message) {
-                // Add the message to the page.
-                $('#discussion').append('<li> <strong>' + htmlEncode(name)+ '</strong>: ' + htmlEncode(message) + '</li>');
-            };
-            // Get the user name and store it to prepend to messages.
-           // $('#displayname').val(prompt('Enter your name:', ''));
-            // Set initial focus to message input box.
-            $('#message').focus();
-            // Start the connection.
-            $.connection.hub.start().done(function () {
-                $('#sendmessage').click(function () {
-                    // Call the Send method on the hub.
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    // Clear text box and reset focus for next comment.
-                    $('#message').val('').focus();
-                });
-            });
-        });
-        // This optional function html-encodes messages for display in the page.
-        function htmlEncode(value) {
-            var encodedValue = $('<div />').text(value).html();
-            return encodedValue;
-        }
+    //$(function () {
+    //        // Reference the auto-generated proxy for the hub.
+    //        var chat = $.connection.chatHub;
+    //        // Create a function that the hub can call back to display messages.
+    //        chat.client.addNewMessageToPage = function (name, message) {
+    //            // Add the message to the page.
+    //            $('#discussion').append('<li> <strong>' + htmlEncode(name)+ '</strong>: ' + htmlEncode(message) + '</li>');
+    //        };
+    //        // Get the user name and store it to prepend to messages.
+    //       // $('#displayname').val(prompt('Enter your name:', ''));
+    //        // Set initial focus to message input box.
+    //        $('#message').focus();
+    //        // Start the connection.
+    //        $.connection.hub.start().done(function () {
+    //            $('#sendmessage').click(function () {
+    //                // Call the Send method on the hub.
+    //                chat.server.send($('#displayname').val(), $('#message').val());
+    //                // Clear text box and reset focus for next comment.
+    //                $('#message').val('').focus();
+    //            });
+    //        });
+    //    });
+    //    // This optional function html-encodes messages for display in the page.
+    //    function htmlEncode(value) {
+    //        var encodedValue = $('<div />').text(value).text();
+    //        return encodedValue;
+    //    }
 
 </script>
 }
