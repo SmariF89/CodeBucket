@@ -1,24 +1,31 @@
-﻿.content{
-    background-color: #ffe6e6;
+﻿.twitterContent{
     margin-top: 5px;
+    
+}
+
+.About{
+    background-image: url('~/Content/Images/backgroundAbout.jpg');
+    background-repeat: repeat;
+
 }
 
 .twitter{
     margin: 10px;
-    width: 320px;
-    height: 120px;
+    width: 350px;
+    height: 155px;
     border-color: #808080;
     border-style: solid;
     border-width: 1px;
-
+    position: center;
     /* set border roundness */  
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px; 
     border-radius: 15px;
+    margin-left: 10;
 }
-
 .twitterContainer{
     float: left;
+    width: 100%;
 
 }
 
@@ -60,5 +67,9 @@
 }
 
 .description{
+    margin-top: 20px;
     color: #26a69a;
+    font-family:GillSans, Calibri, Trebuchet, sans-serif;
+    font-size: 25px;
+    
 }
