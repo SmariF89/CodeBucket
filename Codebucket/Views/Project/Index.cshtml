@@ -41,6 +41,14 @@
                     if (item._isProjectOwner)
                     {
                             <tr>
+                                <td class="ownerTD">
+                                    <figure>
+                                        <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                                    </figure>
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                                </td>
                                 <td>
                                     @if (numberOfOwnedProjects > 1)
                                     {
@@ -50,14 +58,6 @@
                                             </a>
                                         </figure>
                                     }
-                                </td>
-                                <td>
-                                    @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                                </td>
-                                <td>
-                                    <figure>
-                                        <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
-                                    </figure>
                                 </td>
                             </tr>
                         }
@@ -69,21 +69,26 @@
         <table class="highlight bordered">
             <tbody>
                 @foreach (ProjectViewModel item in Model)
-            {
-                if (!item._isProjectOwner)
                 {
-                        <tr>
-                            <td>
-                                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
-                            </td>
-                            <td>
-                                <figure>
-                                    <img class="typeLogo2" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
-                                </figure>
-                            </td>
-                        </tr>
+                    if (!item._isProjectOwner)
+                    {
+                            <tr>
+                                <td>
+                                    <figure>
+                                        <img class="typeLogo2" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                                    </figure>
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                                </td>
+                                <td>
+                                    <figure>
+                                        <img class="isProjectMember" alt="Member" src="~/Content/Symbols/person.png" />
+                                    </figure>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
             </tbody>
         </table>
         <br />
@@ -146,7 +151,7 @@
                     }
                 }
                 @if (counter == 0)
-            {
+                {
                     <p class="alert-danger">You are not a participant of any project.</p>
                 }
             </div>

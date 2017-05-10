@@ -169,19 +169,17 @@ ul.nav a:hover {
 }
 
 .typeLogo{
-    padding-left: 1px;
-    padding-right: 1px;
-    float: right;
-    height: 6%; 
-    width: 6%;
+    height: 110%;
+    width: 110%;
+    margin-right: -700px;
+    padding-right: 8px;
 }
 
 .typeLogo2{
-    padding-left: 1px;
-    padding-right: 1px;
-    float: right;
-    height: 8%;
-    width: 8%;
+    height: 40px;
+    width: 45px;
+    margin-right: -700px;
+    padding-right: 8px;
 }
 
 .projectLink{
@@ -194,6 +192,10 @@ ul.nav a:hover {
 
 td{
     font-size: 20px;
+}
+
+.ownerTD{
+    padding-right: 7px;
 }
 
 td a{
@@ -250,6 +252,14 @@ input[type="text"]{
 .delSymbolProject{
     height: 24px;
     width: 24px;
+    float: right;
+}
+
+.isProjectMember{
+    height: 36px;
+    width: 36px;
+    margin-right: 1px;
+    float: right;
 }
 
 /*displayProject.cshtml starts from here*/
