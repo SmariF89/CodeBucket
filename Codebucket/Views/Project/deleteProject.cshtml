@@ -5,17 +5,17 @@
 }
 
 
-<div>
-    <h4>Are you sure you want to delete @Model._projectName from this project?</h4>
-
+<div class="confirmRemDel">
+    <br />
+        <p>Are you sure you want to delete <b>@Model._projectName</b>?</p>
     <div>
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" />
+                <input type="submit" value="Yes" class="waves-effect waves-light btn" />
 
-                @Html.ActionLink("Back", "Index", "Project", new { @class = "waves-effect waves-light btn" })
+                @Html.ActionLink("No", "Index", "Project", new { @class = "btn btn-default" })
             </div>
         }
     </div>
