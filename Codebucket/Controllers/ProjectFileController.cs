@@ -104,7 +104,7 @@ namespace Codebucket.Controllers
 
         #region List all files in current project.
         [HttpGet]
-        public ActionResult displayProject(int? id) 
+        public ActionResult displayProject(int? id)
         {
             if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, id.Value))
             {
@@ -162,6 +162,7 @@ namespace Codebucket.Controllers
         }
         #endregion
 
+        #region Delete file from project.
         [HttpGet]
         public ActionResult deleteProjectFile(int? id)
         {
@@ -169,7 +170,7 @@ namespace Codebucket.Controllers
             {
                 int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
 
-                if (_projectFileService.isProjectOwner(User.Identity.Name,projectId))
+                if (_projectFileService.isProjectOwner(User.Identity.Name, projectId))
                 {
                     ProjectFileViewModel model = new ProjectFileViewModel();
                     model = _projectFileService.getProjectFileByProjectFileId(id.Value);
@@ -200,36 +201,37 @@ namespace Codebucket.Controllers
 
             return RedirectToAction("displayProject" + "/" + idOfProject.ToString());
         }
+        #endregion
 
-        public ActionResult Chat()
-        {
-            return View();
-        }
-
+        #region Delete member from project.
         [HttpGet]
-        public ActionResult deleteProjectMember(int? id)
+        public ActionResult deleteProjectMember(int? projectMemberID)
         {
             ProjectMemberViewModel model = new ProjectMemberViewModel();
-            model = _projectFileService.getProjectMember(id.Value);
+            model = _projectFileService.getProjectMemberByProjectMemberID(projectMemberID.Value);
 
             return View(model);
         }
 
         [HttpPost, ActionName("deleteProjectMember")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteProjectMemberConfirmed(int id)
+        public ActionResult DeleteProjectMemberConfirmed(int? projectMemberID)
         {
-            ProjectMemberViewModel model = new ProjectMemberViewModel();
-            model = _projectFileService.getProjectMember(id);
             
-            int idOfProject = model._projectID;
+            ProjectMemberViewModel model = new ProjectMemberViewModel();
+            model = _projectFileService.getProjectMemberByProjectMemberID(projectMemberID.Value);
+            
+            _projectFileService.deleteProjectMember(projectMemberID.Value);
 
-            _projectFileService.deleteProjectMember(id);
-
-            return RedirectToAction("displayProject" + "/" + idOfProject.ToString());
+            return RedirectToAction("displayProject" + "/" + model._projectID.ToString());
         }
-        
+        #endregion
+
+        #region Chat.
+        public ActionResult Chat()
+        {
+            return View();
+        }
+        #endregion
     }
-
-
 }
