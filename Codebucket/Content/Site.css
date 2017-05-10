@@ -47,7 +47,8 @@ textarea {
 #editor {
     position: relative;
     clear: both;
-    height: 425px;
+    height: 725px;
+    width: 100%;
     border: 1px solid #cccccc;
     border-radius: 4px;
 }
