@@ -81,9 +81,11 @@ textarea {
     border-radius: 4px;
 }
 
-.SaveButtonEdit{
-    clear:both;
-    right: 245px;
+.SaveButtonEdit {
+	float: right;
+
+	/*clear:both;
+    right: 0;
     position: absolute;
     width: 73px;
     height: 40px;
@@ -97,15 +99,14 @@ textarea {
     color:#ffffff;
     border: 1px solid #cccccc;
     border-radius: 4px;
-    opacity: 1;
- 
+    opacity: 1;*/
 }
 
 .SaveButtonEdit:hover{
-    color: #000000;
+    /*color: #000000;
     box-shadow: 2px 0 2px 0 #888888;
   
-     opacity: 0.75;
+     opacity: 0.75;*/
 }
 
 
