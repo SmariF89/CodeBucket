@@ -144,6 +144,15 @@ namespace Codebucket.Services
              
             return (memberInProject != null);
         }
+
+        public bool isProjectMemberInAnyProject(int memberID)
+        {
+            ProjectMember memberInProject = (from member in _db._projectMembers
+                                             where  member.ID == memberID
+                                             select member).FirstOrDefault();
+
+            return (memberInProject != null);
+        }
         #endregion
 
         #region Update a file
