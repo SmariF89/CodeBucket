@@ -207,24 +207,44 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult deleteProjectMember(int? projectMemberID)
         {
+            if (projectMemberID != null)
+            {
+                if (_projectFileService.isProjectMemberInAnyProject(projectMemberID.Value))
+                {
+                    ProjectMemberViewModel model = new ProjectMemberViewModel();
+                    model = _projectFileService.getProjectMemberByProjectMemberID(projectMemberID.Value);
 
-            ProjectMemberViewModel model = new ProjectMemberViewModel();
-            model = _projectFileService.getProjectMemberByProjectMemberID(projectMemberID.Value);
+                    if (_projectFileService.isProjectOwner(User.Identity.Name, model._projectID))
+                    {
+                        return View(model);
+                    }
+                }
+            }
 
-            return View(model);
+            return HttpNotFound();
         }
 
         [HttpPost, ActionName("deleteProjectMember")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteProjectMemberConfirmed(int? projectMemberID)
         {
-            
-            ProjectMemberViewModel model = new ProjectMemberViewModel();
-            model = _projectFileService.getProjectMemberByProjectMemberID(projectMemberID.Value);
-            
-            _projectFileService.deleteProjectMember(projectMemberID.Value);
+            if (projectMemberID != null)
+            {
+                if (_projectFileService.isProjectMemberInAnyProject(projectMemberID.Value))
+                {
+                    ProjectMemberViewModel model = new ProjectMemberViewModel();
+                    model = _projectFileService.getProjectMemberByProjectMemberID(projectMemberID.Value);
 
-            return RedirectToAction("displayProject" + "/" + model._projectID.ToString());
+                    if (_projectFileService.isProjectOwner(User.Identity.Name, model._projectID))
+                    {
+                        _projectFileService.deleteProjectMember(projectMemberID.Value);
+
+                        return RedirectToAction("displayProject" + "/" + model._projectID.ToString());
+                    }
+                }
+            }
+
+            return HttpNotFound();
         }
         #endregion
 
@@ -232,22 +252,41 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult leaveProject(int? projectID)
         {
-            string userName = User.Identity.Name;
-            ProjectViewModel model = new ProjectViewModel();
-            model = _projectService.getProjectByProjectId(userName, projectID);
+            if (projectID != null)
+            {
+                if (_projectService.projectExist(projectID.Value))
+                {
+                    if (_projectFileService.isProjectMember(User.Identity.Name, projectID.Value))
+                    {
+                        ProjectViewModel model = new ProjectViewModel();
+                        model = _projectService.getProjectByProjectId(User.Identity.Name, projectID);
 
-            return View(model);
+                        return View(model);
+                    }
+                }
+            }
+
+            return HttpNotFound();
         }
 
         [HttpPost, ActionName("leaveProject")]
         [ValidateAntiForgeryToken]
         public ActionResult LeaveProjectConfirmed(int? projectID)
         {
-            string userName = User.Identity.Name;
-            
-            _projectFileService.deleteProjectMemberByUserNameAndProjectID(userName, projectID.Value);
+            if (projectID != null)
+            {
+                if (_projectService.projectExist(projectID.Value))
+                {
+                    if (_projectFileService.isProjectMember(User.Identity.Name, projectID.Value))
+                    {
+                        _projectFileService.deleteProjectMemberByUserNameAndProjectID(User.Identity.Name, projectID.Value);
 
-            return RedirectToAction("Index", "Project");
+                        return RedirectToAction("Index", "Project");
+                    }
+                }
+            }
+
+            return HttpNotFound();
         }
         #endregion 
 

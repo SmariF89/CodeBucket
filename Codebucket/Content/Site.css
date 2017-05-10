@@ -1,4 +1,20 @@
-﻿body {
+﻿*{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+h1, h2, h3, h4{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+p{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+input{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     margin: 0;

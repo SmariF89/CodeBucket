@@ -7,7 +7,7 @@
 
 <!--RADIO BUTTONS-->
 <div class="row" style="margin-bottom: 25px; margin-top: 25px; ">
-    <p id="viewInstr">View as</p>
+    @*<p id="viewInstr">View as</p>*@
     <div class="pull-right">
         <div class="btn-group btn-group-justified movie-views" data-toggle="buttons">
             <label class="btn btn-basic active">
@@ -23,7 +23,8 @@
 
 <!--TABLE-->
 <div class="row movies-list">
-    <h2 style="font-weight: bold;">My projects</h2>
+    <h1 style="font-weight: bold;">Project overview</h1>
+    <h2>My projects</h2>
     <table class="highlight bordered">
         <tbody>
             @{int numberOfOwnedProjects = 0;}
@@ -64,7 +65,7 @@
         </tbody>
     </table>
 
-    <h2 style="font-weight: bold;">Participating</h2>
+    <h2>Participating</h2>
     <table class="highlight bordered">
         <tbody>
             @foreach (ProjectViewModel item in Model)
@@ -100,7 +101,8 @@
 
 <!--ICONS-->
 <div class="row movies-poster" style="display:none;">
-    <h2 style="font-weight: bold;">My projects</h2>
+    <h1 style="font-weight: bold;">Project overview</h1>
+    <h2>My projects</h2>
     <div class="jumbotron">
         <div class="row">
             @foreach (var item in Model)
@@ -127,7 +129,7 @@
             }
         </div>
     </div>
-    <h2 style="font-weight: bold;">Participating</h2>
+    <h2>Participating</h2>
     <div class="jumbotron">
         <div class="row">
             @{int counter = 0;}
