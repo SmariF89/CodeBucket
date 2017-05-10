@@ -18,8 +18,11 @@
             @Html.ActionLink("Add member", "addProjectMember", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
         </div>
 
-        <div class="BackDisplayProject">
-            @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
+    }
+    else if (Model._isProjectOwner == false)
+    {
+        <div class="AddMemberDisplay">
+            @Html.ActionLink("Leave project", "leaveProject", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
         </div>
     }
         <div class="BackDisplayProject">
