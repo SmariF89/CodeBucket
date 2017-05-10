@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Codebucket;
-using Codebucket.Controllers;
+//using Codebucket.Controllers;
 
 namespace Codebucket.Tests.Controllers
 {

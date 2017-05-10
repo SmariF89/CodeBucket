@@ -8,7 +8,8 @@ namespace Codebucket.Models.ViewModels
 {
     public class ProjectMemberViewModel
     {
-        public int _projectID { get; set; }       
-        public string _userName { get; set; }    
+        public int _projectID { get; set; }
+        public int _id { get; set; }
+        public string _userName { get; set; }          
     }
 }
