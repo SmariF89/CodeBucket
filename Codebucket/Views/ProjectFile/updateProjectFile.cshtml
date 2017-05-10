@@ -4,58 +4,58 @@
 </head>
 
 @*link to the ace website: https://ace.c9.io/#nav=embedding*@
-<body>
-    <div class="form-group">
-        <div class="SideBySide">
-            <div class="file-name">
-                <h2>@Model._projectFileName</h2>
-            </div>
-        </div>
-        <div class="SideBySide">
-            <label for="theme" class="control-label">Theme:</label>
-            <select id="theme" class="form-control">
-                <option value="ambiance">ambiance</option>
-                <option value="chrome">chrome</option>
-                <option value="clouds">clouds</option>
-                <option value="clouds_midnight">clouds_midnight</option>
-                <option value="github">github</option>
-                <option value="monokai" selected>monokai</option>
-                <option value="xcode">xcode</option>
-            </select>
+
+<div class="form-group">
+    <div class="SideBySide">
+        <div class="file-name">
+            <h2>@Model._projectFileName</h2>
         </div>
     </div>
+    <div class="SideBySide">
+        <label for="theme" class="control-label">Theme:</label>
+        <select id="theme" class="form-control">
+            <option value="ambiance">ambiance</option>
+            <option value="chrome">chrome</option>
+            <option value="clouds">clouds</option>
+            <option value="clouds_midnight">clouds_midnight</option>
+            <option value="github">github</option>
+            <option value="monokai" selected>monokai</option>
+            <option value="xcode">xcode</option>
+        </select>
+    </div>
+</div>
 
-    @*This is where Ace is shown*@
-    <div id="editor"></div>
-    @*Automatic language detection connected to this div*@
-    <div id="language">@Model._aceExtension</div>
+@*This is where Ace is shown*@
+<div id="editor"></div>
+@*Automatic language detection connected to this div*@
+<div id="language">@Model._aceExtension</div>
 
-    <div id="documentID">@Model._id</div>
+<div id="documentID">@Model._id</div>
 
-    <form id="data" method="post">
-        @Html.HiddenFor(model => model._id, new { htmlAttributes = new { @class = "editor" } })
-        @Html.HiddenFor(model => model._projectFileName, new { htmlAttributes = new { @class = "editor" } })
-        @Html.HiddenFor(model => model._projectFileType, new { htmlAttributes = new { @class = "editor" } })
-        @Html.HiddenFor(model => model._projectFile, new { htmlAttributes = new { @class = "editor" } })
-        @Html.HiddenFor(model => model._aceExtension, new { htmlAttributes = new { @class = "editor" } })
-        @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "editor" } })
+<form id="data" method="post">
+    @Html.HiddenFor(model => model._id, new { htmlAttributes = new { @class = "editor" } })
+    @Html.HiddenFor(model => model._projectFileName, new { htmlAttributes = new { @class = "editor" } })
+    @Html.HiddenFor(model => model._projectFileType, new { htmlAttributes = new { @class = "editor" } })
+    @Html.HiddenFor(model => model._projectFile, new { htmlAttributes = new { @class = "editor" } })
+    @Html.HiddenFor(model => model._aceExtension, new { htmlAttributes = new { @class = "editor" } })
+    @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "editor" } })
 
         <textarea class="editor">@Model._projectFileData</textarea>
         @Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" })
         <button type="submit" class="SaveButtonEdit" @*id="SaveButtonEdit"*@>Save</button>
-        @Html.ActionLink("Back", "displayProject", new { id = Model._projectID,  }, new { @class = "waves-effect waves-light btn" })
+        @Html.ActionLink("Back", "displayProject", new { id = Model._projectID, onclick = "BackBTN();" }, new { @class = "waves-effect waves-light btn"})
     </form>
     <div class="chat">
         <h2 class="h2Chat">Chat</h2>
 
-        <div class="container">
-            <input type="text" id="message" class="message" />
-            <input type="button" id="sendmessage" value="Send" class="sendMessage" />
-            <input type="hidden" id="displayname" class="DisplayName" />
-            <ul id="discussion"></ul>
-        </div>
+    <div class="container">
+        <input type="text" id="message" class="message" />
+        <input type="button" id="sendmessage" value="Send" class="sendMessage" />
+        <input type="hidden" id="displayname" class="DisplayName" />
+        <ul id="discussion"></ul>
     </div>
-</body>
+</div>
+
 @section scripts
 {
 <script src="~/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>

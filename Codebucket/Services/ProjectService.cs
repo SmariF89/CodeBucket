@@ -34,6 +34,10 @@ namespace Codebucket.Services
             newProjectViewModel = getAllMemberProjectsByApplicationUserId(ref newProjectViewModel, userName);
             getProjectLogo(ref newProjectViewModel);
 
+            newProjectViewModel.Sort(delegate (ProjectViewModel A, ProjectViewModel B)
+            {
+                return (String.Compare(A._projectName, B._projectName));
+            });
             return newProjectViewModel;
         }
 
@@ -235,7 +239,7 @@ namespace Codebucket.Services
 
             foreach(ProjectOwner item in projectsOwnedByUser)
             {
-                listOfProjects.Add(getProjectByProjectId(userName, item._projectID));                       
+                listOfProjects.Add(getProjectByProjectId(userName, item._projectID));
             }
             
             foreach(ProjectViewModel item in listOfProjects)

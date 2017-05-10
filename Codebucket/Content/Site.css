@@ -81,31 +81,8 @@ textarea {
     border-radius: 4px;
 }
 
-.SaveButtonEdit{
-    clear:both;
-    right: 245px;
-    position: absolute;
-    width: 73px;
-    height: 40px;
-    font-size: 14px;
-    line-height: 1.428571429;
-    text-align: center;
-    background-color: #26a69a;
-    vertical-align: middle;
-    font-size: 17px;
-    padding-bottom: 8px;
-    color:#ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    opacity: 1;
- 
-}
-
-.SaveButtonEdit:hover{
-    color: #000000;
-    box-shadow: 2px 0 2px 0 #888888;
-  
-     opacity: 0.75;
+.SaveButtonEdit {
+	float: right;
 }
 
 
@@ -264,6 +241,49 @@ input[type="text"]{
 }
 
 .FileDisplayContainer{
-    margin-bottom: 200px;
+    margin-top: 25px;
+    margin-bottom: 95px;
+}
+
+.chip>img{
+    height: 29px;
+    width: 29px;
+}
+
+/*.collection {
+    margin: 1.5rem 850px 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 37px;
+    overflow: hidden;
+    position: relative;
+}*/
+
+.delSymbolMembers{
+    height: 35px !important;
+    width: 35px !important;
+    float: right;
+}
+
+#memberDisplay{
+    width: 18%;
+}
+
+#projectDisplay {
+    width: 75%;
+    float: left;
+    margin-right: 78px;
+}
+
+.memberHeader{
+    display: inline;
+}
+
+#memHead{
+    float: right;
+    padding-right: 105px;
+}
+
+.noMembers{
+    font-size: 18px; 
 }
 
