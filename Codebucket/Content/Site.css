@@ -67,6 +67,14 @@ textarea {
     width: 100%;
     border: 1px solid #cccccc;
     border-radius: 4px;
+    margin-top: 50px;
+
+
+}
+
+#editor.setOptions{
+    font-family: Tahoma ;
+    font-size: 10pt;
 }
 
 .FileName{
@@ -245,7 +253,7 @@ input[type="text"]{
     text-align: center;
     width: 700px;
     margin-bottom: 150px;
-    margin-left: 160px;
+    margin-left: 175px;
 }
 
 .sendMessage{
