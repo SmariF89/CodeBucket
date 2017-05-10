@@ -247,6 +247,11 @@ input[type="text"]{
     color: #ffffff;
 }
 
+.delSymbolProject{
+    height: 24px;
+    width: 24px;
+}
+
 /*displayProject.cshtml starts from here*/
 
 .AddFileDisplay{
