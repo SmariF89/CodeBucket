@@ -19,14 +19,17 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult createNewProjectFile(int? id)
         {
-            if (_projectService.projectExist(id.Value))
+            if (id != null)
             {
-                if (_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+                if (_projectService.projectExist(id.Value))
                 {
-                    CreateProjectFileViewModel model = new CreateProjectFileViewModel();
-                    model._projectID = id.Value;
+                    if (_projectFileService.isProjectOwner(User.Identity.Name, id.Value))
+                    {
+                        CreateProjectFileViewModel model = new CreateProjectFileViewModel();
+                        model._projectID = id.Value;
 
-                    return View(model);
+                        return View(model);
+                    }
                 }
             }
 
@@ -34,7 +37,6 @@ namespace Codebucket.Controllers
         }
 
         // POST: createNewProjectFile
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult createNewProjectFile(CreateProjectFileViewModel model)
@@ -166,16 +168,19 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult deleteProjectFile(int? id)
         {
-            if (_projectFileService.doesProjectFileExist(id.Value))
+            if (id != null)
             {
-                int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
-
-                if (_projectFileService.isProjectOwner(User.Identity.Name, projectId))
+                if (_projectFileService.doesProjectFileExist(id.Value))
                 {
-                    ProjectFileViewModel model = new ProjectFileViewModel();
-                    model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+                    int projectId = _projectFileService.getProjectFileByProjectFileId(id.Value)._projectID;
 
-                    return View(model);
+                    if (_projectFileService.isProjectOwner(User.Identity.Name, projectId))
+                    {
+                        ProjectFileViewModel model = new ProjectFileViewModel();
+                        model = _projectFileService.getProjectFileByProjectFileId(id.Value);
+
+                        return View(model);
+                    }
                 }
             }
 
@@ -190,11 +195,6 @@ namespace Codebucket.Controllers
             ProjectFileViewModel model = new ProjectFileViewModel();
             model = _projectFileService.getProjectFileByProjectFileId(id);
 
-            if (model._projectFileName == null)
-            {
-                // TODO: Delete project.
-            }
-
             int idOfProject = model._projectID;
 
             _projectFileService.deleteProjectFile(id);
@@ -207,6 +207,7 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult deleteProjectMember(int? projectMemberID)
         {
+
             ProjectMemberViewModel model = new ProjectMemberViewModel();
             model = _projectFileService.getProjectMemberByProjectMemberID(projectMemberID.Value);
 
