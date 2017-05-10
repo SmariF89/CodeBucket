@@ -1,0 +1,21 @@
+﻿@model Codebucket.Models.ViewModels.ProjectViewModel
+
+@{
+    ViewBag.Title = "leaveProject";
+}
+
+<div>
+    <h4>Are you sure you want to stop participating in the project @Model._projectName?</h4>
+
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Yes" class="btn btn-default" />
+
+                @Html.ActionLink("Back", "displayProject", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
+            </div>
+        }
+    </div>
+</div>
