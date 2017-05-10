@@ -3,13 +3,20 @@
     padding-bottom: 20px;
     margin: 0;
     padding: 1em;
+    margin-top:30px;
 }
 
 .fb-follow{
     margin: 0;
     padding: 0;
     position: absolute;
-    left: 50%;
+    left: 40%;
+}
+
+footer{
+     margin: 0;
+    padding: 0;
+    position: absolute;
 }
 
 /* Set padding to keep content from hitting the edges */
