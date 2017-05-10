@@ -202,10 +202,10 @@ namespace Codebucket.Services
             _db.SaveChanges();
         }
 
-        public void deleteProjectMember(int projectID)
+        public void deleteProjectMember(int projectMemberID)
         {
             ProjectMember memberToDel = (from member in _db._projectMembers
-                                         where member._projectID == projectID
+                                         where member.ID == projectMemberID
                                          select member).FirstOrDefault();
 
             _db._projectMembers.Remove(memberToDel);
@@ -219,16 +219,17 @@ namespace Codebucket.Services
             return (doesProjectfileExist != null);
         }
 
-        public ProjectMemberViewModel getProjectMember(int projectID)
+        public ProjectMemberViewModel getProjectMemberByProjectMemberID(int projectMemberID)
         {
             ProjectMemberViewModel member = new ProjectMemberViewModel();
 
             ProjectMember memberFound = (from m in _db._projectMembers
-                                         where m._projectID == projectID
+                                         where m.ID == projectMemberID
                                          select m).FirstOrDefault();
 
             member._userName = memberFound._userName;
             member._projectID = memberFound._projectID;
+            member._id = memberFound.ID;
 
             return member;
         }

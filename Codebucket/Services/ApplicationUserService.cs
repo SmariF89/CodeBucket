@@ -56,7 +56,8 @@ namespace Codebucket.Services
                     projectMemberViewModel.Add(new ProjectMemberViewModel
                     {
                         _projectID = item._projectID,
-                        _userName = item._userName
+                        _userName = item._userName,
+                        _id = item.ID                        
                     });
                 }
 
