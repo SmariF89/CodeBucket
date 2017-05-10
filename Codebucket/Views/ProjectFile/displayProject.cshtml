@@ -5,67 +5,6 @@
     ViewBag.Title = "Project Overview";
 }
 
-@{string owner = "";}
-@if (@Model._isProjectOwner == true)
-{
-    owner = "you!";
-}
-else
-{
-    owner = @Model._projectOwnerName;
-}
-
-<h2>@Model._projectName</h2>
-<h3>Owned by @owner</h3>
-
-<table class="highlight bordered">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Filename</th>
-            <th scope="col">Preview</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{int counter = 1;}
-        @foreach (ProjectFileViewModel item in Model._projectFiles)
-        {
-            string preview = item._projectFileData.Length > 20 ? item._projectFileData.Substring(0, 20) + "..." : item._projectFileData + "...";
-            <tr>
-                <td scope="row">@counter</td>
-                <td>@Html.ActionLink(item._projectFileName, "updateProjectFile", new { id = item._id }, new { @class = "collection-item" })</td>
-                <td>@preview</td>
-                <td class="fileDel">
-                    @if (Model._isProjectOwner == true && Model._projectFiles.Count > 1)
-                    {
-                        <figure>
-                            <a href="/ProjectFile/deleteProjectFile/@item._id" title="Delete file">
-                                <img class="delSymbol" alt="not found" src="~/Content/Symbols/delete.png" />
-                            </a>
-                        </figure>
-                    }
-                </td>
-            </tr>
-            counter++;
-        }
-    </tbody>
-</table>
-<ul class="collection with-header">
-    <li class="collection-header"><h4>Project members</h4></li>
-    @foreach (ProjectMemberViewModel item in Model._projectMembers)
-    {
-        <li class="collection-item">
-            <div class="chip">
-                <img class="persImg" src="~/Content/Symbols/person.png" alt="Contact Person">
-                @Html.DisplayFor(modelItem => item._userName)
-            </div>
-            <a href="#!" class="secondary-content">Remove</a>
-        </li>
-    }
-</ul>
-
-<br />
 <div class="FileDisplayContainer">
     @if (Model._isProjectOwner == true)
     {
@@ -89,3 +28,94 @@ else
         </div>
     }
 </div>
+
+@{string owner = "";}
+@if (@Model._isProjectOwner == true)
+{
+    owner = "you!";
+}
+else
+{
+    owner = @Model._projectOwnerName;
+}
+
+<h2>@Model._projectName</h2>
+<h3 class="memberHeader">Owned by @owner</h3>
+<h3 id="memHead" class="memberHeader">Members</h3>
+
+<div class="tablesInline">
+    <table id="projectDisplay" class="highlight bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Filename</th>
+                <th scope="col">Preview</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int counter = 1;}
+            @foreach (ProjectFileViewModel item in Model._projectFiles)
+            {
+                string preview = item._projectFileData.Length > 20 ? item._projectFileData.Substring(0, 20) + "..." : item._projectFileData + "...";
+                <tr>
+                    <td scope="row">@counter</td>
+                    <td>@Html.ActionLink(item._projectFileName, "updateProjectFile", new { id = item._id }, new { @class = "collection-item" })</td>
+                    <td>@preview</td>
+                    <td class="fileDel">
+                        @if (Model._isProjectOwner == true && Model._projectFiles.Count > 1)
+                        {
+                            <figure>
+                                <a href="/ProjectFile/deleteProjectFile/@item._id" title="Delete file">
+                                    <img class="delSymbol" alt="not found" src="~/Content/Symbols/delete.png" />
+                                </a>
+                            </figure>
+                        }
+                    </td>
+                </tr>
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>
+<div class="tablesInline">
+    <table id="memberDisplay" class="highlight">
+        <tbody>
+            @if (Model._projectMembers.Count == 0 && Model._isProjectOwner == true)
+            {
+                <tr>
+                    <td class="noMembers">You have not added anyone yet</td>
+                </tr>
+                <tr>
+                    <td class="noMembers">@Html.ActionLink("Click here to add the first one!", "addProjectMember", new { id = Model._id })</td>
+                </tr>
+            }
+            @if (Model._projectMembers.Count == 0 && Model._isProjectOwner == false)
+            {
+                <tr>
+                    <td>There are no members yet</td>
+                </tr>
+            }
+            @foreach (ProjectMemberViewModel item in Model._projectMembers)
+            {
+                <tr>
+                    <td>
+                        <div class="chip">
+                            <img class="persImg" src="~/Content/Symbols/person.png" alt="Contact Person">
+                            @Html.DisplayFor(modelItem => item._userName)
+                        </div>
+                    </td>
+                    <td>
+                        @if (Model._isProjectOwner == true)
+                        {
+                            <a href="/ProjectFile/deleteProjectMember/@item._projectID" title="Remove from project">
+                                <img class="delSymbolMembers" alt="not found" src="~/Content/Symbols/RemoveUser.png" />
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
