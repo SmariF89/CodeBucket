@@ -54,17 +54,17 @@ namespace Codebucket.Tests.Services
             _service = new ProjectService(mockDb);
         }
 
-        [TestMethod]
-        public void TestProjectExist()
-        {
-            // Arrange: 
-            const int id = 1;
+        //[TestMethod]
+        //public void TestProjectExist()
+        //{
+        //    // Arrange: 
+        //    const int id = 1;
 
-            // Act:
-            var result = _service.projectExist(id);
+        //    // Act:
+        //    var result = _service.projectExist(id);
 
-            // Assert:
-            Assert.IsNull(result);
-        }
+        //    // Assert:
+        //    Assert.IsNull(result);
+        //}
     }
 }

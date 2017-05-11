@@ -199,8 +199,9 @@ namespace Codebucket.Tests.Services
             _service = new UserService(mockDb);
         }
 
+        // isProjectOwner() tests
         [TestMethod]
-        public void TestisProjectOwner()
+        public void TestIsProjectOwner()
         {
             // Arrange: 
             const string username = "Palli";
@@ -213,7 +214,7 @@ namespace Codebucket.Tests.Services
             Assert.IsTrue(result);
         }
         [TestMethod]
-        public void TestisProjectOwner2()
+        public void TestIsProjectOwner2()
         {
             // Arrange: 
             const string username = "Palli";
@@ -225,15 +226,148 @@ namespace Codebucket.Tests.Services
             // Assert:
             Assert.IsFalse(result);
         }
+        [TestMethod]
+        public void TestIsProjectOwner3()
+        {
+            // Arrange: 
+            const string username = "";
+            const int projectID = 0;
 
-        //[TestMethod]
-        //public void TestIsP // working at now
+            // Act:
+            var result = _service.isProjectOwner(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void TestIsProjectOwner4()
+        {
+            // Arrange: 
+            const string username = "Made up user";
+            const int projectID = 999;
+
+            // Act:
+            var result = _service.isProjectOwner(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void TestIsProjectOwner5()
+        {
+            // Arrange: 
+            const string username = "Made up user";
+            const int projectID = Int32.MaxValue;
+
+            // Act:
+            var result = _service.isProjectOwner(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void TestIsProjectOwner6()
+        {
+            // Arrange: 
+            const string username = "Made up user";
+            const int projectID = Int32.MinValue;
+
+            // Act:
+            var result = _service.isProjectOwner(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+
+
+
+
+        // isProjectMember() tests
+        [TestMethod]
+        public void TestisProjectMember()
+        {
+            // Arrange;
+            const string username = "Gugga";
+            const int projectID = 255;
+
+            // Act:
+            var result = _service.isProjectMember(username, projectID);
+
+            // Assert:
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void TestisProjectMember2()
+        {
+            // Arrange;
+            const string username = "Jon";
+            const int projectID = 15;
+
+            // Act:
+            var result = _service.isProjectMember(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void TestisProjectMember3()
+        {
+            // Arrange;
+            const string username = "";
+            const int projectID = 0;
+
+            // Act:
+            var result = _service.isProjectMember(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void TestisProjectMember4()
+        {
+            // Arrange;
+            const string username = "Made up user";
+            const int projectID = 999;
+
+            // Act:
+            var result = _service.isProjectMember(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void TestisProjectMember5()
+        {
+            // Arrange;
+            const string username = "Made up user";
+            const int projectID = Int32.MaxValue;
+
+
+            // Act:
+            var result = _service.isProjectMember(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void TestisProjectMember6()
+        {
+            // Arrange;
+            const string username = "Made up user";
+            const int projectID = Int32.MinValue;
+
+            // Act:
+            var result = _service.isProjectMember(username, projectID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
 
 
 
 
 
 
-        
+
     }
 }
