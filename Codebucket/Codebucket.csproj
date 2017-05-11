@@ -632,8 +632,11 @@
     <Content Include="Content\Logos\WhiteBackLogo.jpg" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
+    <Content Include="Content\Symbols\AddFile.png" />
+    <Content Include="Content\Symbols\AddMember.png" />
     <Content Include="Content\Symbols\delete.png" />
     <Content Include="Content\Symbols\GroupIcon.png" />
+    <Content Include="Content\Symbols\LeaveProjectRed.png" />
     <Content Include="Content\Symbols\person.png" />
     <Content Include="Content\Symbols\quitIcon.png" />
     <Content Include="Content\Symbols\RemoveUser.png" />
