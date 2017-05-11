@@ -43,11 +43,11 @@
                         <tr>
                             <td class="ownerTD">
                                 <figure>
-                                    <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
+                                    <img class="typeLogo2" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" />
                                 </figure>
                             </td>
                             <td>
-                                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                                &nbsp &nbsp &nbsp @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
                             </td>
                             <td>
                                 @if (numberOfOwnedProjects > 1)
@@ -79,7 +79,7 @@
                                 </figure>
                             </td>
                             <td>
-                                &nbsp @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
                             </td>
                             <td>
                                 <p class="addedBy">Added by <b>@item._projectOwnerName</b></p>
@@ -139,11 +139,12 @@
                 {
                     counter++;
                     string titleShort = item._projectName.Length > 10 ? item._projectName.Substring(0, 10) + "..." : item._projectName;
-                    <div class="col-sm-2 col-md-2">
+                    string ownerShort = item._projectOwnerName.Length > 4 ? item._projectOwnerName.Substring(0, 4) + "..." : item._projectOwnerName;
+                    <div class="col-sm-1 col-md-2">
                         <div class="panel panel-default" style="min-height:200px;">
                             <div class="projectTitle">
-                                <p class="addedByIco">Added by @item._projectOwnerName</p>
-                                <img title="Invited by @item._projectOwnerName" class="delIconProject" id="delIcon" alt="Remove" src="~/Content/Symbols/GroupIcon.png" />
+                                <p class="addedByIco">Added by <b>@ownerShort</b></p>
+                                <img title="Added by @item._projectOwnerName" class="delIconProject" id="delIcon" alt="Remove" src="~/Content/Symbols/GroupIcon.png" />
                             </div>
                             <div class="panel-body">
                                 <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
