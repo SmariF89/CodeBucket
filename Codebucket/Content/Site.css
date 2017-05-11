@@ -522,6 +522,11 @@ input[type="text"]{
     padding-bottom: 400px;
 }
 
+/* Add member form */
+#add-file-form {
+    padding-bottom: 400px;
+}
+
 /*Contact.cshtml starts from here*/
 
 /*.contactUs{
