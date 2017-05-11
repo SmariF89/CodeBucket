@@ -12,14 +12,14 @@ namespace Codebucket.Services
 {
     public class ProjectService
     {
-        private ApplicationDbContext _db;
-        private ProjectFileService _projectFileService = new ProjectFileService();
-        private UserService _userService = new UserService();
+        private readonly IAppDataContext _db;
+        private ProjectFileService _projectFileService = new ProjectFileService(null);
+        private UserService _userService = new UserService(null);
 
         #region Constructor
-        public ProjectService()
+        public ProjectService(IAppDataContext context)
         {
-            _db = new ApplicationDbContext();
+            _db = context ?? new ApplicationDbContext();
         }
         #endregion
 
