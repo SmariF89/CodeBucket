@@ -377,6 +377,7 @@ input[type="text"]{
     font-size: 200%;
 }
 
+
 /* About site.*/
 .background-aboutSite{
     background-color: #E0E0E0 !important;
@@ -479,3 +480,14 @@ input[type="text"]{
    
 }
     
+
+/*Contact.cshtml starts from here*/
+
+/*.contactUs{
+    display: table;
+    margin: 0 auto;
+    font-size: 150%;
+}*/
+
+
+

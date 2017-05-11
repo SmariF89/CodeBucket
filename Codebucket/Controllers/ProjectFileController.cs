@@ -108,15 +108,19 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult displayProject(int? id)
         {
-            if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, id.Value))
+            if (id != null)
             {
-                ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
+                if (_projectFileService.isProjectOwnerOrMember(User.Identity.Name, id.Value))
+                {
+                    ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
 
-                string owner = _projectFileService.getOwnerName(id.Value);
-                model._projectOwnerName = owner;
+                    string owner = _projectFileService.getOwnerName(id.Value);
+                    model._projectOwnerName = owner;
 
-                return View(model);
+                    return View(model);
+                }
             }
+            
 
             return HttpNotFound();
         }
