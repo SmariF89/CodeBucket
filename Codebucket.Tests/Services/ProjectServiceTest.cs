@@ -57,13 +57,13 @@ namespace Codebucket.Tests.Services
         [TestMethod]
         public void TestProjectExist()
         {
-            // Arrange: 
+            //Arrange:
             const int id = 1337;
 
             // Act:
             var result = _service.projectExist(id);
 
-            // Assert:
+            //Assert:
             Assert.IsFalse(result);
         }
     }
