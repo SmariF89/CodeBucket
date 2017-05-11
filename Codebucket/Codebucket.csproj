@@ -620,6 +620,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ContactUs.css" />
+    <Content Include="Content\Images\backgroundAbout.jpg" />
+    <Content Include="Content\Images\logo.jpg" />
     <Content Include="Content\logo.jpg" />
     <Content Include="Content\logoBlueFade.jpg" />
     <Content Include="Content\Logos\cplusplus.png" />
@@ -687,8 +689,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />

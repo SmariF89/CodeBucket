@@ -1,41 +1,29 @@
 ﻿@model Codebucket.Models.ViewModels.AddMemberViewModel
 
-<div class="add-space">
-    @using (Html.BeginForm())
-    {
-
-        @Html.AntiForgeryToken()
-
-        <div>
-            <div class="form-horizontal">
-                <h4>Add member</h4>
-            </div>
-            <hr />
-            <div class="form-group">
+<div id="add-member-form">
+    <div class="confirmRemDel">
+        <br />
+        <p>Please <b>enter the username</b> of the user you want to <b>add to the project</b>.</p>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="center-input-name-add-mem">
                 @Html.LabelFor(model => model._userName, "User name", htmlAttributes: new { @class = "control-label col-md-2 input-lg" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model._userName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model._userName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                @Html.LabelFor(model => model._projectID, "", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            <div class="FileDisplayContainer">
-                <div class="col-md-offset-2 col-md-10">
-                    @Html.ActionLink("Back", "displayProject", new { id = Model._projectID }, new { @class = "btn btn-default" })
-                    <input type="submit" value="Add" class="waves-effect waves-light btn" />
-                </div>
+                @Html.EditorFor(model => model._userName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model._userName, "", new { @class = "text-danger" })
 
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             </div>
-        </div>
-    }
+            @Html.LabelFor(model => model._projectID, "", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "form-control" } })
+
+            <div class="form-actions no-color">
+                @Html.ActionLink("Back", "displayProject", new { id = Model._projectID }, new { @class = "btn btn-default" })
+                <input type="submit" value="Add" class="waves-effect waves-light btn" />
+            </div>
+        }
+    </div>
 </div>
-
 
 

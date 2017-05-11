@@ -67,6 +67,14 @@ textarea {
     width: 100%;
     border: 1px solid #cccccc;
     border-radius: 4px;
+    margin-top: 50px;
+
+
+}
+
+#editor.setOptions{
+    font-family: Tahoma ;
+    font-size: 10pt;
 }
 
 .FileName{
@@ -245,7 +253,7 @@ input[type="text"]{
     text-align: center;
     width: 700px;
     margin-bottom: 150px;
-    margin-left: 160px;
+    margin-left: 175px;
 }
 
 .sendMessage{
@@ -396,3 +404,128 @@ input[type="text"]{
     margin-left: 25px;
     margin-bottom: 10px;
 }
+
+.confirmRemDel {
+    min-height: 90%; 
+    text-align: center;
+    font-size: 200%;
+}
+
+/* About site.*/
+.background-aboutSite{
+    background-color: #E0E0E0 !important;
+    margin-top: 5px;
+}
+
+.twitter{
+    margin: 10px;
+    width: 320px;
+    height: 120px;
+    border-color: #808080;
+    border-style: solid;
+    border-width: 1px;
+
+    /* set border roundness */  
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px; 
+    border-radius: 15px;
+}
+
+.twitterContainer{
+    float: left;
+
+}
+
+.titleAbout{
+    color: #26a69a;
+    text-align: center;
+}
+
+.AboutContent{
+    margin: 0;
+    padding-top: 40px;
+    padding: 0;
+    width:100%;
+    
+}
+
+.aboutUs{   
+    text-align: center;
+    padding-top: 70px;
+    margin-bottom: 200px;
+}
+
+.AboutTwitter{
+    /*background-color: #C3E4ED;*/
+    height: 600px;
+    width: 100%;
+    margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+}
+
+.form-group .form-control.input-width{
+    width: 100%;
+}
+
+.titleAbout{
+    margin-bottom: 50px;
+}
+
+.description{
+    color: #26a69a;
+    font-size:19px !important;
+}
+
+/* Create new project form */
+.center-input-name {
+    padding-left:200px;
+    border:dotted;
+    padding-bottom:0px;
+}
+
+.align-radio-buttons{
+    padding-left:295px;
+    border:dotted;
+}
+
+#create-project-form {
+    padding-bottom: 245px;
+}
+
+.validation-field {
+    color:indianred;
+    font-size:15px;
+}
+
+.confirmCrePro{
+    min-height: 90%; 
+    text-align: center;
+    font-size: 200%;
+    border:dotted;
+}
+
+#valCrePro {
+    border: dotted;
+    
+    margin-left: 40px;
+   
+}
+    
+/* Add member form */
+.center-input-name-add-mem {
+    padding-left:260px;
+}
+
+#add-member-form {
+    padding-bottom: 400px;
+}
+
+/*Contact.cshtml starts from here*/
+
+/*.contactUs{
+    display: table;
+    margin: 0 auto;
+    font-size: 150%;
+}*/
