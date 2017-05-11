@@ -10,7 +10,7 @@ namespace Codebucket.Models.Validation
 {
     public class IfProjectFileExists : ValidationAttribute
     {
-        private ProjectFileService _projectFileService = new ProjectFileService();
+        private ProjectFileService _projectFileService = new ProjectFileService(null);
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

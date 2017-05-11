@@ -13,9 +13,9 @@ namespace Codebucket.Controllers
 {
     public class OverviewController : Controller
     {
-        private ProjectService _projectService = new ProjectService();
-        private ProjectFileService _projectFileService = new ProjectFileService();
-        private UserService _userService = new UserService();
+        private ProjectService _projectService = new ProjectService(null);
+        private ProjectFileService _projectFileService = new ProjectFileService(null);
+        private UserService _userService = new UserService(null);
 
         #region Display all projects.
         // Overview/Index
