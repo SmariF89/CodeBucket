@@ -126,6 +126,7 @@ namespace Codebucket.Tests.Services
             // Assert:
             Assert.IsTrue(result);
         }
+
         [TestMethod]
         public void TestisProjectOwner2()
         {
@@ -139,5 +140,7 @@ namespace Codebucket.Tests.Services
             // Assert:
             Assert.IsFalse(result);
         }
+
+
     }
 }
