@@ -1,7 +1,7 @@
 ﻿@model Codebucket.Models.ViewModels.ProjectViewModel
 
 @{
-    ViewBag.Title = "leaveProject";
+    ViewBag.Title = "LeaveProject";
 }
 
 <div>
@@ -14,7 +14,7 @@
             <div class="form-actions no-color">
                 <input type="submit" value="Yes" class="btn btn-default" />
 
-                @Html.ActionLink("Back", "displayProject", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
+                @Html.ActionLink("Back", "DisplayProject", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
             </div>
         }
     </div>

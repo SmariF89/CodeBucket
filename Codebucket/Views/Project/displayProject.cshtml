@@ -26,7 +26,7 @@ else
 @if (Model._isProjectOwner == true)
 {
     <div class="AddMemberDisplay">
-        <a href="/ProjectFile/addProjectMember?projectID=@Model._id" title="Add member">
+        <a href="/Project/AddProjectMember?projectID=@Model._id" title="Add member">
             <img id="AddMemberIcon" alt="Remove" src="~/Content/Symbols/AddMember.png" />
         </a>
     </div>
@@ -34,7 +34,7 @@ else
 @if (Model._isProjectOwner == false)
 {
     <div class="AddMemberDisplay">
-        <a href="/ProjectFile/leaveProject?projectID=@Model._id" title="Leave project">
+        <a href="/Project/LeaveProject?projectID=@Model._id" title="Leave project">
             <img id="LeaveProjectIcon" src="~/Content/Symbols/LeaveProjectRed.png"/>
         </a>
     </div>
@@ -50,7 +50,7 @@ else
                 <th scope="col">
                 @if (Model._isProjectOwner == true)
                 {
-                    <a href="/ProjectFile/createNewProjectFile/@Model._id" title="New file">
+                    <a href="/Project/CreateNewProjectFile/@Model._id" title="New file">
                         <img id="addFileIcon" alt="New file" src="~/Content/Symbols/AddFile.png" />
                     </a>
                 }
@@ -64,13 +64,13 @@ else
                 string preview = item._projectFileData.Length > 20 ? item._projectFileData.Substring(0, 20) + "..." : item._projectFileData + "...";
                 <tr>
                     <td scope="row">@counter</td>
-                    <td>@Html.ActionLink(item._projectFileName, "updateProjectFile", new { id = item._id }, new { @class = "collection-item" })</td>
+                    <td>@Html.ActionLink(item._projectFileName, "EditProjectFile", new { id = item._id }, new { @class = "collection-item" })</td>
                     <td>@preview</td>
                     <td class="fileDel">
                         @if (Model._isProjectOwner == true && Model._projectFiles.Count > 1)
                         {
                             <figure>
-                                <a href="/ProjectFile/deleteProjectFile/@item._id" title="Delete file">
+                                <a href="/Project/DeleteProjectFile/@item._id" title="Delete file">
                                     <img class="delSymbol" alt="not found" src="~/Content/Symbols/delete.png" />
                                 </a>
                             </figure>
@@ -83,7 +83,7 @@ else
         <tfoot>
             <tr>
                 <td>
-                    @Html.ActionLink("Back", "../Project/Index", null, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Back", "../Overview/Index", null, new { @class = "btn btn-default" })
                 </td>
             </tr>
         </tfoot>
@@ -98,7 +98,7 @@ else
                     <td class="noMembers">You have not added anyone yet</td>
                 </tr>
                 <tr>
-                    <td class="noMembers">@Html.ActionLink("Click here to add the first one!", "addProjectMember", new { projectID = Model._id })</td>
+                    <td class="noMembers">@Html.ActionLink("Click here to add the first one!", "AddProjectMember", new { projectID = Model._id })</td>
                 </tr>
             }
             @if (Model._projectMembers.Count == 0 && Model._isProjectOwner == false)
@@ -120,7 +120,7 @@ else
                     <td>
                         @if (Model._isProjectOwner == true)
                         {
-                            <a href="/ProjectFile/deleteProjectMember?projectMemberID=@item._id" title="Remove from project">
+                            <a href="/Project/DeleteProjectMember?projectMemberID=@item._id" title="Remove from project">
                                 <img class="delSymbolMembers" alt="not found" src="~/Content/Symbols/RemoveUser.png" />
                             </a>
                         }

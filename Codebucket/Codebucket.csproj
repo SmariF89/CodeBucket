@@ -220,12 +220,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ApplicationUserController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
-    <Compile Include="Controllers\ProjectFileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,7 +252,7 @@
     <Compile Include="Models\ViewModels\ProjectMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ApplicationUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ProjectFileService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="SocketHub\ChatHub.cs" />
@@ -613,7 +612,6 @@
     <Content Include="Ace\src-noconflict\worker-php.js" />
     <Content Include="Ace\src-noconflict\worker-xml.js" />
     <Content Include="Ace\src-noconflict\worker-xquery.js" />
-    <Content Include="Content\AboutUs.css" />
     <Content Include="Content\Bckgnd\b1.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -646,7 +644,7 @@
     <Content Include="Content\Twitter\Sebastian.png" />
     <Content Include="Content\Twitter\Swindell.png" />
     <Content Include="favicon.png" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Handlers\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
@@ -654,9 +652,9 @@
     </Content>
     <Content Include="ClassDiagram1.cd" />
     <Content Include="packages.config" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Handlers\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Handlers\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Handlers\fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -709,29 +707,25 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Project\createNewProject.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
-    <Content Include="Views\ProjectFile\addProjectMember.cshtml" />
-    <Content Include="Views\ProjectFile\listAllProjectFiles.cshtml" />
-    <Content Include="Views\ProjectFile\updateProjectFile.cshtml" />
-    <Content Include="Views\ProjectFile\displayProject.cshtml" />
+    <Content Include="Views\Overview\CreateNewProject.cshtml" />
+    <Content Include="Views\Overview\Index.cshtml" />
+    <Content Include="Views\Project\AddProjectMember.cshtml" />
+    <Content Include="Views\Project\EditProjectFile.cshtml" />
+    <Content Include="Views\Project\DisplayProject.cshtml" />
     <Content Include="Views\Shared\MaliciousInputError.cshtml" />
-    <Content Include="Views\ProjectFile\createNewProjectFile.cshtml" />
+    <Content Include="Views\Project\CreateNewProjectFile.cshtml" />
     <Content Include="Views\Account\About.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />
-    <Content Include="Views\ProjectFile\Chat.cshtml" />
     <Content Include="Views\Shared\PageNotFound.cshtml" />
-    <Content Include="Views\Project\deleteProject.cshtml" />
-    <Content Include="Views\ProjectFile\deleteProjectMember.cshtml" />
-    <Content Include="Views\ProjectFile\deleteProjectFile.cshtml" />
-    <Content Include="Views\ProjectFile\DeleteConfirmed.cshtml" />
-    <Content Include="Views\ProjectFile\showEditorForProjectFile.cshtml" />
+    <Content Include="Views\Overview\DeleteProject.cshtml" />
+    <Content Include="Views\Project\DeleteProjectMember.cshtml" />
+    <Content Include="Views\Project\DeleteProjectFile.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\ProjectFile\leaveProject.cshtml" />
+    <Content Include="Views\Project\LeaveProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="fonts\roboto\" />
+    <Folder Include="Handlers\fonts\roboto\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

@@ -43,7 +43,7 @@
         <textarea class="editor">@Model._projectFileData</textarea>
         @Html.TextAreaFor(model => model._projectFileData, new { @class = "editor" })
         <button type="submit" class="SaveButtonEdit waves-effect waves-light btn" >Save</button>
-        @Html.ActionLink("Back", "displayProject", new { id = Model._projectID, onclick = "BackBTN();" }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Back", "DisplayProject", new { id = Model._projectID, onclick = "BackBTN();" }, new { @class = "btn btn-default" })
 
     </form>
     <div class="chat">

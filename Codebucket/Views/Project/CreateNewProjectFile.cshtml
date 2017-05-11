@@ -1,7 +1,7 @@
 ﻿@model Codebucket.Models.ViewModels.CreateProjectFileViewModel
 
 @{
-    ViewBag.Title = "createNewProjectFile";
+    ViewBag.Title = "CreateNewProjectFile";
 }
 
 <div id="add-file-form">
@@ -22,7 +22,7 @@
             </div>
             <div class="form-actions no-color">
                 <input type="submit" value="Create" class="waves-effect waves-light btn" />
-                @Html.ActionLink("Back", "displayProject", new { id = Model._projectID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Back", "DisplayProject", new { id = Model._projectID }, new { @class = "btn btn-default" })
             </div>
         }
     </div>

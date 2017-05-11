@@ -47,13 +47,13 @@
                                 </figure>
                             </td>
                             <td>
-                                &nbsp &nbsp &nbsp @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                                &nbsp &nbsp &nbsp @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
                             </td>
                             <td>
                                 @if (numberOfOwnedProjects > 1)
                                 {
                                     <figure>
-                                        <a href="/Project/deleteProject/@item._id" title="Delete file">
+                                        <a href="/Overview/DeleteProject/@item._id" title="Delete file">
                                             <img title="Delete project" class="delSymbolProject" alt="Remove" src="~/Content/Symbols/delete.png" />
                                         </a>
                                     </figure>
@@ -79,7 +79,7 @@
                                 </figure>
                             </td>
                             <td>
-                                @Html.ActionLink(item._projectName, "displayProjectFiles", new { id = item._id }, new { @class = "collection-item" })
+                                @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
                             </td>
                             <td>
                                 <p class="addedBy">Added by <b>@item._projectOwnerName</b></p>
@@ -95,7 +95,7 @@
         </tbody>
     </table>
     <br />
-    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+    @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "waves-effect waves-light btn" })
 </div>
 
 
@@ -113,15 +113,15 @@
                     <div class="col-sm-1 col-md-2">
                         <div class="panel panel-default" style="min-height:200px;">
                             <div class="projectTitle">
-                                <a href="/Project/deleteProject/@item._id" title="Delete file">
+                                <a href="/Overview/DeleteProject/@item._id" title="Delete file">
                                     <img title="Delete project" class="delIconProject" id="delIcon" alt="Remove" src="~/Content/Symbols/quitIcon.png" />
                                 </a>
                             </div>
                             <div class="panel-body">
-                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                <a href="/Overview/DisplayProjectRoute/@item._id" title="@item._projectName">
                                     <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
                                 </a>
-                                <a class="iconText" href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                                <a class="iconText" href="/Overview/displayProjectRoute/@item._id" title="@item._projectName">@titleShort</a>
                             </div>
                         </div>
                     </div>
@@ -147,11 +147,11 @@
                                 <img title="Added by @item._projectOwnerName" class="delIconProject" id="delIcon" alt="Remove" src="~/Content/Symbols/GroupIcon.png" />
                             </div>
                             <div class="panel-body">
-                                <a href="/Project/displayProjectFiles/@item._id" title="@item._projectName">
+                                <a href="/Overview/DisplayProjectRoute/@item._id" title="@item._projectName">
                                     <img class="typeLogo" alt="logo" src="@Url.Content(item._thumbnailUrl)" data-holder-rendered="true" style="height: 115px; width: 115px; display: block;">
                                 </a>
                                 <h4>
-                                    <a class="iconText" href="/Project/displayProjectFiles/@item._id" title="@item._projectName">@titleShort</a>
+                                    <a class="iconText" href="/Overview/DisplayProjectRoute/@item._id" title="@item._projectName">@titleShort</a>
                                 </h4>
                             </div>
                         </div>
@@ -164,5 +164,5 @@
             }
         </div>
     </div>
-    @Html.ActionLink("Create new project", "createNewProject", null, new { @class = "waves-effect waves-light btn" })
+    @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "waves-effect waves-light btn" })
 </div>

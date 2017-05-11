@@ -1,7 +1,7 @@
 ﻿@model Codebucket.Models.ViewModels.ProjectFileViewModel
 
 @{
-    ViewBag.Title = "deleteProjectFile";
+    ViewBag.Title = "DeleteProjectFile";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="form-actions no-color">
         <input type="submit" value="Yes" class="waves-effect waves-light btn" />
       
-        @Html.ActionLink("No", "displayProject", new { id = Model._projectID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("No", "DisplayProject", new { id = Model._projectID }, new { @class = "btn btn-default" })
     </div>
 }
     </div>

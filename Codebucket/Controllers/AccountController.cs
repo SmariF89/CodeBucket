@@ -20,7 +20,7 @@ namespace Codebucket.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationUserService _applicationUserService = new ApplicationUserService();
+        private UserService _applicationUserService = new UserService();
 
         public AccountController()
         {
@@ -204,7 +204,7 @@ namespace Codebucket.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     
-                    return RedirectToAction("CreateNewProject", "Project");
+                    return RedirectToAction("CreateNewProject", "Overview");
                 }
                 AddErrors(result);
             }

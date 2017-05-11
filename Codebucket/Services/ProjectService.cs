@@ -14,10 +14,9 @@ namespace Codebucket.Services
     {
         private ApplicationDbContext _db;
         private ProjectFileService _projectFileService = new ProjectFileService();
-        private ApplicationUserService _applicationUserService = new ApplicationUserService();
+        private UserService _userService = new UserService();
 
         #region Constructor
-
         public ProjectService()
         {
             _db = new ApplicationDbContext();
@@ -25,7 +24,6 @@ namespace Codebucket.Services
         #endregion
 
         #region Get all projects by user name
-
         public List<ProjectViewModel> getAllProjectsByApplicationUserId(string userName)
         {
             List<ProjectViewModel> newProjectViewModel = new List<ProjectViewModel>();
@@ -93,11 +91,11 @@ namespace Codebucket.Services
                 {
                     _id = item.ID,
                     _projectName = item._projectName,
-                    _projectOwnerName = _projectFileService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
+                    _projectOwnerName = _userService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
                     _isProjectOwner = true,
                     _projectFileTypeId = item._projectFileTypeId,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)
+                    _projectMembers = _userService.getAllProjectMemberViewModelsByProjectId(item.ID)
                 });
             }
 
@@ -123,10 +121,10 @@ namespace Codebucket.Services
                     _id = item.ID,
                     _projectName = item._projectName,
                     _isProjectOwner = false,
-                    _projectOwnerName = _projectFileService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
+                    _projectOwnerName = _userService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
                     _projectFileTypeId = item.ID,
                     _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(item.ID)
+                    _projectMembers = _userService.getAllProjectMemberViewModelsByProjectId(item.ID)
                 });
             }
 
@@ -143,8 +141,8 @@ namespace Codebucket.Services
             model._id = entity.ID;
             model._projectName = entity._projectName;
             model._projectFileTypeId = entity._projectFileTypeId;
-            model._isProjectOwner = _projectFileService.isProjectOwner(userName, id.Value);
-            model._projectMembers = _applicationUserService.getAllProjectMemberViewModelsByProjectId(id);
+            model._isProjectOwner = _userService.isProjectOwner(userName, id.Value);
+            model._projectMembers = _userService.getAllProjectMemberViewModelsByProjectId(id);
 
             List<ProjectFileViewModel> modelFiles = new List<ProjectFileViewModel>();
             model._projectFiles = _projectFileService.getAllProjectFilesByProjectId(id);
@@ -187,47 +185,7 @@ namespace Codebucket.Services
             _db.SaveChanges();
         }
         #endregion
-
-        #region Add project member, TODO::Throw exeption?
-
-        public void addProjectMember(AddMemberViewModel model)
-        {
-            ProjectMember newProjectMember = new ProjectMember();
-
-            // Select project from db that corresponds to user selected/entered project
-            var project = from p in _db._projects
-                          where p.ID == model._projectID
-                          select p;
-
-            // Select username from db that corresponds to user selected/entered username
-            var user = from u in _db.Users
-                       where u.UserName == model._userName
-                       select u;
-
-            if (project.FirstOrDefault() != null && user.FirstOrDefault() != null)
-            {
-                newProjectMember._projectID = project.FirstOrDefault().ID;
-                newProjectMember._userName = user.FirstOrDefault().UserName;
-
-                _db._projectMembers.Add(newProjectMember);
-                _db.SaveChanges();
-            }
-            // TODO :: THOW EXCEPTION, else {if project or user was not found.}
-        }
-        #endregion
-
-        #region Populate drop down data
-
-        public List<SelectListItem> populateDropdownData()
-        {
-            List<SelectListItem> fileTypes = new List<SelectListItem>();
-            fileTypes.Add(new SelectListItem() { Value = "", Text = "- Choose a file type -" });
-            _db._fileTypes.ToList().ForEach((x) => { fileTypes.Add(new SelectListItem() { Value = x.ID.ToString(), Text = x._description }); });
-
-            return fileTypes;
-        }
-        #endregion
-
+        
         #region Validation For creating new Project.
         public bool createNewProjectIsValid(string projectName, string userName)
         {
@@ -261,9 +219,10 @@ namespace Codebucket.Services
 
             return (projectExist != null);
         }
-        
+
         #endregion
 
+        #region Delete project.
         public void deleteProject(ProjectViewModel model)
         {
             // Delete all files in the project.
@@ -275,7 +234,7 @@ namespace Codebucket.Services
             // Delete all members from the project.
             foreach (ProjectMemberViewModel item in model._projectMembers)
             {
-                _projectFileService.deleteProjectMember(item._projectID);
+                _userService.deleteProjectMember(item._projectID);
             }
 
             // Delete the owner of the project.
@@ -290,24 +249,7 @@ namespace Codebucket.Services
             _db._projectOwners.Remove(ownerInProject);
             _db.SaveChanges();
         }
-        
-        /*
-           ProjectOwner ownerInProject = (from owned in _db._projectOwners
-                                           where owned._projectID == projectID
-                                           select owned).FirstOrDefault();
-
-            string owner = ownerInProject._userName;
-
-            return owner;
-
-        }
-
-        public void deleteProjectFile(int id)
-        {
-            ProjectFile fileToDel = _db._projectFiles.Find(id);
-            _db._projectFiles.Remove(fileToDel);
-            _db.SaveChanges();
-         */
+        #endregion
     }
 }
 

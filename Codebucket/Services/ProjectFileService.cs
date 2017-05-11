@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Codebucket.Services
 {   
@@ -20,7 +21,26 @@ namespace Codebucket.Services
         }
         #endregion
 
-        #region Get project file and get all project files
+        #region Get project file and get all project files.
+        // Get project file by project id, returns a viewmodel of the type ProjectFileViewModel
+        public ProjectFileViewModel getProjectFileByProjectFileId(int projectFileId)
+        {
+            if (projectFileId > 0)
+            {
+                ProjectFileViewModel model = new ProjectFileViewModel();
+
+                model._id = _db._projectFiles.Find(projectFileId).ID;
+                model._projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString();
+                model._projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString();
+                model._projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString();
+                model._projectID = _db._projectFiles.Find(projectFileId)._projectID;
+                model._aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString();
+
+                return model;
+            }
+            return null;
+        }
+
         // Get all project files by project id, returns a list of the type ProjectFileViewModel.
         public List<ProjectFileViewModel> getAllProjectFilesByProjectId(int? projectId)
         {
@@ -48,29 +68,10 @@ namespace Codebucket.Services
             }
 
             return null;
-        }
-
-        // Get project file by project id, returns a viewmodel of the type ProjectFileViewModel
-        public ProjectFileViewModel getProjectFileByProjectFileId(int projectFileId)
-        {
-            if (projectFileId > 0)
-            {
-                ProjectFileViewModel model = new ProjectFileViewModel();
-                
-                model._id = _db._projectFiles.Find(projectFileId).ID;
-                model._projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString();
-                model._projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString();
-                model._projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString();
-                model._projectID = _db._projectFiles.Find(projectFileId)._projectID;
-                model._aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString();
-
-                return model;
-            }
-            return null;
-        }
+        }  
         #endregion
 
-        #region Get file type
+        #region Get file type.
         // Get file type by project id, returns a string.
         public String getFileTypeByProjectId(int? projectId)
         {
@@ -94,7 +95,7 @@ namespace Codebucket.Services
         }
         #endregion
 
-        #region Add project file
+        #region Add project file.
         public void addProjectFile(CreateProjectFileViewModel model)
         {
             ProjectFile newProjectFile = new ProjectFile();
@@ -109,53 +110,17 @@ namespace Codebucket.Services
         }
         #endregion
 
-        #region Check if owner or username exists
-        // Checks if username exists in the database, returns a bool value if true or not.
-        public bool userIsInDataBase(string username)
+        #region Delete file.
+        // Delete a file in project by file id, void returns no value.
+        public void deleteProjectFile(int? id)
         {
-            string getUserName = (from user in _db.Users
-                                  where user.UserName == username
-                                  select user.UserName).FirstOrDefault();
-
-            return (getUserName == username);           
-        }
-        
-        public bool isProjectOwnerOrMember(string username, int projectID) //MOVME::This belongs in ApplicationUserService??
-        {
-            return (isProjectOwner(username, projectID) || isProjectMember(username, projectID));
-        }
-
-        // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectOwner(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
-        {
-            ProjectOwner ownerInProject = (from owned in _db._projectOwners
-                                           where owned._userName == username && owned._projectID == projectID
-                                           select owned).FirstOrDefault();
-
-            return (ownerInProject != null);
-        }
-
-        // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectMember(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
-        {
-            ProjectMember memberInProject = (from member in _db._projectMembers
-                                             where member._userName == username && member._projectID == projectID
-                                             select member).FirstOrDefault();
-             
-            return (memberInProject != null);
-        }
-
-        public bool isProjectMemberInAnyProject(int memberID)
-        {
-            ProjectMember memberInProject = (from member in _db._projectMembers
-                                             where  member.ID == memberID
-                                             select member).FirstOrDefault();
-
-            return (memberInProject != null);
+            ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
+            _db._projectFiles.Remove(fileToDel);
+            _db.SaveChanges();
         }
         #endregion
 
-        #region Update a file
+        #region Update file.
         // Update a file by file id, takes a parameter of a type ProjectFileViewModel.
         public void updateProjectFile(ProjectFileViewModel file)
         {
@@ -164,6 +129,16 @@ namespace Codebucket.Services
                 _db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
                 _db.SaveChanges();
             }
+        }
+        #endregion
+
+        #region File exists.
+        // Check if file exist by file id, returns bool value if true or not.
+        public bool doesProjectFileExist(int id)
+        {
+            var doesProjectfileExist = _db._projectFiles.Find(id);
+
+            return (doesProjectfileExist != null);
         }
         #endregion
 
@@ -187,69 +162,15 @@ namespace Codebucket.Services
         }
         #endregion
 
-
-        public string getOwnerName (int projectID)
+        #region Populate drop down data.
+        public List<SelectListItem> populateDropdownData()
         {
-            if (_db._projects.Find(projectID) == null)
-            {
-                return null;
-            }
+            List<SelectListItem> fileTypes = new List<SelectListItem>();
+            fileTypes.Add(new SelectListItem() { Value = "", Text = "- Choose a file type -" });
+            _db._fileTypes.ToList().ForEach((x) => { fileTypes.Add(new SelectListItem() { Value = x.ID.ToString(), Text = x._description }); });
 
-            ProjectOwner ownerInProject = (from owned in _db._projectOwners
-                                           where owned._projectID == projectID
-                                           select owned).FirstOrDefault();
-
-            string owner = ownerInProject._userName;
-
-            return owner;
+            return fileTypes;
         }
-
-        public void deleteProjectFile(int? id)
-        {
-            ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
-            _db._projectFiles.Remove(fileToDel);
-            _db.SaveChanges();
-        }
-
-        public void deleteProjectMember(int projectMemberID)
-        {
-            ProjectMember memberToDel = (from member in _db._projectMembers
-                                         where member.ID == projectMemberID
-                                         select member).FirstOrDefault();
-
-            _db._projectMembers.Remove(memberToDel);
-            _db.SaveChanges();
-        }
-
-        public bool doesProjectFileExist(int id)
-        {
-            var doesProjectfileExist = _db._projectFiles.Find(id);
-
-            return (doesProjectfileExist != null);
-        }
-
-        public ProjectMemberViewModel getProjectMemberByProjectMemberID(int projectMemberID)
-        {
-            ProjectMemberViewModel member = new ProjectMemberViewModel();
-
-            ProjectMember memberFound = (from m in _db._projectMembers
-                                         where m.ID == projectMemberID
-                                         select m).FirstOrDefault();
-
-            member._userName = memberFound._userName;
-            member._projectID = memberFound._projectID;
-            member._id = memberFound.ID;
-
-            return member;
-        }
-
-        public void deleteProjectMemberByUserNameAndProjectID(string userName, int projectID)
-        {
-            ProjectMember memberFound = (from m in _db._projectMembers
-                                         where m._projectID == projectID && userName == m._userName
-                                         select m).FirstOrDefault();
-
-            deleteProjectMember(memberFound.ID);
-        }
+        #endregion
     }
 }

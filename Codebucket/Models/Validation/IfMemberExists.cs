@@ -10,7 +10,8 @@ namespace Codebucket.Models.Validation
 {
     public class IfMemberExists : ValidationAttribute
     {
-        private ProjectFileService _projectFileService = new ProjectFileService();
+        private UserService _userService = new UserService();
+
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             AddMemberViewModel member = (AddMemberViewModel)validationContext.ObjectInstance;
@@ -19,11 +20,11 @@ namespace Codebucket.Models.Validation
             {
                 return new ValidationResult("Username is required!");
             }
-            else if(_projectFileService.isProjectMember(member._userName, member._projectID))
+            else if(_userService.isProjectMember(member._userName, member._projectID))
             {
                 return new ValidationResult("This user is already in this project!");
             }
-            else if(_projectFileService.userIsInDataBase(member._userName))
+            else if(_userService.userIsInDataBase(member._userName))
             {
                 return ValidationResult.Success;
             }

@@ -14,8 +14,7 @@ namespace Codebucket.Controllers
             Response.StatusCode = 500;
             return View("Error");
         }
-
-        //
+        
         // GET: /Error/PageNotFound
         public ActionResult PageNotFound()
         {
