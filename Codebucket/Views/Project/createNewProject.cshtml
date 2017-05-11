@@ -4,57 +4,57 @@
     ViewBag.Title = "createNewProject";
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h2>Create new project</h2>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model._projectName, htmlAttributes: new { @class = "control-label col-md-2 input-lg" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model._projectName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model._projectName, "", new { @class = "text-danger" })
+<div id="create-project-form">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="confirmRemDel">
+            <h2>Please <b>enter</b> name of the project you want to <b>create</b> and choose the <b>type of file</b> it should include.</h2>
+                <div class="center-input-name">            
+                    @Html.LabelFor(model => model._projectName, htmlAttributes: new { @class = "control-label col-md-2 input-lg" })
+                    @Html.EditorFor(model => model._projectName, new { htmlAttributes = new { @class = "form-control" } })  
+                    <div id="valCrePro">
+                        @Html.ValidationSummary(true, "", new { @class = "validation-field" })
+                        @Html.ValidationMessageFor(model => model._projectName, "", new { @class = "validation-field" })
+                    </div>
             </div>
         </div>
-        <p>
-            <input name="radioChoice" type="radio" id="test1" value="1" checked="checked" />
-            <label for="test1">HTML</label>
-        </p>
-        <p>
-            <input name="radioChoice" type="radio" id="test2" value="2"  />
-            <label for="test2">CSS</label>
-        </p>
-        <p>
-            <input name="radioChoice" type="radio" id="test3" value="3" />
-            <label for="test3">C++</label>
-        </p>
-        <p>
-            <input name="radioChoice" type="radio" id="test4" value="4" />
-            <label for="test4">C#</label>
-        </p>
-        <p>
-            <input name="radioChoice" type="radio" id="test5" value="5" />
-            <label for="test5">Java</label>
-        </p>
-        <p>
-            <input name="radioChoice" type="radio" id="test6" value="6" />
-            <label for="test6">JavaScript</label>
-        </p>
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="align-radio-buttons">
+            <ul>
+                <li>
+                    <input name="radioChoice" type="radio" id="test1" value="1" checked="checked" />
+                    <label for="test1">HTML</label>
+                </li>
+                <li>
+                    <input name="radioChoice" type="radio" id="test2" value="2" />
+                    <label for="test2">CSS</label>
+                </li>
+                <li>
+                    <input name="radioChoice" type="radio" id="test3" value="3" />
+                    <label for="test3">C++</label>
+                </li>
+                <li>
+                    <input name="radioChoice" type="radio" id="test4" value="4" />
+                    <label for="test4">C#</label>
+                </li>
+                <li>
+                    <input name="radioChoice" type="radio" id="test5" value="5" />
+                    <label for="test5">Java</label>
+                </li>
+                <li>
+                    <input name="radioChoice" type="radio" id="test6" value="6" />
+                    <label for="test6">JavaScript</label>
+                </li>
+            </ul>
         </div>
-    </div>
-    
-}
-
-<div>
-    @Html.ActionLink("Back", "../Project/Index", null, new { @class = "waves-effect waves-light btn" })
+            <div class="confirmCrePro">
+                    @Html.ActionLink("Back", "../Project/Index", null, new { @class = "btn btn-default" })
+                    <input type="submit" value="Create" class="waves-effect waves-light btn" />
+            </div>
+            
+    }
 </div>
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
