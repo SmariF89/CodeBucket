@@ -480,6 +480,14 @@ input[type="text"]{
    
 }
     
+/* Add member form */
+.center-input-name-add-mem {
+    padding-left:260px;
+}
+
+#add-member-form {
+    padding-bottom: 400px;
+}
 
 /*Contact.cshtml starts from here*/
 
