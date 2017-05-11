@@ -65,7 +65,7 @@ namespace Codebucket.Controllers
         // GET: updateProjectFile
         [ValidateInput(false)]
         [HttpGet]
-        public ActionResult updateProjectFile(int? id)
+        public ActionResult updateProjectFile(int? id) // id -> nafn
         {
             if (id != null)
             {

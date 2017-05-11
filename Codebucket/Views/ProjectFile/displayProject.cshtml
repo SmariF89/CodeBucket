@@ -6,30 +6,6 @@
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="FileDisplayContainer">
-    @if (Model._isProjectOwner == true)
-    {
-
-        <div class="AddFileDisplay">
-            @Html.ActionLink("Add file", "createNewProjectFile", new { id = Model._id }, new { @class = "waves-effect waves-light btn" })
-        </div>
-
-        <div class="AddMemberDisplay">
-            @Html.ActionLink("Add member", "addProjectMember", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
-        </div>
-
-    }
-    else if (Model._isProjectOwner == false)
-    {
-        <div class="AddMemberDisplay">
-            @Html.ActionLink("Leave project", "leaveProject", new { projectID = Model._id }, new { @class = "waves-effect waves-light btn" })
-        </div>
-    }
-        <div class="BackDisplayProject">
-            @Html.ActionLink("Back", "../Project/Index", null, new { @class = "btn btn-default" })
-        </div>
-</div>
-
 @{string owner = "";}
 @if (@Model._isProjectOwner == true)
 {
@@ -40,9 +16,29 @@ else
     owner = @Model._projectOwnerName;
 }
 
-<h2>@Model._projectName</h2>
-<h3 class="memberHeader">Owned by @owner</h3>
-<h3 id="memHead" class="memberHeader">Members</h3>
+<h2><b>@Model._projectName</b></h2>
+<h3 class="memberHeader">Owned by <b>@owner</b></h3>
+<br />
+<br />
+<h3 id="fileTableHeader">Files</h3>
+
+<h3 id="memberTableHeader">Members</h3>
+@if (Model._isProjectOwner == true)
+{
+    <div class="AddMemberDisplay">
+        <a href="/ProjectFile/addProjectMember?projectID=@Model._id" title="Add member">
+            <img id="AddMemberIcon" alt="Remove" src="~/Content/Symbols/AddMember.png" />
+        </a>
+    </div>
+}
+@if (Model._isProjectOwner == false)
+{
+    <div class="AddMemberDisplay">
+        <a href="/ProjectFile/leaveProject?projectID=@Model._id" title="Leave project">
+            <img id="LeaveProjectIcon" src="~/Content/Symbols/LeaveProjectRed.png"/>
+        </a>
+    </div>
+}
 
 <div class="tablesInline">
     <table id="projectDisplay" class="highlight bordered">
@@ -51,7 +47,14 @@ else
                 <th scope="col">#</th>
                 <th scope="col">Filename</th>
                 <th scope="col">Preview</th>
-                <th scope="col"></th>
+                <th scope="col">
+                @if (Model._isProjectOwner == true)
+                {
+                    <a href="/ProjectFile/createNewProjectFile/@Model._id" title="New file">
+                        <img id="addFileIcon" alt="New file" src="~/Content/Symbols/AddFile.png" />
+                    </a>
+                }
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -77,6 +80,13 @@ else
                 counter++;
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    @Html.ActionLink("Back", "../Project/Index", null, new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 <div class="tablesInline">

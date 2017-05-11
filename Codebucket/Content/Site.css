@@ -183,7 +183,7 @@ ul.nav a:hover {
     width: 45px;
     margin-right: -700px;
     padding-bottom: 5px;
-    padding-right: 8px;
+    padding-right: 20px;
 }
 
 .typeLogo2{
@@ -317,7 +317,8 @@ input[type="text"]{
 }
 
 .AddMemberDisplay{
-    float: right;
+    
+    display: inline;
 }
 
 .BackDisplayProject{
@@ -353,7 +354,7 @@ input[type="text"]{
 }
 
 #projectDisplay {
-    width: 75%;
+    width: 74%;
     float: left;
     margin-right: 78px;
 }
@@ -371,12 +372,44 @@ input[type="text"]{
     font-size: 18px; 
 }
 
+#AddMemberIcon{
+    height: 38px;
+    width: 38px;
+    float: right;
+    margin-right: 14px;
+}
+
+#memberTableHeader{
+    margin-left: 840px;
+}
+
+#memberTableHeader, 
+#AddMemberIcon{
+    display: inline;
+}
+
+#addFileIcon{
+    height: 30px;
+    width: 30px;
+    margin-left: 50px;
+}
+
+#fileTableHeader{
+    margin-bottom: -25px;
+}
+
+#LeaveProjectIcon{
+    height: 29px !important;
+    width: 29px !important;
+    margin-left: 25px;
+    margin-bottom: 10px;
+}
+
 .confirmRemDel {
     min-height: 90%; 
     text-align: center;
     font-size: 200%;
 }
-
 
 /* About site.*/
 .background-aboutSite{
@@ -501,6 +534,3 @@ input[type="text"]{
     margin: 0 auto;
     font-size: 150%;
 }*/
-
-
-
