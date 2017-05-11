@@ -166,6 +166,7 @@ ul.nav a:hover {
     width:400px;
     overflow:hidden;
     margin:auto;
+   
 }
 
 #buttonControl {
@@ -534,3 +535,11 @@ input[type="text"]{
     margin: 0 auto;
     font-size: 150%;
 }*/
+
+.Login{
+    margin-top: 180px;
+}
+
+.Register{
+    margin-top: 180px;
+}
