@@ -20,7 +20,7 @@ namespace Codebucket.Models
         }
     }
 
-    public interface IMyDataContext
+    public interface IAppDataContext
     {
         IDbSet<Project> _projects { get; set; }
         IDbSet<ProjectFile> _projectFiles { get; set; }
@@ -29,20 +29,21 @@ namespace Codebucket.Models
         IDbSet<FileType> _fileTypes { get; set; }
         IDbSet<ExceptionLogger> _exceptions { get; set; }
         IDbSet<ContactLog> _contacts { get; set; }
+        IDbSet<ApplicationUser> Users { get; set; }
 
         int SaveChanges();
         //System.Data.Entity.Infrastructure.DbEntityEntry Entry(object entity);
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>//, IMyDataContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IAppDataContext
     {
-        public DbSet<Project> _projects { get; set; }
-        public DbSet<ProjectFile> _projectFiles { get; set; }
-        public DbSet<ProjectOwner> _projectOwners { get; set; }
-        public DbSet<ProjectMember> _projectMembers { get; set; }
-        public DbSet<FileType> _fileTypes { get; set; }
-        public DbSet<ExceptionLogger> _exceptions { get; set; }
-        public DbSet<ContactLog> _contacts { get; set; }
+        public IDbSet<Project> _projects { get; set; }
+        public IDbSet<ProjectFile> _projectFiles { get; set; }
+        public IDbSet<ProjectOwner> _projectOwners { get; set; }
+        public IDbSet<ProjectMember> _projectMembers { get; set; }
+        public IDbSet<FileType> _fileTypes { get; set; }
+        public IDbSet<ExceptionLogger> _exceptions { get; set; }
+        public IDbSet<ContactLog> _contacts { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

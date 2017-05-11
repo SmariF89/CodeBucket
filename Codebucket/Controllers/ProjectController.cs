@@ -11,9 +11,9 @@ namespace Codebucket.Controllers
 {
     public class ProjectController : Controller
     {
-        private ProjectFileService _projectFileService = new ProjectFileService();
-        private ProjectService _projectService = new ProjectService();
-        private UserService _userService = new UserService();
+        private ProjectFileService _projectFileService = new ProjectFileService(null);
+        private ProjectService _projectService = new ProjectService(null);
+        private UserService _userService = new UserService(null);
 
         #region Display all files.
         [HttpGet]

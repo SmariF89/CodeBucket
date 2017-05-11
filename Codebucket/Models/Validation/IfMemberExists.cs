@@ -10,7 +10,7 @@ namespace Codebucket.Models.Validation
 {
     public class IfMemberExists : ValidationAttribute
     {
-        private UserService _userService = new UserService();
+        private UserService _userService = new UserService(null);
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

@@ -20,7 +20,7 @@ namespace Codebucket.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private UserService _applicationUserService = new UserService();
+        private UserService _applicationUserService = new UserService(null);
 
         public AccountController()
         {

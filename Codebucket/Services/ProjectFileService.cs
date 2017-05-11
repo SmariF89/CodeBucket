@@ -11,13 +11,13 @@ namespace Codebucket.Services
 {   
     public class ProjectFileService
     {
-        private ApplicationDbContext _db;
+        private readonly IAppDataContext _db;
 
         #region Constructor
         // Make a new instance of database connection.
-        public ProjectFileService()
+        public ProjectFileService(IAppDataContext context)
         {
-            _db = new ApplicationDbContext();
+            _db = context ?? new ApplicationDbContext();
         }
         #endregion
 

@@ -8,13 +8,13 @@ namespace Codebucket.Services
 {
     public class UserService
     {
-        private ApplicationDbContext _db;
+        private readonly IAppDataContext _db;
 
         #region Constructor.
         // Constructor, makes a new instance of database connection.
-        public UserService()
+        public UserService(IAppDataContext context)
         {
-            _db = new ApplicationDbContext();
+            _db = context ?? new ApplicationDbContext();
         }
         #endregion
 
