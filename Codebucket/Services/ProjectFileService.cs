@@ -14,7 +14,12 @@ namespace Codebucket.Services
         private readonly IAppDataContext _db;
 
         #region Constructor
-        // Make a new instance of database connection.
+        /// <summary>
+        /// Constructor, makes a new instance of database connection. If parameter is null it sets the _db as
+        /// 'new ApplicationDbContext' else it takes the 'IAppDataContext context' parameter and uses that 
+        /// (used for unit testing).
+        /// </summary>
+        /// <param name="context"></param>
         public ProjectFileService(IAppDataContext context)
         {
             _db = context ?? new ApplicationDbContext();
