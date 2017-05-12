@@ -82,5 +82,18 @@ namespace Codebucket.Tests.Services
             // Assert:
             Assert.AreEqual(4, result.Count);
         }
+
+        [TestMethod]
+        public void TestGetFilesFromNonExistantProject()
+        {
+            // Arrange: 
+            const int id = 1337;
+
+            // Act:
+            var result = _service.getAllProjectFilesByProjectId(id);
+
+            // Assert:
+            Assert.AreEqual(0, result.Count);
+        }
     }
 }
