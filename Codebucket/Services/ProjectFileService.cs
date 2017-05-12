@@ -14,7 +14,12 @@ namespace Codebucket.Services
         private readonly IAppDataContext _db;
 
         #region Constructor
-        // Make a new instance of database connection.
+        /// <summary>
+        /// Constructor, makes a new instance of database connection. If parameter is null it sets the _db as
+        /// 'new ApplicationDbContext' else it takes the 'IAppDataContext context' parameter and uses that 
+        /// (used for unit testing).
+        /// </summary>
+        /// <param name="context"></param>
         public ProjectFileService(IAppDataContext context)
         {
             _db = context ?? new ApplicationDbContext();
@@ -22,36 +27,38 @@ namespace Codebucket.Services
         #endregion
 
         #region Get project file and get all project files.
-        // Get project file by project id, returns a viewmodel of the type ProjectFileViewModel
-        // We had to change our queries from using the Find function to using LINQ queries in order
-        // for the unit tests to work out.
+        /// <summary>
+        /// Get project file by project id, returns a viewmodel of the type 'ProjectFileViewModel'.
+        /// LINQ query for each of 'ProjectFileViewModel' properties used.
+        /// </summary>
+        /// <param name="projectFileId">Project File ID</param>
+        /// <returns>'ProjectFileViewModel'</returns>
         public ProjectFileViewModel getProjectFileByProjectFileId(int projectFileId)
         {
             if (projectFileId > 0)
             {
                 ProjectFileViewModel model = new ProjectFileViewModel();
 
-                //model._id = _db._projectFiles.Find(projectFileId).ID;
                 model._id = (from f in _db._projectFiles
                              where f.ID == projectFileId
                              select f.ID).SingleOrDefault();
-                //model._projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString();
+
                 model._projectFileData = (from f in _db._projectFiles
                                           where f.ID == projectFileId
                                           select f._projectFileData).SingleOrDefault().ToString();
-                //model._projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString();
+
                 model._projectFileName = (from f in _db._projectFiles
                                           where f.ID == projectFileId
                                           select f._projectFileName).SingleOrDefault().ToString();
-                //model._projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString();
+
                 model._projectFileType = (from f in _db._projectFiles
                                           where f.ID == projectFileId
                                           select f._projectFileType).SingleOrDefault().ToString();
-                //model._projectID = _db._projectFiles.Find(projectFileId)._projectID;
+
                 model._projectID = (from f in _db._projectFiles
                                     where f.ID == projectFileId
                                     select f._projectID).SingleOrDefault();
-                //model._aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString();
+
                 model._aceExtension = (from f in _db._projectFiles
                                        where f.ID == projectFileId
                                        select f._aceExtension).SingleOrDefault().ToString();
@@ -61,7 +68,14 @@ namespace Codebucket.Services
             return null;
         }
 
-        // Get all project files by project id, returns a list of the type ProjectFileViewModel.
+        /// <summary>
+        /// Get all project files by project ID, returns a list of 'ProjectFileViewModel'. Get a list of 
+        /// all projectFiles and goes through each 'ProjectFile' in the list and adds to the propperties from
+        /// to a list of 'ProjectFileViewModel' one at a time, then returns it back. If project ID is not valid
+        /// return null.
+        /// </summary>
+        /// <param name="projectId">Project ID</param>
+        /// <returns>List of 'ProjectFileViewModel'</returns>
         public List<ProjectFileViewModel> getAllProjectFilesByProjectId(int? projectId)
         {
             if (projectId != null || projectId > 0)
@@ -92,7 +106,11 @@ namespace Codebucket.Services
         #endregion
 
         #region Get file type.
-        // Get file type by project id, returns a string.
+        /// <summary>
+        /// Get file type by project ID, if project ID is not valid return null.
+        /// </summary>
+        /// <param name="projectId">Project ID</param>
+        /// <returns>String</returns>
         public String getFileTypeByProjectId(int? projectId)
         {
             if (projectId != null || projectId > 0)
@@ -106,6 +124,12 @@ namespace Codebucket.Services
             return null;
         }
 
+        /// <summary>
+        /// Get ace extension type by project ID from Db. Used to tell the ACE editor what file type it is 
+        /// so it can adjust the syntax highlighting accordingly.
+        /// </summary>
+        /// <param name="projectId">Project ID</param>
+        /// <returns>String</returns>
         public String getAceExtensionByProjectId(int projectId)
         {
             string ext = (from projectFile in _db._projectFiles
@@ -116,6 +140,10 @@ namespace Codebucket.Services
         #endregion
 
         #region Add project file.
+        /// <summary>
+        /// Add project file to the Db. 
+        /// </summary>
+        /// <param name="model">'CreateProjectFileViewModel'</param>
         public void addProjectFile(CreateProjectFileViewModel model)
         {
             ProjectFile newProjectFile = new ProjectFile();
@@ -131,11 +159,12 @@ namespace Codebucket.Services
         #endregion
 
         #region Delete file.
-        // Delete a file in project by file id, void returns no value.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        /// <summary>
+        /// Deletes a file from a project by file ID.
+        /// </summary>
+        /// <param name="id"></param>
         public void deleteProjectFile(int? id)
         {
-            //ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
             ProjectFile fileToDel = (from f in _db._projectFiles
                                      where f.ID == id.Value
                                      select f).FirstOrDefault();
@@ -145,13 +174,14 @@ namespace Codebucket.Services
         #endregion
 
         #region Update file.
-        // Update a file by file id, takes a parameter of a type ProjectFileViewModel.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        /// <summary>
+        /// Update file by file ID in the Db.
+        /// </summary>
+        /// <param name="file">'ProjectFileViewModel'</param>
         public void updateProjectFile(ProjectFileViewModel file)
         {
             if (file._id != 0)
             {
-                //_db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
                 (from f in _db._projectFiles
                  where f.ID == file._id
                  select f).SingleOrDefault()._projectFileData = file._projectFileData;
@@ -161,11 +191,13 @@ namespace Codebucket.Services
         #endregion
 
         #region File exists.
-        // Check if file exist by file id, returns bool value if true or not.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        /// <summary>
+        /// Check if file exist by file ID, returns bool value if true or not.
+        /// </summary>
+        /// <param name="id">File ID</param>
+        /// <returns>bool</returns>
         public bool doesProjectFileExist(int id)
         {
-            //var doesProjectfileExist = _db._projectFiles.Find(id);
             var doesProjectFileExist = (from f in _db._projectFiles
                                         where f.ID == id
                                         select f).FirstOrDefault();
@@ -175,6 +207,13 @@ namespace Codebucket.Services
         #endregion
 
         #region Validation for creating new file.
+        /// <summary>
+        /// Check if project file exists, adds the filetype ending to the name of the project file so it can match 
+        /// correctly in the Db. Returns a bool value if true or not.
+        /// </summary>
+        /// <param name="projectFileName">Project File Name</param>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>bool</returns>
         public bool projectFileExists(string projectFileName, int projectID)
         {
             List<ProjectFileViewModel> projectFiles = getAllProjectFilesByProjectId(projectID);
@@ -195,6 +234,10 @@ namespace Codebucket.Services
         #endregion
 
         #region Populate drop down data.
+        /// <summary>
+        /// Gets all file types so it can be populated in a drop down menu to select a filetype.
+        /// </summary>
+        /// <returns>List of 'SelectListItem'</returns>
         public List<SelectListItem> populateDropdownData()
         {
             List<SelectListItem> fileTypes = new List<SelectListItem>();

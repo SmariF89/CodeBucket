@@ -17,6 +17,12 @@ namespace Codebucket.Services
         private UserService _userService = new UserService(null);
 
         #region Constructor
+        /// <summary>
+        /// Constructor, makes a new instance of database connection. If parameter is null it sets the _db as
+        /// 'new ApplicationDbContext' else it takes the 'IAppDataContext context' parameter and uses that 
+        /// (used for unit testing).
+        /// </summary>
+        /// <param name="context"></param>
         public ProjectService(IAppDataContext context)
         {
             _db = context ?? new ApplicationDbContext();
@@ -24,12 +30,19 @@ namespace Codebucket.Services
         #endregion
 
         #region Get all projects by user name
-        public List<ProjectViewModel> getAllProjectsByApplicationUserId(string userName)
+        /// <summary>
+        /// Gets a list of all projects by user name. Uses two function to get all owner projects, member projects
+        /// and project logo by sending a ref list of 'ProjectViewModel' as parameter along with username. After geting
+        /// all those its sorted by the build in Sort() function in alphabetical order.
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <returns>List of 'ProjectViewModel'</returns>
+        public List<ProjectViewModel> getAllProjectsByApplicationUserName(string userName)
         {
             List<ProjectViewModel> newProjectViewModel = new List<ProjectViewModel>();
 
-            newProjectViewModel = getAllOwnerProjectsByApplicationUserId(ref newProjectViewModel, userName);
-            newProjectViewModel = getAllMemberProjectsByApplicationUserId(ref newProjectViewModel, userName);
+            getAllOwnerProjectsByApplicationUsername(ref newProjectViewModel, userName);
+            getAllMemberProjectsByApplicationUsername(ref newProjectViewModel, userName);
             getProjectLogo(ref newProjectViewModel);
 
             newProjectViewModel.Sort(delegate (ProjectViewModel A, ProjectViewModel B)
@@ -39,6 +52,79 @@ namespace Codebucket.Services
             return newProjectViewModel;
         }
 
+        /// <summary>
+        /// Adds all owner projects by current username to the refferenced list of'ProjectViewModel' by finding all
+        /// owner project's and joining that list to project list by comparing the two by ID and project ID. The resault
+        /// of the matched ID and project ID is then added to the list.
+        /// </summary>
+        /// <param name="model">Ref List 'ProjectViewModel'</param>
+        /// <param name="userName">Username</param>
+        public void getAllOwnerProjectsByApplicationUsername(ref List<ProjectViewModel> model, string userName)
+        {
+            List<Project> newOwnerProjects = new List<Project>();
+
+            IEnumerable<ProjectOwner> ownerProjectsIds = (from projectOwner in _db._projectOwners
+                                                          where projectOwner._userName == userName
+                                                          select projectOwner);
+
+            newOwnerProjects = (from a in _db._projects
+                                join b in ownerProjectsIds on a.ID equals b._projectID
+                                select a).ToList();
+
+            foreach (var item in newOwnerProjects)
+            {
+
+                model.Add(new ProjectViewModel
+                {
+                    _id = item.ID,
+                    _projectName = item._projectName,
+                    _projectOwnerName = _userService.getOwnerName(item.ID),
+                    _isProjectOwner = true,
+                    _projectFileTypeId = item._projectFileTypeId,
+                    _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
+                    _projectMembers = _userService.getAllProjectMemberViewModelsByProjectId(item.ID)
+                });
+            }
+        }
+        /// <summary>
+        /// Adds all member projects by current username to the refferenced list of'ProjectViewModel' by finding all
+        /// member project's and joining that list to project list by comparing the two by ID and project ID. The resault
+        /// of the matched ID and project ID is then added to the list.
+        /// </summary>
+        /// <param name="model">Ref List 'ProjectViewModel'</param>
+        /// <param name="userName">Username</param>
+        public void getAllMemberProjectsByApplicationUsername(ref List<ProjectViewModel> model, string userName)
+        {
+            List<Project> newOwnerProjects = new List<Project>();
+
+            IEnumerable<ProjectMember> memberProjectsIds = (from projectMember in _db._projectMembers
+                                                            where projectMember._userName == userName
+                                                            select projectMember);
+
+            newOwnerProjects = (from a in _db._projects
+                                join b in memberProjectsIds on a.ID equals b._projectID
+                                select a).ToList();
+
+            foreach (var item in newOwnerProjects)
+            {
+                model.Add(new ProjectViewModel
+                {
+                    _id = item.ID,
+                    _projectName = item._projectName,
+                    _isProjectOwner = false,
+                    _projectOwnerName = _userService.getOwnerName(item.ID),
+                    _projectFileTypeId = item.ID,
+                    _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
+                    _projectMembers = _userService.getAllProjectMemberViewModelsByProjectId(item.ID)
+                });
+            }
+        }
+
+        /// <summary>
+        /// Gets project logo type by project file type and adds it to the refferenced 'ProjectViewModel'
+        /// one at a time through the whole list of 'ProjectViewModel's'.
+        /// </summary>
+        /// <param name="model">List of 'ProjectViewModel'</param>
         private void getProjectLogo(ref List<ProjectViewModel> model)
         {
             foreach (var item in model)
@@ -69,73 +155,22 @@ namespace Codebucket.Services
                 }
             }
         }
-
-
-        public List<ProjectViewModel> getAllOwnerProjectsByApplicationUserId(ref List<ProjectViewModel> model, string userName)
-        {
-            List<Project> newOwnerProjects = new List<Project>();
-
-            IEnumerable<ProjectOwner> ownerProjectsIds = (from projectOwner in _db._projectOwners
-                                                          where projectOwner._userName == userName
-                                                          select projectOwner);
-
-            
-            newOwnerProjects = (from a in _db._projects
-                                join b in ownerProjectsIds on a.ID equals b._projectID
-                                select a).ToList();
-
-            foreach (var item in newOwnerProjects)
-            {
-
-                model.Add(new ProjectViewModel
-                {
-                    _id = item.ID,
-                    _projectName = item._projectName,
-                    _projectOwnerName = _userService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
-                    _isProjectOwner = true,
-                    _projectFileTypeId = item._projectFileTypeId,
-                    _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _userService.getAllProjectMemberViewModelsByProjectId(item.ID)
-                });
-            }
-
-            return model;
-        }
-
-        public List<ProjectViewModel> getAllMemberProjectsByApplicationUserId(ref List<ProjectViewModel> model, string userName)
-        {
-            List<Project> newOwnerProjects = new List<Project>();
-
-            IEnumerable<ProjectMember> memberProjectsIds = (from projectMember in _db._projectMembers
-                                                            where projectMember._userName == userName
-                                                            select projectMember);
-
-            newOwnerProjects = (from a in _db._projects
-                                join b in memberProjectsIds on a.ID equals b._projectID
-                                select a).ToList();
-
-            foreach (var item in newOwnerProjects)
-            {
-                model.Add(new ProjectViewModel
-                {
-                    _id = item.ID,
-                    _projectName = item._projectName,
-                    _isProjectOwner = false,
-                    _projectOwnerName = _userService.getOwnerName(item.ID), //Added this one 10.05.17 - Smári
-                    _projectFileTypeId = item.ID,
-                    _projectFiles = _projectFileService.getAllProjectFilesByProjectId(item.ID),
-                    _projectMembers = _userService.getAllProjectMemberViewModelsByProjectId(item.ID)
-                });
-            }
-
-            return model;
-        }
         #endregion
 
-        #region Get single project by id.   
+        #region Get single project by id.
+        /// <summary>
+        /// Get a project by current user username and project ID.
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <param name="id">Project ID</param>
+        /// <returns>'ProjectViewModel'</returns>
         public ProjectViewModel getProjectByProjectId(string userName, int? id)
         {
-            Project entity = _db._projects.Find(id);
+            //Project entity = _db._projects.Find(id);
+            Project entity = (from projects in _db._projects
+                              where projects.ID == id
+                              select projects).FirstOrDefault();
+
             ProjectViewModel model = new ProjectViewModel();
 
             model._id = entity.ID;
@@ -151,7 +186,12 @@ namespace Codebucket.Services
         #endregion
 
         #region Add project by current user name
-
+        /// <summary>
+        /// Adds a project by current user username to the Db. Adds a default empty index file to the Db.
+        /// Adds current user as owner of the new project to the Db.
+        /// </summary>
+        /// <param name="model">'CreateProjectViewModel'</param>
+        /// <param name="ownerName">Owner Name</param>
         public void addProject(CreateProjectViewModel model, string ownerName)
         {
             Project newProject = new Project();
@@ -187,6 +227,13 @@ namespace Codebucket.Services
         #endregion
         
         #region Validation For creating new Project.
+        /// <summary>
+        /// Checks if current users project name matches any of his existing owned projects, returns false if 
+        /// any matches are found, true othervise.
+        /// </summary>
+        /// <param name="projectName">Project Name</param>
+        /// <param name="userName">Username</param>
+        /// <returns>bool</returns>
         public bool createNewProjectIsValid(string projectName, string userName)
         {
             Project foundProject = new Project();
@@ -209,20 +256,29 @@ namespace Codebucket.Services
                     return false;
                 }
             }
-            
             return true;
         }
 
+        /// <summary>
+        /// Check if project ID exists in Db.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>bool</returns>
         public bool projectExist(int? id)
         {
-            var projectExist = _db._projects.Find(id);
+            var projectExists = (from Project in _db._projects
+                                 where Project.ID == id
+                                 select Project.ID).Any();
 
-            return (projectExist != null);
+            return (projectExists);
         }
-
         #endregion
 
         #region Delete project.
+        /// <summary>
+        /// Delete project. Delete all files included in the project, all members and the owner.
+        /// </summary>
+        /// <param name="model">'ProjectViewModel'</param>
         public void deleteProject(ProjectViewModel model)
         {
             // Delete all files in the project.
@@ -243,16 +299,14 @@ namespace Codebucket.Services
                                            select owner).FirstOrDefault();
 
             // Delete the project.
-            Project projectToDel = _db._projects.Find(model._id);
-            _db._projects.Remove(projectToDel);
+            Project projectToDel = (from del in _db._projects
+                                    where del.ID == model._id
+                                    select del).FirstOrDefault();
 
+            _db._projects.Remove(projectToDel);
             _db._projectOwners.Remove(ownerInProject);
             _db.SaveChanges();
         }
         #endregion
     }
 }
-
-
-
-

@@ -23,7 +23,7 @@ namespace Codebucket.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<ProjectViewModel> modelList = _projectService.getAllProjectsByApplicationUserId(User.Identity.Name);
+            List<ProjectViewModel> modelList = _projectService.getAllProjectsByApplicationUserName(User.Identity.Name);
             return View(modelList);
         }
 
