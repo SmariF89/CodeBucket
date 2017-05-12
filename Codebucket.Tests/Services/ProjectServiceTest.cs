@@ -105,6 +105,8 @@ namespace Codebucket.Tests.Services
             _service = new ProjectService(mockDb);
         }
 
+        // Test.
+
         #region projectExists function.
         [TestMethod]
         public void TestProjectExist()

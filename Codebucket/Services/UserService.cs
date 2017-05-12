@@ -11,7 +11,6 @@ namespace Codebucket.Services
         private readonly IAppDataContext _db;
 
         #region Constructor.
-        // Constructor, makes a new instance of database connection.
         /// <summary>
         /// Constructor, makes a new instance of database connection. If parameter is null it sets the _db as
         /// 'new ApplicationDbContext' else it takes the 'IAppDataContext context' parameter and uses that 

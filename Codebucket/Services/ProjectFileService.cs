@@ -14,7 +14,12 @@ namespace Codebucket.Services
         private readonly IAppDataContext _db;
 
         #region Constructor
-        // Make a new instance of database connection.
+        /// <summary>
+        /// Constructor, makes a new instance of database connection. If parameter is null it sets the _db as
+        /// 'new ApplicationDbContext' else it takes the 'IAppDataContext context' parameter and uses that 
+        /// (used for unit testing).
+        /// </summary>
+        /// <param name="context"></param>
         public ProjectFileService(IAppDataContext context)
         {
             _db = context ?? new ApplicationDbContext();
@@ -132,7 +137,7 @@ namespace Codebucket.Services
 
         #region Delete file.
         // Delete a file in project by file id, void returns no value.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        // Find() was changed to a LINQ query for the unit tests to work.
         public void deleteProjectFile(int? id)
         {
             //ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
@@ -146,7 +151,7 @@ namespace Codebucket.Services
 
         #region Update file.
         // Update a file by file id, takes a parameter of a type ProjectFileViewModel.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        // Find() was changed to a LINQ query for the unit tests to work.
         public void updateProjectFile(ProjectFileViewModel file)
         {
             if (file._id != 0)
@@ -162,7 +167,7 @@ namespace Codebucket.Services
 
         #region File exists.
         // Check if file exist by file id, returns bool value if true or not.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        // Find() was changed to a LINQ query for the unit tests to work.
         public bool doesProjectFileExist(int id)
         {
             //var doesProjectfileExist = _db._projectFiles.Find(id);
