@@ -59,6 +59,8 @@ textarea {
     max-width: 280px;
 }
 
+
+
 /* Ace editor*/
 #editor {
     position: relative;
@@ -125,6 +127,13 @@ textarea {
     padding-left: 80px;
 }
 
+#changePassword .field-validation-error {
+    padding-right: 5%;
+    display:block;
+    line-height: 5%;
+   
+}
+
 
 .input-field {
     line-height:5%;
@@ -132,6 +141,8 @@ textarea {
 
 .input-validation-error {
     line-height:200%;
+    border:3px solid red !important;
+    background-color: rgb(255, 179, 179) !important;
 }
 
 .validation-summary-errors {
@@ -595,6 +606,8 @@ input[type="text"]{
     margin-top: 180px;
     
 }
+
+
 
 .loginFontSize{
     font-size:150%;
