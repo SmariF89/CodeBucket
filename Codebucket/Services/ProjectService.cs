@@ -186,7 +186,12 @@ namespace Codebucket.Services
         #endregion
 
         #region Add project by current user name
-
+        /// <summary>
+        /// Adds a project by current user username to the Db. Adds a default empty index file to the Db.
+        /// Adds current user as owner of the new project to the Db.
+        /// </summary>
+        /// <param name="model">'CreateProjectViewModel'</param>
+        /// <param name="ownerName">Owner Name</param>
         public void addProject(CreateProjectViewModel model, string ownerName)
         {
             Project newProject = new Project();
@@ -222,6 +227,13 @@ namespace Codebucket.Services
         #endregion
         
         #region Validation For creating new Project.
+        /// <summary>
+        /// Checks if current users project name matches any of his existing owned projects, returns false if 
+        /// any matches are found, true othervise.
+        /// </summary>
+        /// <param name="projectName">Project Name</param>
+        /// <param name="userName">Username</param>
+        /// <returns>bool</returns>
         public bool createNewProjectIsValid(string projectName, string userName)
         {
             Project foundProject = new Project();
@@ -244,25 +256,29 @@ namespace Codebucket.Services
                     return false;
                 }
             }
-            
             return true;
         }
 
+        /// <summary>
+        /// Check if project ID exists in Db.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>bool</returns>
         public bool projectExist(int? id)
         {
-            //var projectExist = _db._projects.Find(id);
-
             var projectExists = (from Project in _db._projects
                                  where Project.ID == id
                                  select Project.ID).Any();
 
-            //return (projectExist != null);
             return (projectExists);
         }
-
         #endregion
 
         #region Delete project.
+        /// <summary>
+        /// Delete project. Delete all files included in the project, all members and the owner.
+        /// </summary>
+        /// <param name="model"></param>
         public void deleteProject(ProjectViewModel model)
         {
             // Delete all files in the project.
@@ -296,7 +312,3 @@ namespace Codebucket.Services
         #endregion
     }
 }
-
-
-
-
