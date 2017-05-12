@@ -1,21 +1,25 @@
-﻿using Codebucket.Models.Entities;
-using Codebucket.Models.ViewModels;
+﻿using Codebucket.Models.ViewModels;
 using Codebucket.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Codebucket.Controllers
 {
     public class ProjectController : Controller
     {
+        /// <summary>
+        /// Initializes new instances of services, used to call on service functions and get data or remove from Db.
+        /// </summary>
         private ProjectFileService _projectFileService = new ProjectFileService(null);
         private ProjectService _projectService = new ProjectService(null);
         private UserService _userService = new UserService(null);
 
         #region Display all files.
+        /// <summary>
+        /// Displays a selected project to user by project ID, providing project id is valid to current user. 
+        /// User has to be a member or a owner or the project, if not redirect to HttpNotFound.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult DisplayProject(int? id)
         {
@@ -24,21 +28,22 @@ namespace Codebucket.Controllers
                 if (_userService.isProjectOwnerOrMember(User.Identity.Name, id.Value))
                 {
                     ProjectViewModel model = _projectService.getProjectByProjectId(User.Identity.Name, id);
-
                     string owner = _userService.getOwnerName(id.Value);
                     model._projectOwnerName = owner;
-
                     return View(model);
                 }
             }
-
-
             return HttpNotFound();
         }
         #endregion
 
         #region Create file.
-        // GET: createNewProjectFile
+        /// <summary>
+        /// If project id is valid and user is the owner, send 'CreateProjectFileViewModel' to view 
+        /// else return HttpNotFound.
+        /// </summary>
+        /// <param name="id">Proejct ID</param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult CreateNewProjectFile(int? id)
         {
@@ -57,7 +62,12 @@ namespace Codebucket.Controllers
             return HttpNotFound();
         }
 
-        // POST: createNewProjectFile
+        /// <summary>
+        /// If model from is valid forward the model to service layer and add to Db and display the project view.
+        /// Else it form is not valid return the values from model back to 'CreateNewProjectFile' view.
+        /// </summary>
+        /// <param name="model">CreateProjectFileViewModel</param>
+        /// <returns>ActionResult</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewProjectFile(CreateProjectFileViewModel model)
@@ -81,10 +91,14 @@ namespace Codebucket.Controllers
         #endregion
 
         #region Edit file.
-        // GET: EditProjectFile
+        /// <summary>
+        /// If file id is valid, it sends 'ProjectFileViewModel' to view. Else return to overview/index.
+        /// </summary>
+        /// <param name="id">File ID</param>
+        /// <returns>ActionResult</returns>
         [ValidateInput(false)]
         [HttpGet]
-        public ActionResult EditProjectFile(int? id) // id -> nafn
+        public ActionResult EditProjectFile(int? id)
         {
             if (id != null)
             {
@@ -103,10 +117,15 @@ namespace Codebucket.Controllers
             return RedirectToAction("Index", "Overview");
         }
 
+        /// <summary>
+        /// If model data is null replace it with empty string instead and if model id is not equal to 0
+        /// send model forward to service layer and update the new data to Db.
+        /// </summary>
+        /// <param name="model">ProjectFileViewModel</param>
+        /// <returns>ActionResult</returns>
         [ValidateInput(false)]
-        // POST: EditProjectFile
         [HttpPost]
-        public ActionResult EditProjectFile(ProjectFileViewModel model) // FIXME:: model.isvalid check, need id != 0?
+        public ActionResult EditProjectFile(ProjectFileViewModel model)
         {
             if (model._projectFileData == null)
             {
@@ -120,9 +139,13 @@ namespace Codebucket.Controllers
             return HttpNotFound();
         }
         #endregion
-        
+
         #region Add member.
-        // GET: AddProjectMember
+        /// <summary>
+        /// If project id is valid return a 'AddMemberViewModel' to view. Else return HttpNotFound.
+        /// </summary>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult AddProjectMember(int? projectID)
         {
@@ -138,7 +161,12 @@ namespace Codebucket.Controllers
             return HttpNotFound();
         }
 
-        // POST: AddProjectMember
+        /// <summary>
+        /// If model is valid, send the model forward to service layer and add project member to Db. 
+        /// Else display current project again.
+        /// </summary>
+        /// <param name="model">AddMemberViewModel</param>
+        /// <returns>ActionResult</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProjectMember(AddMemberViewModel model)
@@ -160,6 +188,11 @@ namespace Codebucket.Controllers
         #endregion
 
         #region Delete file.
+        /// <summary>
+        /// If model is valid, return a 'ProjectFileViewModel' to view. Else return HttpNotFound.
+        /// </summary>
+        /// <param name="id">File ID</param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult DeleteProjectFile(int? id)
         {
@@ -179,7 +212,13 @@ namespace Codebucket.Controllers
             }
             return HttpNotFound();
         }
-        
+
+        /// <summary>
+        /// Sends the file id forward to service layer and removes the file from Db and then redirects the action
+        /// to display the current project again.
+        /// </summary>
+        /// <param name="id">File ID</param>
+        /// <returns>ActionResult</returns>
         [HttpPost, ActionName("DeleteProjectFile")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteProjectFileConfirmed(int id)
@@ -192,6 +231,11 @@ namespace Codebucket.Controllers
         #endregion
 
         #region Delete member.
+        /// <summary>
+        /// If project member id is valid, return a 'ProjectMemberViewModel' to view. Else reutrn HttpNotFound.
+        /// </summary>
+        /// <param name="projectMemberID">Project Member ID</param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult DeleteProjectMember(int? projectMemberID)
         {
@@ -211,6 +255,12 @@ namespace Codebucket.Controllers
             return HttpNotFound();
         }
 
+        /// <summary>
+        /// If project member id is valid, forward the project member id to service layer and remove the member from Db.
+        /// Else return HttpNotFound.
+        /// </summary>
+        /// <param name="projectMemberID">Project Member ID</param>
+        /// <returns>ActionResult</returns>
         [HttpPost, ActionName("DeleteProjectMember")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteProjectMemberConfirmed(int? projectMemberID)
@@ -234,6 +284,11 @@ namespace Codebucket.Controllers
         #endregion
 
         #region Leave project.
+        /// <summary>
+        /// If project ID is valid, return a 'ProjectViewModel' to view. Else return HttpNotFound.
+        /// </summary>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult LeaveProject(int? projectID)
         {
@@ -252,6 +307,12 @@ namespace Codebucket.Controllers
             return HttpNotFound();
         }
 
+        /// <summary>
+        /// If project ID is valid, forward username and project ID to service layer and removes the member from project 
+        /// member Db. Else return HttpNotFound.
+        /// </summary>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>ActionResult</returns>
         [HttpPost, ActionName("LeaveProject")]
         [ValidateAntiForgeryToken]
         public ActionResult LeaveProjectConfirmed(int? projectID)

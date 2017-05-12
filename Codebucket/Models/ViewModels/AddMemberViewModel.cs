@@ -13,7 +13,9 @@ namespace Codebucket.Models.ViewModels
         [IfMemberExists]
         [Display(Name ="Username")]
         public string _userName  { get; set; }
+
         public string _projectName { get; set; }
+
         public int _projectID { get; set; }
     }
 }

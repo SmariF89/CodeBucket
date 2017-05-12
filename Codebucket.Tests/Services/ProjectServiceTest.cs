@@ -100,7 +100,6 @@ namespace Codebucket.Tests.Services
             model._projectName = "Lab42";
             model._projectTypeId = 1;
             //Arrange:
-            const int id = 1337;
 
             _service.addProject(model, owner);
             ////not done
@@ -108,6 +107,29 @@ namespace Codebucket.Tests.Services
             //Assert:
 
         }
+
+        //public void addProject()
+        //{
+
+
+        //    string owner = "Bjarki";
+        //    CreateProjectViewModel model = new CreateProjectViewModel();
+        //    model._projectName = "Lab42";
+        //    model._projectTypeId = 1;
+        //    //Arrange:
+        //    const int id = 1337;
+
+
+        //    _service.addProject(model, owner);
+        //    ////not done
+
+        //Assert:
+
+        //    //Assert:
+        //    Assert.IsFalse(result);
+        //}
+
+
 
         [TestMethod]
         public void TestProjectExist()
@@ -145,7 +167,7 @@ namespace Codebucket.Tests.Services
 
         //}
 
-
+       
 
     }
 }
