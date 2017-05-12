@@ -470,8 +470,8 @@ input[type="text"]{
 
 .twitter{
     margin: 10px;
-    width: 350px;
-    height: 155px;
+    width: 310px;
+    height: 125px;
     border-color: #808080;
     border-style: solid;
     border-width: 1px;
@@ -486,7 +486,7 @@ input[type="text"]{
 
 .twitterContainer{
     float: left;
-    margin-left: 20px;
+    margin-left: 5px;
     width: 100%;
 }
 
