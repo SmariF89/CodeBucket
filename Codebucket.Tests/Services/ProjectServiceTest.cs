@@ -83,51 +83,53 @@ namespace Codebucket.Tests.Services
                _projectTypeId = 1
             };
 
+            var p8 = new ApplicationUserViewModel
+            {
+                _applicationUserName = "Bjarki"
+                //_applicationUserProjects ""
+            };
+            mockDb.UserViewModel.Add(p8);
+
             _service = new ProjectService(mockDb);
         }
 
         public void addProject()
         {
-<<<<<<< HEAD
             string owner = "Bjarki";
             CreateProjectViewModel model = new CreateProjectViewModel();
             model._projectName = "Lab42";
             model._projectTypeId = 1;
-=======
             //Arrange:
             const int id = 1337;
->>>>>>> e0f18db92bc7762327843bc55133c08884bad26a
 
             _service.addProject(model, owner);
             ////not done
 
-<<<<<<< HEAD
-=======
             //Assert:
-            Assert.IsFalse(result);
->>>>>>> e0f18db92bc7762327843bc55133c08884bad26a
+
         }
 
+        [TestMethod]
+        public void TestProjectExist()
+        {
+            // Arrange: 
+            int id = 1;
+
+            // Act:
+            var result = _service.projectExist(id);
+
+            // Assert:
+            Assert.IsTrue(result);
+        }
+     
         //[TestMethod]
-        //public void TestProjectExist()
-        //{
-        //    // Arrange: 
-        //    int id = 1;
-
-        //    // Act:
-        //    var result = _service.projectExist(id);
-
-        //    // Assert:
-        //    Assert.IsTrue(result);
-        //}
-
-        //[TestMethod]
-        //public void TestGetProject()
+        //public void getProjectByProjectId()
         //{
         //    string user = "Bjarki";
         //    int id = 1;
 
         //    var result = _service.getProjectByProjectId(user, id);
+        //    //is not working
 
         //    Assert.IsNotNull(result);
         //}
@@ -139,7 +141,7 @@ namespace Codebucket.Tests.Services
 
         //    var result = _service.createNewProjectIsValid(projectName, username);
 
-        //    Assert.IsTrue(result);
+        //    Assert.IsFalse(result);
 
         //}
 

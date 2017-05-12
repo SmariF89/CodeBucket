@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Codebucket.Models;
 using Codebucket.Models.Entities;
+using Codebucket.Models.ViewModels;
 
 namespace Codebucket.Tests
 {
@@ -20,6 +21,8 @@ namespace Codebucket.Tests
             _exceptions     = new InMemoryDbSet<ExceptionLogger>();
             _contacts       = new InMemoryDbSet<ContactLog>();
             Users           = new InMemoryDbSet<ApplicationUser>();
+            UserViewModel = new InMemoryDbSet<ApplicationUserViewModel>();
+            CreateProjectViewModel = new InMemoryDbSet<CreateProjectViewModel>();
         }
 
         public IDbSet<Project> _projects               { get; set; }
@@ -30,6 +33,8 @@ namespace Codebucket.Tests
         public IDbSet<ExceptionLogger> _exceptions     { get; set; }
         public IDbSet<ContactLog> _contacts            { get; set; }
         public IDbSet<ApplicationUser> Users           { get; set; }
+        public IDbSet<ApplicationUserViewModel> UserViewModel { get; set; }
+        public IDbSet<CreateProjectViewModel> CreateProjectViewModel { get; set; }
         // TODO: bætið við fleiri færslum hér
         // eftir því sem þeim fjölgar í AppDataContext klasanum ykkar!
 

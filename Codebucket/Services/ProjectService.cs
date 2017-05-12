@@ -135,7 +135,11 @@ namespace Codebucket.Services
         #region Get single project by id.   
         public ProjectViewModel getProjectByProjectId(string userName, int? id)
         {
-            Project entity = _db._projects.Find(id);
+            //Project entity = _db._projects.Find(id);
+            Project entity = (from projects in _db._projects
+                              where projects.ID == id
+                              select projects).FirstOrDefault();
+
             ProjectViewModel model = new ProjectViewModel();
 
             model._id = entity.ID;
@@ -215,9 +219,14 @@ namespace Codebucket.Services
 
         public bool projectExist(int? id)
         {
-            var projectExist = _db._projects.Find(id);
+            //var projectExist = _db._projects.Find(id);
 
-            return (projectExist != null);
+            var projectExists = (from Project in _db._projects
+                                 where Project.ID == id
+                                 select Project.ID).Any();
+
+            //return (projectExist != null);
+            return (projectExists);
         }
 
         #endregion

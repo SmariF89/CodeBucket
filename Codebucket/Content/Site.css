@@ -75,7 +75,7 @@ textarea {
 #editor.setOptions{
     font-family: Tahoma ;
     font-size: 10pt;
-}
+  }
 
 .FileName{
     float:left;
@@ -439,13 +439,14 @@ input[type="text"]{
 
 .twitter{
     margin: 10px;
-    width: 300px;
-    height: 120px;
+    width: 350px;
+    height: 155px;
     border-color: #808080;
     border-style: solid;
     border-width: 1px;
+    position: center;
+    margin-left: 10px;
     
-
     /* set border roundness */  
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px; 
@@ -455,7 +456,7 @@ input[type="text"]{
 .twitterContainer{
     float: left;
     margin-left: 20px;
-
+    width: 100%;
 }
 
 .titleAbout{
