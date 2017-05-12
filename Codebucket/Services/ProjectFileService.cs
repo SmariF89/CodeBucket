@@ -132,7 +132,7 @@ namespace Codebucket.Services
 
         #region Delete file.
         // Delete a file in project by file id, void returns no value.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        // Find() was changed to a LINQ query for the unit tests to work.
         public void deleteProjectFile(int? id)
         {
             //ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
@@ -146,23 +146,23 @@ namespace Codebucket.Services
 
         #region Update file.
         // Update a file by file id, takes a parameter of a type ProjectFileViewModel.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        // Find() was changed to a LINQ query for the unit tests to work.
         public void updateProjectFile(ProjectFileViewModel file)
         {
-            if (file._id != 0)
-            {
+            //if (file._id != 0)
+            //{
                 //_db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
                 (from f in _db._projectFiles
                  where f.ID == file._id
                  select f).SingleOrDefault()._projectFileData = file._projectFileData;
                 _db.SaveChanges();
-            }
+            //}
         }
         #endregion
 
         #region File exists.
         // Check if file exist by file id, returns bool value if true or not.
-        // Find() was changed to a LINQ queyry for the unit tests to work.
+        // Find() was changed to a LINQ query for the unit tests to work.
         public bool doesProjectFileExist(int id)
         {
             //var doesProjectfileExist = _db._projectFiles.Find(id);
