@@ -149,14 +149,14 @@ namespace Codebucket.Services
         // Find() was changed to a LINQ query for the unit tests to work.
         public void updateProjectFile(ProjectFileViewModel file)
         {
-            //if (file._id != 0)
-            //{
+            if (file._id != 0)
+            {
                 //_db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
                 (from f in _db._projectFiles
                  where f.ID == file._id
                  select f).SingleOrDefault()._projectFileData = file._projectFileData;
                 _db.SaveChanges();
-            //}
+            }
         }
         #endregion
 
