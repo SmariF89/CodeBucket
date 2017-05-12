@@ -83,11 +83,8 @@ textarea {
 /*#editor.setOptions{
     font-family: Tahoma ;
     font-size: 10pt;
-<<<<<<< HEAD
-  }
-=======
 }*/
->>>>>>> 7789a53f281b28db71750f131a16b3acf9f79799
+
 
 .FileName{
     float:left;
@@ -101,8 +98,6 @@ textarea {
     width: 150px;
     height: 74px;
     margin: 10px;
-
-
 }*/
 
 .file-name {
@@ -242,6 +237,15 @@ ul.nav a:hover {
     float: right;
 }
 
+#OverviewTableParticipating{
+    margin-top: 80px;
+}
+
+#header-projectOverview{
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
 .modal-body iframe{
 	width:100% !important;
 }
@@ -337,7 +341,7 @@ input[type="text"]{
     font-size: 16px;
     color: rgb(38,166,154);
     margin-bottom: -18px;
-    margin-right: -210px;
+    margin-right: -45px;
     margin-left: -9px;
 }
 

@@ -23,7 +23,7 @@
 
 <!--TABLE-->
 <div class="row movies-list">
-    <h1 style="font-weight: bold;">Project overview</h1>
+    <h1 id="header-projectOverview">Project overview</h1>
     <h2>My projects</h2>
     <table class="highlight bordered">
         <tbody>
@@ -64,11 +64,11 @@
                 }
         </tbody>
     </table>
-
-    <h2>Participating</h2>
-    <table class="highlight bordered">
-        <tbody>
-            @foreach (ProjectViewModel item in Model)
+    <div id="OverviewTableParticipating">
+        <h2>Participating</h2>
+        <table class="highlight bordered">
+            <tbody>
+                @foreach (ProjectViewModel item in Model)
             {
                 if (!item._isProjectOwner)
                 {
@@ -79,7 +79,7 @@
                                 </figure>
                             </td>
                             <td>
-                                @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
+                                &nbsp &nbsp &nbsp &nbsp @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
                             </td>
                             <td>
                                 <p class="addedBy">Added by <b>@item._projectOwnerName</b></p>
@@ -92,8 +92,9 @@
                         </tr>
                     }
                 }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
     <br />
     @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "waves-effect waves-light btn" })
 </div>
