@@ -93,7 +93,6 @@ namespace Codebucket.Tests.Services
             };
             mockDb._projectViewModel.Add(p8);
 
-
             var p9 = new ApplicationUserViewModel
             {
                 _applicationUserName = "Bjarki"
