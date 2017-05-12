@@ -46,7 +46,7 @@ namespace Codebucket.Controllers
 
         #region Create new project.
         /// <summary>
-        /// GET: CreateProjectViewModel for user to ba able to create a new project.
+        /// CreateProjectViewModel for user to ba able to create a new project.
         /// </summary>
         /// <returns>ActionResult</returns>
         // GET: CreateNewProject
@@ -58,7 +58,7 @@ namespace Codebucket.Controllers
             return View(model);
         }
         /// <summary>
-        /// POST: FormCollection sent from user used is checked if valid, if it is not valid send back to
+        /// FormCollection sent from user used is checked if valid, if it is not valid send back to
         /// user with message, else if valid send forward to service layer and add project to Db and redirect
         /// action to overview/index.
         /// </summary>
@@ -96,7 +96,7 @@ namespace Codebucket.Controllers
 
         #region Delete project.
         /// <summary>
-        /// GET: User has selected a project to delete and that project ID is passed in as a parameter. If project
+        /// User has selected a project to delete and that project ID is passed in as a parameter. If project
         /// is valid the user is asked to confirm delete. If yes redirect to DeleteConfirmed, else go back to 
         /// overview/index.
         /// </summary>
@@ -121,7 +121,7 @@ namespace Codebucket.Controllers
         }
 
         /// <summary>
-        /// POST: User has confirmed delete. If project ID is valid send forward to service layer and delete from Db, 
+        /// User has confirmed delete. If project ID is valid send forward to service layer and delete from Db, 
         /// else return HttpNotFound.
         /// </summary>
         /// <param name="id">Project ID</param>
