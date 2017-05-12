@@ -17,7 +17,7 @@
             <div class="input-field col s12">
                 <i class="material-icons prefix">perm_identity</i>
                 @Html.TextBoxFor(m => m.UserName, new { @id = "icon_prefix", @class = "validate" })
-                @Html.LabelFor(m => m.UserName, new { @class = "active control-label " })
+                @Html.LabelFor(m => m.UserName, new { @class = "active control-label loginFontSize" })
                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "validate" })
                 
             </div>
