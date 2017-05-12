@@ -86,27 +86,24 @@ namespace Codebucket.Tests.Services
             _service = new ProjectService(mockDb);
         }
 
-        public void addProject()
-        {
-<<<<<<< HEAD
-            string owner = "Bjarki";
-            CreateProjectViewModel model = new CreateProjectViewModel();
-            model._projectName = "Lab42";
-            model._projectTypeId = 1;
-=======
-            //Arrange:
-            const int id = 1337;
->>>>>>> e0f18db92bc7762327843bc55133c08884bad26a
+        //public void addProject()
+        //{
 
-            _service.addProject(model, owner);
-            ////not done
+        //    string owner = "Bjarki";
+        //    CreateProjectViewModel model = new CreateProjectViewModel();
+        //    model._projectName = "Lab42";
+        //    model._projectTypeId = 1;
+        //    //Arrange:
+        //    const int id = 1337;
 
-<<<<<<< HEAD
-=======
-            //Assert:
-            Assert.IsFalse(result);
->>>>>>> e0f18db92bc7762327843bc55133c08884bad26a
-        }
+
+        //    _service.addProject(model, owner);
+        //    ////not done
+
+
+        //    //Assert:
+        //    Assert.IsFalse(result);
+        //}
 
         //[TestMethod]
         //public void TestProjectExist()
