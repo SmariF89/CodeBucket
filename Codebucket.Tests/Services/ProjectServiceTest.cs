@@ -140,7 +140,13 @@ namespace Codebucket.Tests.Services
 
         //}
 
+        [TestMethod]
+        public void TestProjectExist()
+        {
+            //Arrange:
+            
 
+        }
 
     }
 }
