@@ -24,10 +24,15 @@ namespace Codebucket.Models.Validation
             {
                 return new ValidationResult("This user is already in this project!");
             }
+            else if (_userService.isProjectOwner(member._userName, member._projectID))
+            {
+                return new ValidationResult("You are already an owner of this project!");
+            }
             else if(_userService.userIsInDataBase(member._userName))
             {
                 return ValidationResult.Success;
             }
+            
             else
             {
                 return new ValidationResult("Username does not exist!");

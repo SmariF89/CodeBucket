@@ -23,18 +23,38 @@ namespace Codebucket.Services
 
         #region Get project file and get all project files.
         // Get project file by project id, returns a viewmodel of the type ProjectFileViewModel
+        // We had to change our queries from using the Find function to using LINQ queries in order
+        // for the unit tests to work out.
         public ProjectFileViewModel getProjectFileByProjectFileId(int projectFileId)
         {
             if (projectFileId > 0)
             {
                 ProjectFileViewModel model = new ProjectFileViewModel();
 
-                model._id = _db._projectFiles.Find(projectFileId).ID;
-                model._projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString();
-                model._projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString();
-                model._projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString();
-                model._projectID = _db._projectFiles.Find(projectFileId)._projectID;
-                model._aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString();
+                //model._id = _db._projectFiles.Find(projectFileId).ID;
+                model._id = (from f in _db._projectFiles
+                             where f.ID == projectFileId
+                             select f.ID).SingleOrDefault();
+                //model._projectFileData = _db._projectFiles.Find(projectFileId)._projectFileData.ToString();
+                model._projectFileData = (from f in _db._projectFiles
+                                          where f.ID == projectFileId
+                                          select f._projectFileData).SingleOrDefault().ToString();
+                //model._projectFileName = _db._projectFiles.Find(projectFileId)._projectFileName.ToString();
+                model._projectFileName = (from f in _db._projectFiles
+                                          where f.ID == projectFileId
+                                          select f._projectFileName).SingleOrDefault().ToString();
+                //model._projectFileType = _db._projectFiles.Find(projectFileId)._projectFileType.ToString();
+                model._projectFileType = (from f in _db._projectFiles
+                                          where f.ID == projectFileId
+                                          select f._projectFileType).SingleOrDefault().ToString();
+                //model._projectID = _db._projectFiles.Find(projectFileId)._projectID;
+                model._projectID = (from f in _db._projectFiles
+                                    where f.ID == projectFileId
+                                    select f._projectID).SingleOrDefault();
+                //model._aceExtension = _db._projectFiles.Find(projectFileId)._aceExtension.ToString();
+                model._aceExtension = (from f in _db._projectFiles
+                                       where f.ID == projectFileId
+                                       select f._aceExtension).SingleOrDefault().ToString();
 
                 return model;
             }
@@ -112,9 +132,13 @@ namespace Codebucket.Services
 
         #region Delete file.
         // Delete a file in project by file id, void returns no value.
+        // Find() was changed to a LINQ queyry for the unit tests to work.
         public void deleteProjectFile(int? id)
         {
-            ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
+            //ProjectFile fileToDel = _db._projectFiles.Find(id.Value);
+            ProjectFile fileToDel = (from f in _db._projectFiles
+                                     where f.ID == id.Value
+                                     select f).FirstOrDefault();
             _db._projectFiles.Remove(fileToDel);
             _db.SaveChanges();
         }
@@ -122,11 +146,15 @@ namespace Codebucket.Services
 
         #region Update file.
         // Update a file by file id, takes a parameter of a type ProjectFileViewModel.
+        // Find() was changed to a LINQ queyry for the unit tests to work.
         public void updateProjectFile(ProjectFileViewModel file)
         {
             if (file._id != 0)
             {
-                _db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
+                //_db._projectFiles.Find(file._id)._projectFileData = file._projectFileData;
+                (from f in _db._projectFiles
+                 where f.ID == file._id
+                 select f).SingleOrDefault()._projectFileData = file._projectFileData;
                 _db.SaveChanges();
             }
         }
@@ -134,11 +162,15 @@ namespace Codebucket.Services
 
         #region File exists.
         // Check if file exist by file id, returns bool value if true or not.
+        // Find() was changed to a LINQ queyry for the unit tests to work.
         public bool doesProjectFileExist(int id)
         {
-            var doesProjectfileExist = _db._projectFiles.Find(id);
+            //var doesProjectfileExist = _db._projectFiles.Find(id);
+            var doesProjectFileExist = (from f in _db._projectFiles
+                                        where f.ID == id
+                                        select f).FirstOrDefault();
 
-            return (doesProjectfileExist != null);
+            return (doesProjectFileExist != null);
         }
         #endregion
 
