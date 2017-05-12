@@ -1,18 +1,24 @@
-﻿*{
+﻿/*If the font is added to div then the ace cursor is displaces*/
+/* *{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}*/
+
+h1, h2, h3, h4, h5, h6{
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
 
-h1, h2, h3, h4{
+p, a, label, legend {
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
 
-p{
+input, textarea{
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
 
-input{
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+th, td, tr, table, tbody, tfoot, thead, title {
+	font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
+
 
 body {
     padding-top: 50px;
@@ -63,7 +69,7 @@ textarea {
 #editor {
     position: relative;
     clear: both;
-    height: 725px;
+    height: 440px;
     width: 100%;
     border: 1px solid #cccccc;
     border-radius: 4px;
@@ -72,10 +78,10 @@ textarea {
 
 }
 
-#editor.setOptions{
+/*#editor.setOptions{
     font-family: Tahoma ;
     font-size: 10pt;
-}
+}*/
 
 .FileName{
     float:left;
@@ -273,7 +279,7 @@ input[type="text"]{
    border: 1px solid #cccccc;
     border-radius: 4px;
     opacity: 1;
-    margin-top: 30px;
+    margin-top: -30px;
     text-align: center;
     width: 700px;
     margin-bottom: 150px;
