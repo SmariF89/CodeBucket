@@ -113,14 +113,14 @@ namespace Codebucket.Services
         /// <returns>String</returns>
         public string getOwnerName(int projectID)
         {
-            if (_db._projects.Find(projectID) == null)
-            {
-                return null;
-            }
-
             ProjectOwner ownerInProject = (from owned in _db._projectOwners
                                            where owned._projectID == projectID
                                            select owned).FirstOrDefault();
+
+            if (ownerInProject == null)
+            {
+                return null;
+            }
 
             string owner = ownerInProject._userName;
 
@@ -163,19 +163,19 @@ namespace Codebucket.Services
             ProjectMember newProjectMember = new ProjectMember();
 
             // Select project from db that corresponds to user selected/entered project
-            var project = from p in _db._projects
+            var project = (from p in _db._projects
                           where p.ID == model._projectID
-                          select p;
+                          select p).SingleOrDefault();
 
             // Select username from db that corresponds to user selected/entered username
-            var user = from u in _db.Users
+            var user = (from u in _db.Users
                        where u.UserName == model._userName
-                       select u;
+                       select u).SingleOrDefault();
 
-            if (project.FirstOrDefault() != null && user.FirstOrDefault() != null)
+            if (project != null && user != null)
             {
-                newProjectMember._projectID = project.FirstOrDefault().ID;
-                newProjectMember._userName = user.FirstOrDefault().UserName;
+                newProjectMember._projectID = project.ID;
+                newProjectMember._userName = user.UserName;
 
                 _db._projectMembers.Add(newProjectMember);
                 _db.SaveChanges();

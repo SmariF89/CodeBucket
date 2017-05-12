@@ -83,7 +83,11 @@ textarea {
 /*#editor.setOptions{
     font-family: Tahoma ;
     font-size: 10pt;
+<<<<<<< HEAD
+  }
+=======
 }*/
+>>>>>>> 7789a53f281b28db71750f131a16b3acf9f79799
 
 .FileName{
     float:left;
@@ -466,13 +470,14 @@ input[type="text"]{
 
 .twitter{
     margin: 10px;
-    width: 300px;
-    height: 120px;
+    width: 310px;
+    height: 125px;
     border-color: #808080;
     border-style: solid;
     border-width: 1px;
+    position: center;
+    margin-left: 10px;
     
-
     /* set border roundness */  
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px; 
@@ -481,8 +486,8 @@ input[type="text"]{
 
 .twitterContainer{
     float: left;
-    margin-left: 20px;
-
+    margin-left: 5px;
+    width: 100%;
 }
 
 .titleAbout{

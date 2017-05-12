@@ -76,76 +76,44 @@ namespace Codebucket.Tests.Services
             };
             mockDb._projectOwners.Add(p6);
 
-            var p7 = new CreateProjectViewModel
+            var p7 = new ProjectFileViewModel
             {
-                
-               _projectName = "Lab42",
-               _projectTypeId = 1
+                _id = 1,
+                _projectFileData = "dada",
+                _projectID = 1,
+                _projectFileName = "lab98"
             };
+            mockDb._projectFileViewModel.Add(p7);
+
+            var p8 = new ProjectViewModel
+            {
+                _id = 1,
+                _isProjectOwner = true,
+                _projectName = "String"
+            };
+            mockDb._projectViewModel.Add(p8);
+
+            var p9 = new ApplicationUserViewModel
+            {
+                _applicationUserName = "Bjarki"
+                //_applicationUserProjects ""
+            };
+            mockDb.UserViewModel.Add(p9);
 
             _service = new ProjectService(mockDb);
         }
 
-        //public void addProject()
-        //{
-
-        //    string owner = "Bjarki";
-        //    CreateProjectViewModel model = new CreateProjectViewModel();
-        //    model._projectName = "Lab42";
-        //    model._projectTypeId = 1;
-        //    //Arrange:
-        //    const int id = 1337;
-
-
-        //    _service.addProject(model, owner);
-        //    ////not done
-
-
-        //    //Assert:
-        //    Assert.IsFalse(result);
-        //}
-
-        //[TestMethod]
-        //public void TestProjectExist()
-        //{
-        //    // Arrange: 
-        //    int id = 1;
-
-        //    // Act:
-        //    var result = _service.projectExist(id);
-
-        //    // Assert:
-        //    Assert.IsTrue(result);
-        //}
-
-        //[TestMethod]
-        //public void TestGetProject()
-        //{
-        //    string user = "Bjarki";
-        //    int id = 1;
-
-        //    var result = _service.getProjectByProjectId(user, id);
-
-        //    Assert.IsNotNull(result);
-        //}
-        //[TestMethod]
-        //public void TestcreateNewProjectIsValid()
-        //{
-        //    string projectName = "Project_1";
-        //    string username = "Bjarki";
-
-        //    var result = _service.createNewProjectIsValid(projectName, username);
-
-        //    Assert.IsTrue(result);
-
-        //}
-
         [TestMethod]
         public void TestProjectExist()
         {
-            //Arrange:
-            
+            // Arrange: 
+            int id = 1;
 
+            // Act:
+            var result = _service.projectExist(id);
+
+            // Assert:
+            Assert.IsTrue(result);
         }
 
     }
