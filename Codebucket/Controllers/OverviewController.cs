@@ -4,8 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-
-namespace Codebucket.Controllers    
+namespace Codebucket.Controllers
 {
     public class OverviewController : Controller
     {
