@@ -278,7 +278,7 @@ namespace Codebucket.Services
         /// <summary>
         /// Delete project. Delete all files included in the project, all members and the owner.
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="model">'ProjectViewModel'</param>
         public void deleteProject(ProjectViewModel model)
         {
             // Delete all files in the project.
@@ -299,13 +299,11 @@ namespace Codebucket.Services
                                            select owner).FirstOrDefault();
 
             // Delete the project.
-            //Project projectToDel = _db._projects.Find(model._id);
             Project projectToDel = (from del in _db._projects
                                     where del.ID == model._id
                                     select del).FirstOrDefault();
 
             _db._projects.Remove(projectToDel);
-           
             _db._projectOwners.Remove(ownerInProject);
             _db.SaveChanges();
         }
