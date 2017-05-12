@@ -6,7 +6,7 @@
 
 <div id="add-file-form">
     <div class="confirmRemDel">
-        <br />
+        <br />     
         <p>Please <b>enter the name</b> of the <b>new file</b> you want to <b>add to the project</b>.</p>
         @using (Html.BeginForm())
         {
@@ -21,8 +21,8 @@
                 @Html.ValidationMessageFor(model => model._projectFileName, "", new { @class = "validate" })
             </div>
             <div class="no-color" id="createFile">
-                <input type="submit" value="Create" class="waves-effect waves-light btn" />
                 @Html.ActionLink("Back", "DisplayProject", new { id = Model._projectID }, new { @class = "btn btn-default" })
+                <input type="submit" value="Create" class="waves-effect waves-light btn" />              
             </div>
         }
     </div>

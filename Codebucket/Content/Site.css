@@ -570,19 +570,17 @@ input[type="text"]{
 }
 
 #valCrePro {
-    
     margin-left: 40px;
-   
 }
 
 #createFile {
     margin-top: 25px;
-    padding-left: 390px;
+    padding-left: 290px;
 }
     
 /* Add member form */
 .center-input-name-add-mem {
-    padding-left:260px;
+    padding-left:230px;
 }
 
 #add-member-form {
@@ -594,16 +592,22 @@ input[type="text"]{
     padding-left: 350px;
 }
 
-/* Add member form */
 #add-file-form {
- padding-bottom: 400px;
-    padding-right:200px;
+    padding-bottom: 400px;
+    padding-right: 200px;
 }
 
 #add-file-form p {
     padding-left: 250px;
 }
 
+.center-instructions-field-creMem {
+    padding-left: 200px;
+}
+
+.center-buttons-field-creMem {
+    padding-left:210px;
+}
 
 /*Contact.cshtml starts from here*/
 
@@ -617,8 +621,6 @@ input[type="text"]{
     margin-top: 180px;
     
 }
-
-
 
 .loginFontSize{
     font-size:150%;
