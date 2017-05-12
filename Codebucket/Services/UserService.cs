@@ -12,6 +12,12 @@ namespace Codebucket.Services
 
         #region Constructor.
         // Constructor, makes a new instance of database connection.
+        /// <summary>
+        /// Constructor, makes a new instance of database connection. If parameter is null it sets the _db as
+        /// 'new ApplicationDbContext' else it takes the 'IAppDataContext context' parameter and uses that 
+        /// (used for unit testing).
+        /// </summary>
+        /// <param name="context"></param>
         public UserService(IAppDataContext context)
         {
             _db = context ?? new ApplicationDbContext();
@@ -19,20 +25,30 @@ namespace Codebucket.Services
         #endregion
 
         #region Get project members and owners.
-        // Get all project owners by project ID, Returns a list of the entitiy ProjectOwner.
-        
-        //public List<ProjectOwner> getAllProjectOwnersByProjectId(int? id)
-        //{
-        //    if (id != null || id > 0)
-        //    {
-        //        return (from projectOwner in _db._projectOwners
-        //                where projectOwner._projectID == id
-        //                select projectOwner).ToList();
-        //    }
-        //    return null;
-        //}
+        /// <summary>
+        /// Currently not being used but will be used in further implementation on this program. 
+        /// ----
+        /// Gets all project owners by project ID, if project ID is not valid return null.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>List of 'ProjectOwner'</returns>
+        public List<ProjectOwner> getAllProjectOwnersByProjectId(int? id)
+        {
+            if (id != null || id > 0)
+            {
+                return (from projectOwner in _db._projectOwners
+                        where projectOwner._projectID == id
+                        select projectOwner).ToList();
+            }
+            return null;
+        }
 
         // Get all project members by project ID, returns a list of the entity ProjectMember.
+        /// <summary>
+        /// Gets all project members by project ID, if project ID is not valid return null.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>List of 'ProjectMember'</returns>
         public List<ProjectMember> getAllProjectMembersByProjectId(int? id)
         {
             if (id != null || id > 0)
@@ -45,6 +61,11 @@ namespace Codebucket.Services
         }
 
         // Get all project members by project id, returns a list of viewModel ProjectMemberViewModel.
+        /// <summary>
+        /// Get all project members by project id, if project ID is not valid return null.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>List of 'ProjectMemberViewModel'</returns>
         public List<ProjectMemberViewModel> getAllProjectMemberViewModelsByProjectId(int? id)
         {
             if (id != null || id > 0)
@@ -58,14 +79,19 @@ namespace Codebucket.Services
                     {
                         _projectID = item._projectID,
                         _userName = item._userName,
-                        _id = item.ID                        
+                        _id = item.ID
                     });
                 }
                 return projectMemberViewModel;
             }
             return null;
         }
-        //Get a single projectMemberViewModel by project member id.
+
+        /// <summary>
+        /// Get a single project member by project member ID.
+        /// </summary>
+        /// <param name="projectMemberID">Project Member ID</param>
+        /// <returns>'ProjectMemberViewModel'</returns>
         public ProjectMemberViewModel getProjectMemberByProjectMemberID(int projectMemberID)
         {
             ProjectMemberViewModel member = new ProjectMemberViewModel();
@@ -81,6 +107,11 @@ namespace Codebucket.Services
             return member;
         }
 
+        /// <summary>
+        /// Gets owner of project by project ID, if project ID is not valid return null.
+        /// </summary>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>String</returns>
         public string getOwnerName(int projectID)
         {
             if (_db._projects.Find(projectID) == null)
@@ -99,6 +130,11 @@ namespace Codebucket.Services
         #endregion
 
         #region Add Contact logs.
+        /// <summary>
+        /// Take data from 'ConctactLogViewModel' and save to Db table 'contactLog', if model is not valid return false.
+        /// </summary>
+        /// <param name="model">'ContactLogViewModel'</param>
+        /// <returns>bool</returns>
         public bool addContactLog(ConctactLogViewModel model)
         {
             if (model._contactName != null || model._contactEmail != null || model._contactEmail != null) // FIXME::?
@@ -118,6 +154,11 @@ namespace Codebucket.Services
         #endregion
 
         #region Add project member.
+        /// <summary>
+        /// Gets project by project ID and user by username if both are valid adds a
+        /// new 'ProjectMember' to Db.
+        /// </summary>
+        /// <param name="model">'AddMemberViewModel'</param>
         public void addProjectMember(AddMemberViewModel model)
         {
             ProjectMember newProjectMember = new ProjectMember();
@@ -140,12 +181,15 @@ namespace Codebucket.Services
                 _db._projectMembers.Add(newProjectMember);
                 _db.SaveChanges();
             }
-            // TODO :: THOW EXCEPTION, else {if project or user was not found.}
         }
         #endregion
 
         #region Check if owner or username exists.
-        // Checks if username exists in the database, returns a bool value if true or not.
+        /// <summary>
+        /// Checks if username exists in the database, returns a bool value if true or not.
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <returns>'bool'</returns>
         public bool userIsInDataBase(string username)
         {
             string getUserName = (from user in _db.Users
@@ -155,13 +199,25 @@ namespace Codebucket.Services
             return (getUserName == username);
         }
 
-        public bool isProjectOwnerOrMember(string username, int projectID) //MOVME::This belongs in ApplicationUserService??
+        /// <summary>
+        /// Check if project is owner or member of project by username and project ID.
+        /// Uses two functions (isProjectOwner and isProjectMember)
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>bool</returns>
+        public bool isProjectOwnerOrMember(string username, int projectID)
         {
             return (isProjectOwner(username, projectID) || isProjectMember(username, projectID));
         }
 
-        // Checks if username is owner of project, returns a bool value if true or not.
-        public bool isProjectOwner(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
+        /// <summary>
+        /// Checks if username is owner of project by username and project ID, returns a bool value if true or not.
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>bool</returns>
+        public bool isProjectOwner(string username, int projectID)
         {
             ProjectOwner ownerInProject = (from owned in _db._projectOwners
                                            where owned._userName == username && owned._projectID == projectID
@@ -170,7 +226,12 @@ namespace Codebucket.Services
             return (ownerInProject != null);
         }
 
-        // Checks if username is owner of project, returns a bool value if true or not.
+        /// <summary>
+        /// Checks if username is owner of project by username and project ID, returns a bool value if true or not.
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="projectID">Project ID</param>
+        /// <returns>bool</returns>
         public bool isProjectMember(string username, int projectID)  //MOVME::This belongs in ApplicationUserService??
         {
             ProjectMember memberInProject = (from member in _db._projectMembers
@@ -180,6 +241,11 @@ namespace Codebucket.Services
             return (memberInProject != null);
         }
 
+        /// <summary>
+        /// Check is user is a member of any project, returns a bool value if true or not.
+        /// </summary>
+        /// <param name="memberID">Project member ID</param>
+        /// <returns>bool</returns>
         public bool isProjectMemberInAnyProject(int memberID)
         {
             ProjectMember memberInProject = (from member in _db._projectMembers
@@ -191,6 +257,11 @@ namespace Codebucket.Services
         #endregion
 
         #region Delete member.
+        /// <summary>
+        /// Deletes a member from Db by username and project ID.
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <param name="projectID">Project ID</param>
         public void deleteProjectMemberByUserNameAndProjectID(string userName, int projectID)
         {
             ProjectMember memberFound = (from m in _db._projectMembers
@@ -200,6 +271,10 @@ namespace Codebucket.Services
             deleteProjectMember(memberFound.ID);
         }
 
+        /// <summary>
+        /// Deletess a member from Db by project member ID.
+        /// </summary>
+        /// <param name="projectMemberID">Project member ID</param>
         public void deleteProjectMember(int projectMemberID)
         {
             ProjectMember memberToDel = (from member in _db._projectMembers

@@ -33,7 +33,7 @@ namespace Codebucket.Utilities
                 _exceptionMessage = ex.Message,
                 _exceptionStackTrace = ex.StackTrace,
                 _logTime = DateTime.Now,
-                _userName = System.Web.HttpContext.Current.User.Identity.Name                
+                _userName = System.Web.HttpContext.Current.User.Identity.Name
             };
 
             _db._exceptions.Add(exceptionLog);
