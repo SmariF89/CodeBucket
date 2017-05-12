@@ -120,11 +120,25 @@ textarea {
 
 .field-validation-error {
     color:red;
+     margin: 0;
+    display:block;
+    padding-left: 80px;
+}
+
+
+.input-field {
+    line-height:5%;
 }
 
 .input-validation-error {
-    border:4px solid red;
+    line-height:200%;
 }
+
+.validate {
+    font-size: medium;
+}
+
+
 
 .logo
 {
@@ -488,14 +502,22 @@ input[type="text"]{
 
 /* Create new project form */
 .center-input-name {
-    padding-left:200px;
-    border:dotted;
+    padding-left:10px;
+    
     padding-bottom:0px;
+    line-height: 1%;
+}
+
+.center-input-name-add-mem
+{
+    line-height:0%;
+    padding-right: 20px;
+    padding-left:260px;
 }
 
 .align-radio-buttons{
-    padding-left:295px;
-    border:dotted;
+    padding-left:400px;
+    
 }
 
 #create-project-form {
@@ -503,7 +525,7 @@ input[type="text"]{
 }
 
 .validation-field {
-    color:indianred;
+    color:red;
     font-size:15px;
 }
 
@@ -511,14 +533,18 @@ input[type="text"]{
     min-height: 90%; 
     text-align: center;
     font-size: 200%;
-    border:dotted;
+   
 }
 
 #valCrePro {
-    border: dotted;
     
     margin-left: 40px;
    
+}
+
+#createFile {
+    margin-top: 25px;
+    padding-left: 390px;
 }
     
 /* Add member form */
@@ -527,13 +553,24 @@ input[type="text"]{
 }
 
 #add-member-form {
-    padding-bottom: 400px;
+     padding-bottom: 400px;
+    padding-right: 400px;
+}
+
+#addMembButtons {
+    padding-left: 350px;
 }
 
 /* Add member form */
 #add-file-form {
-    padding-bottom: 400px;
+ padding-bottom: 400px;
+    padding-right:200px;
 }
+
+#add-file-form p {
+    padding-left: 250px;
+}
+
 
 /*Contact.cshtml starts from here*/
 

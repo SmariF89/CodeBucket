@@ -7,6 +7,7 @@ using System.Web;
 
 namespace Codebucket.Models.ViewModels
 {
+
     public class AddMemberViewModel
     {
         [IfMemberExists]

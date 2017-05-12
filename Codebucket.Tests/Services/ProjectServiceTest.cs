@@ -88,14 +88,24 @@ namespace Codebucket.Tests.Services
 
         public void addProject()
         {
+<<<<<<< HEAD
             string owner = "Bjarki";
             CreateProjectViewModel model = new CreateProjectViewModel();
             model._projectName = "Lab42";
             model._projectTypeId = 1;
+=======
+            //Arrange:
+            const int id = 1337;
+>>>>>>> e0f18db92bc7762327843bc55133c08884bad26a
 
             _service.addProject(model, owner);
             ////not done
 
+<<<<<<< HEAD
+=======
+            //Assert:
+            Assert.IsFalse(result);
+>>>>>>> e0f18db92bc7762327843bc55133c08884bad26a
         }
 
         //[TestMethod]
