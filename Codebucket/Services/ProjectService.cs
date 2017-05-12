@@ -252,9 +252,13 @@ namespace Codebucket.Services
                                            select owner).FirstOrDefault();
 
             // Delete the project.
-            Project projectToDel = _db._projects.Find(model._id);
-            _db._projects.Remove(projectToDel);
+            //Project projectToDel = _db._projects.Find(model._id);
+            Project projectToDel = (from del in _db._projects
+                                    where del.ID == model._id
+                                    select del).FirstOrDefault();
 
+            _db._projects.Remove(projectToDel);
+           
             _db._projectOwners.Remove(ownerInProject);
             _db.SaveChanges();
         }

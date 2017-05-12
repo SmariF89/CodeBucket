@@ -23,6 +23,8 @@ namespace Codebucket.Tests
             Users           = new InMemoryDbSet<ApplicationUser>();
             UserViewModel = new InMemoryDbSet<ApplicationUserViewModel>();
             CreateProjectViewModel = new InMemoryDbSet<CreateProjectViewModel>();
+            _projectFileViewModel = new InMemoryDbSet<ProjectFileViewModel>();
+            _projectViewModel = new InMemoryDbSet<ProjectViewModel>();
         }
 
         public IDbSet<Project> _projects               { get; set; }
@@ -35,6 +37,8 @@ namespace Codebucket.Tests
         public IDbSet<ApplicationUser> Users           { get; set; }
         public IDbSet<ApplicationUserViewModel> UserViewModel { get; set; }
         public IDbSet<CreateProjectViewModel> CreateProjectViewModel { get; set; }
+        public IDbSet<ProjectViewModel> _projectViewModel { get; set; }
+        public IDbSet<ProjectFileViewModel> _projectFileViewModel { get; set; }
         // TODO: bætið við fleiri færslum hér
         // eftir því sem þeim fjölgar í AppDataContext klasanum ykkar!
 
