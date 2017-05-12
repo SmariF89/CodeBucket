@@ -110,11 +110,12 @@ else
             @foreach (ProjectMemberViewModel item 
                 in Model._projectMembers)
             {
+                string preview = item._userName.Length > 8 ? item._userName.Substring(0, 8) + "..." : item._userName;
                 <tr>
                     <td>
                         <div class="chip">
                             <img class="persImg" src="~/Content/Symbols/person.png" alt="Contact Person">
-                            @Html.DisplayFor(modelItem => item._userName)
+                            @preview
                         </div>
                     </td>
                     <td>
