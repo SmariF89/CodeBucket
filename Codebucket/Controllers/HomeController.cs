@@ -8,6 +8,7 @@ namespace Codebucket.Controllers
 {
     public class HomeController : Controller
     {
+        // Redirects the action from the home controller index to overview index.
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Overview");

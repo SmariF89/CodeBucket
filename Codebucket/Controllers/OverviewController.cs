@@ -13,21 +13,31 @@ namespace Codebucket.Controllers
 {
     public class OverviewController : Controller
     {
+        /// <summary>
+        /// Initializes new instances of services, used to call on service functions and get data or remove from Db.
+        /// </summary>
         private ProjectService _projectService = new ProjectService(null);
         private ProjectFileService _projectFileService = new ProjectFileService(null);
         private UserService _userService = new UserService(null);
 
         #region Display all projects.
-        // Overview/Index
+        /// <summary>
+        /// Displays all project by current user.
+        /// </summary>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult Index()
         {
             List<ProjectViewModel> modelList = _projectService.getAllProjectsByApplicationUserId(User.Identity.Name);
             return View(modelList);
         }
-  
+
+        /// <summary>
+        /// Redirects action to display a project in project controller.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
-        // FIXME::Just calling a function in ProjectController. possible to remove ? or at least rename ?
         public ActionResult DisplayProjectRoute(int? id) 
         {
             return RedirectToAction("DisplayProject", "Project", new { id });
@@ -35,6 +45,10 @@ namespace Codebucket.Controllers
         #endregion
 
         #region Create new project.
+        /// <summary>
+        /// GET: CreateProjectViewModel for user to ba able to create a new project.
+        /// </summary>
+        /// <returns>ActionResult</returns>
         // GET: CreateNewProject
         [HttpGet]
         public ActionResult CreateNewProject()
@@ -43,7 +57,13 @@ namespace Codebucket.Controllers
             model._projectType = _projectFileService.populateDropdownData();
             return View(model);
         }
-
+        /// <summary>
+        /// POST: FormCollection sent from user used is checked if valid, if it is not valid send back to
+        /// user with message, else if valid send forward to service layer and add project to Db and redirect
+        /// action to overview/index.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns>ActionResult</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewProject(FormCollection collection)
@@ -75,6 +95,13 @@ namespace Codebucket.Controllers
         #endregion
 
         #region Delete project.
+        /// <summary>
+        /// GET: User has selected a project to delete and that project ID is passed in as a parameter. If project
+        /// is valid the user is asked to confirm delete. If yes redirect to DeleteConfirmed, else go back to 
+        /// overview/index.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult DeleteProject(int? id)
         {
@@ -93,6 +120,12 @@ namespace Codebucket.Controllers
             return HttpNotFound();
         }
 
+        /// <summary>
+        /// POST: User has confirmed delete. If project ID is valid send forward to service layer and delete from Db, 
+        /// else return HttpNotFound.
+        /// </summary>
+        /// <param name="id">Project ID</param>
+        /// <returns>ActionResult</returns>
         [HttpPost, ActionName("DeleteProject")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
