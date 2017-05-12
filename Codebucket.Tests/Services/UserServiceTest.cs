@@ -31,6 +31,8 @@ namespace Codebucket.Tests.Services
         {
             var mockDb = new MockDataContext();
 
+
+            // Owner initialized
             var p1 = new ProjectOwner
             {
                 ID = 1,
@@ -110,6 +112,100 @@ namespace Codebucket.Tests.Services
                 _userName = "Palli"
             };
             mockDb._projectOwners.Add(p10);
+
+
+            // Member initialized
+            var m1 = new ProjectMember
+            {
+                ID = 1,
+                _projectID = 23,
+                _userName = "Arni"
+            };
+            mockDb._projectMembers.Add(m1);
+
+            var m2 = new ProjectMember
+            {
+                ID = 2,
+                _projectID = 2,
+                _userName = "Armann"
+            };
+            mockDb._projectMembers.Add(m2);
+
+            var m3 = new ProjectMember
+            {
+                ID = 3,
+                _projectID = 55,
+                _userName = "Pesi pa"
+            };
+            mockDb._projectMembers.Add(m3);
+
+            var m4 = new ProjectMember
+            {
+                ID = 4,
+                _projectID = 27,
+                _userName = "Halli Hall"
+            };
+            mockDb._projectMembers.Add(m4);
+
+            var m5 = new ProjectMember
+            {
+                ID = 10,
+                _projectID = 23,
+                _userName = "Unnar L"
+            };
+            mockDb._projectMembers.Add(m5);
+
+            var m6 = new ProjectMember
+            {
+                ID = 6,
+                _projectID = 16,
+                _userName = "David"
+            };
+            mockDb._projectMembers.Add(m6);
+
+            var m7 = new ProjectMember
+            {
+                ID = 7,
+                _projectID = 99,
+                _userName = "Gunnar"
+            };
+            mockDb._projectMembers.Add(m7);
+
+            var m8 = new ProjectMember
+            {
+                ID = 8,
+                _projectID = 255,
+                _userName = "Gugga"
+            };
+            mockDb._projectMembers.Add(m8);
+
+            var m9 = new ProjectMember
+            {
+                ID = 9,
+                _projectID = 4,
+                _userName = "Birta"
+            };
+            mockDb._projectMembers.Add(m9);
+
+            var m10 = new ProjectMember
+            {
+                ID = 10,
+                _projectID = 87,
+                _userName = "Jon"
+            };
+            mockDb._projectMembers.Add(m10);
+
+            var m11 = new ProjectMember
+            {
+                ID = 11,
+                _projectID = 87,
+                _userName = "Svanhildur"
+            };
+            mockDb._projectMembers.Add(m11);
+
+           
+            
+
             _service = new UserService(mockDb);
         }
 
@@ -122,7 +218,7 @@ namespace Codebucket.Tests.Services
 
             // Act:
             var result = _service.isProjectOwner(username, projectID);
-
+                
             // Assert:
             Assert.IsTrue(result);
         }
@@ -141,6 +237,130 @@ namespace Codebucket.Tests.Services
             Assert.IsFalse(result);
         }
 
+        [TestMethod]
+        public void TestisProjectMemberInAnyProject1()
+        {
+            // Arrange:
+            const int memberID = 8;
+
+            // Act:
+            bool result = _service.isProjectMemberInAnyProject(memberID);
+
+            // Assert:
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestisProjectMemberInAnyProject2()
+        {
+            // Arrange:
+            const int memberID = 20;
+
+            // Act:
+            bool result = _service.isProjectMemberInAnyProject(memberID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestisProjectMemberInAnyProject3()
+        {
+            // Arrange:
+            const int memberID = 0;
+
+            // Act:
+            bool result = _service.isProjectMemberInAnyProject(memberID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestisProjectMemberInAnyProject4()
+        {
+            // Arrange:
+            const int memberID = -4;
+
+            // Act:
+            bool result = _service.isProjectMemberInAnyProject(memberID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestisProjectMemberInAnyProject5()
+        {
+            // Arrange:
+            const int memberID = 1000000;
+
+            // Act:
+            bool result = _service.isProjectMemberInAnyProject(memberID);
+
+            // Assert:
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestgetAllProjectMembersByProjectId1()
+        {
+            // Arrange:
+            const int projectID = 87;
+            
+            // Act:
+            List<ProjectMember> result = _service.getAllProjectMembersByProjectId(projectID);
+
+            // Assert:
+            List<ProjectMember> expected = new List<ProjectMember>();
+            
+            expected.Add(new ProjectMember
+            {
+                ID = 10,
+                _projectID = 87,
+                _userName = "Jon"
+            });
+
+            expected.Add(new ProjectMember
+            {
+                ID = 11,
+                _projectID = 87,
+                _userName = "Svanhildur"
+            });
+            
+            CollectionAssert.Equals(expected, result);
+        }
+
+        [TestMethod]
+        public void TestgetAllProjectMembersByProjectId2()
+        {
+            // Arrange:
+            const int projectID = 200;
+
+            // Act:
+            List<ProjectMember> result = _service.getAllProjectMembersByProjectId(projectID);
+
+            // Assert:          
+            CollectionAssert.Equals(0, result);
+        }
+
+        [TestMethod]
+        public void TestgetAllProjectMembersByProjectId3()
+        {
+            // Arrange:
+            const int projectID = -2;
+
+            // Act:
+            List<ProjectMember> result = _service.getAllProjectMembersByProjectId(projectID);
+
+            // Assert:          
+            CollectionAssert.Equals(0, result);
+        }
+
+        
+
+        //[TestMethod]
+        //public void TestIsP // working at now
 
     }
 }
