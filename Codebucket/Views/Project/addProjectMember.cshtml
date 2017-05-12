@@ -13,7 +13,7 @@
                 @Html.EditorFor(model => model._userName, new { htmlAttributes = new { @class = "validate" } })
                 @Html.ValidationMessageFor(model => model._userName, "", new { @class = "validate" })
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "validate" })
             </div>
             @Html.LabelFor(model => model._projectID, "", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.HiddenFor(model => model._projectID, new { htmlAttributes = new { @class = "form-control" } })

@@ -15,7 +15,8 @@ namespace Codebucket.Controllers
             return View("Error");
         }
         
-        // GET: /Error/PageNotFound
+        // GET: /Error/PageNotFound, see Web.config line 30-33. Uses this method when site gets status code
+        // 404 and throws a custom "pagen not found".
         public ActionResult PageNotFound()
         {
             Response.StatusCode = 404;

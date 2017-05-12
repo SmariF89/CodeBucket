@@ -24,7 +24,7 @@ namespace Codebucket.Tests.Services
         {
             var mockDb = new MockDataContext();
 
-            #region Users initialized.
+            #region User initialized.
             var u1 = new ApplicationUser
             {
                 Id = "1",
@@ -39,6 +39,7 @@ namespace Codebucket.Tests.Services
                 LockoutEnabled = true,
                 AccessFailedCount = 0,
             };
+            mockDb.Users.Add(u1);
             #endregion
 
             #region Projects initialized.
@@ -318,7 +319,7 @@ namespace Codebucket.Tests.Services
             Assert.AreEqual(expected, result);
         }
         #endregion
-        
+
         #region addProjectMember function.
         [TestMethod]
         public void TestAddProjectMember()
@@ -332,16 +333,14 @@ namespace Codebucket.Tests.Services
             };
 
             // Act:
-            bool check1 = _userService.userIsInDataBase(model._userName);
+            bool check1 = _userService.isProjectMember(model._userName, model._projectID);
             _userService.addProjectMember(model);
-            bool check2 = _userService.userIsInDataBase(model._userName);
+            bool check2 = _userService.isProjectMember(model._userName, model._projectID);
 
             // Assert:  
             Assert.AreNotEqual(check1, check2);
         }
         #endregion
-
-        //userIsInDataBase
 
         #region isProjectOwnerOrMember function.
         [TestMethod]
@@ -652,22 +651,20 @@ namespace Codebucket.Tests.Services
         #endregion
 
         #region getOwnerName function.
-        //  getOwnerName(int projectID) tests.
-        //[TestMethod]
-        //public void TestGetOwnerName()
-        //{
-        //    // Arrange:
-        //    const int projectID = 2;
+        [TestMethod]
+        public void TestGetOwnerName1()
+        {
+            // Arrange:
+            const int projectID = 1;
 
-        //    // Act:
-        //    string result = _service.getOwnerName(projectID);
+            // Act:
+            string result = _userService.getOwnerName(projectID);
 
-        //    // Assert:
-        //    string expected = "Snorri";
+            // Assert:
+            string expected = "David";
 
-        //    Assert.AreEqual(expected, result);
-        //}
-        #endregion
-        
+            Assert.AreEqual(expected, result);
+        }
+        #endregion      
     }
 }

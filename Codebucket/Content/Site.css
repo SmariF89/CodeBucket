@@ -1,18 +1,24 @@
-﻿*{
+﻿/*If the font is added to div then the ace cursor is displaces*/
+/* *{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}*/
+
+h1, h2, h3, h4, h5, h6{
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
 
-h1, h2, h3, h4{
+p, a, label, legend {
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
 
-p{
+input, textarea{
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
 
-input{
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+th, td, tr, table, tbody, tfoot, thead, title {
+	font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
+
 
 body {
     padding-top: 50px;
@@ -59,11 +65,13 @@ textarea {
     max-width: 280px;
 }
 
+
+
 /* Ace editor*/
 #editor {
     position: relative;
     clear: both;
-    height: 725px;
+    height: 440px;
     width: 100%;
     border: 1px solid #cccccc;
     border-radius: 4px;
@@ -72,10 +80,14 @@ textarea {
 
 }
 
-#editor.setOptions{
+/*#editor.setOptions{
     font-family: Tahoma ;
     font-size: 10pt;
-}
+<<<<<<< HEAD
+  }
+=======
+}*/
+>>>>>>> 7789a53f281b28db71750f131a16b3acf9f79799
 
 .FileName{
     float:left;
@@ -125,6 +137,13 @@ textarea {
     padding-left: 80px;
 }
 
+#changePassword .field-validation-error {
+    padding-right: 5%;
+    display:block;
+    line-height: 5%;
+   
+}
+
 
 .input-field {
     line-height:5%;
@@ -132,6 +151,17 @@ textarea {
 
 .input-validation-error {
     line-height:200%;
+    border:3px solid red !important;
+    background-color: rgb(255, 179, 179) !important;
+}
+
+.validation-summary-errors {
+    line-height: 50%;
+    color:red;
+    display:block;
+    padding-left:80px;
+    margin:0;
+    font-size:medium;
 }
 
 .validate {
@@ -264,7 +294,7 @@ input[type="text"]{
    border: 1px solid #cccccc;
     border-radius: 4px;
     opacity: 1;
-    margin-top: 30px;
+    margin-top: -30px;
     text-align: center;
     width: 700px;
     margin-bottom: 150px;
@@ -434,18 +464,20 @@ input[type="text"]{
 /* About site.*/
 .background-aboutSite{
     background-color: #E0E0E0 !important;
+    background-repeat: repeat-x;
     margin-top: 5px;
 }
 
 .twitter{
     margin: 10px;
-    width: 300px;
-    height: 120px;
+    width: 310px;
+    height: 125px;
     border-color: #808080;
     border-style: solid;
     border-width: 1px;
+    position: center;
+    margin-left: 10px;
     
-
     /* set border roundness */  
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px; 
@@ -454,8 +486,8 @@ input[type="text"]{
 
 .twitterContainer{
     float: left;
-    margin-left: 20px;
-
+    margin-left: 5px;
+    width: 100%;
 }
 
 .titleAbout{
@@ -527,6 +559,7 @@ input[type="text"]{
 .validation-field {
     color:red;
     font-size:15px;
+    
 }
 
 .confirmCrePro{
@@ -582,8 +615,16 @@ input[type="text"]{
 
 .Login{
     margin-top: 180px;
+    
+}
+
+
+
+.loginFontSize{
+    font-size:150%;
 }
 
 .Register{
     margin-top: 180px;
+    
 }
