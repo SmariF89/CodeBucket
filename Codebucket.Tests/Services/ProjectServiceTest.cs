@@ -1,6 +1,8 @@
 ﻿using Codebucket.Models.Entities;
+using Codebucket.Models.ViewModels;
 using Codebucket.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +23,12 @@ namespace Codebucket.Tests.Services
 
             var p1 = new Project
             {
+              
                 ID = 1,
                 _projectName = "Project_1",
-                _projectFileTypeId = 1
+                _projectFileTypeId = 1,
+                
+
             };
             mockDb._projects.Add(p1);
 
@@ -51,20 +56,84 @@ namespace Codebucket.Tests.Services
             };
             mockDb._projects.Add(p4);
 
+            var p5 = new ProjectFile
+            {
+                 ID = 1,
+                _projectID = 1,
+                _projectFileName = "lab1", 
+                _projectFileType = "html",
+                _aceExtension = "html",
+                _projectFileData = "hello"
+            };
+            mockDb._projectFiles.Add(p5);
+
+            var p6 = new ProjectOwner
+            {
+                ID = 1,
+                _projectID = 1,
+                _userName = "Bjarki"
+
+            };
+            mockDb._projectOwners.Add(p6);
+
+            var p7 = new CreateProjectViewModel
+            {
+                
+               _projectName = "Lab42",
+               _projectTypeId = 1
+            };
+
             _service = new ProjectService(mockDb);
         }
 
-        [TestMethod]
-        public void TestProjectExist()
+        public void addProject()
         {
-            // Arrange: 
-            const int id = 1;
+            string owner = "Bjarki";
+            CreateProjectViewModel model = new CreateProjectViewModel();
+            model._projectName = "Lab42";
+            model._projectTypeId = 1;
 
-            // Act:
-            var result = _service.projectExist(id);
+            _service.addProject(model, owner);
+            ////not done
 
-            // Assert:
-            Assert.IsNull(result);
         }
+
+        //[TestMethod]
+        //public void TestProjectExist()
+        //{
+        //    // Arrange: 
+        //    int id = 1;
+
+        //    // Act:
+        //    var result = _service.projectExist(id);
+
+        //    // Assert:
+        //    Assert.IsTrue(result);
+        //}
+
+        //[TestMethod]
+        //public void TestGetProject()
+        //{
+        //    string user = "Bjarki";
+        //    int id = 1;
+
+        //    var result = _service.getProjectByProjectId(user, id);
+
+        //    Assert.IsNotNull(result);
+        //}
+        //[TestMethod]
+        //public void TestcreateNewProjectIsValid()
+        //{
+        //    string projectName = "Project_1";
+        //    string username = "Bjarki";
+
+        //    var result = _service.createNewProjectIsValid(projectName, username);
+
+        //    Assert.IsTrue(result);
+
+        //}
+
+
+
     }
 }
