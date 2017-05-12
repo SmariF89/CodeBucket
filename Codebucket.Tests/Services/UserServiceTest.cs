@@ -235,6 +235,8 @@ namespace Codebucket.Tests.Services
             _userService = new UserService(mockDb);
         }
 
+        // Tests.
+
         #region getAllProjectMembersByProjectID function.
         [TestMethod]
         public void TestGetAllProjectMembersByProjectId1()

@@ -16,8 +16,7 @@ namespace Codebucket.Tests.Services
         {
             var mockDb = new MockDataContext();
 
-            //Files//
-
+            #region Initialize files.
             var f1 = new ProjectFile
             {
                 ID = 1,
@@ -61,9 +60,9 @@ namespace Codebucket.Tests.Services
                 _aceExtension = "csharp"
             };
             mockDb._projectFiles.Add(f4);
+            #endregion 
 
-            //Projects//
-
+            #region Initialize Projects.
             var p1 = new Project
             {
                 ID = 1,
@@ -71,7 +70,7 @@ namespace Codebucket.Tests.Services
                 _projectName = "TestProject_01"
             };
             mockDb._projects.Add(p1);
-
+            
             var p2 = new Project
             {
                 ID = 2,
@@ -87,12 +86,14 @@ namespace Codebucket.Tests.Services
                 _projectName = "TestProject_03"
             };
             mockDb._projects.Add(p1);
+            #endregion
 
             _service = new ProjectFileService(mockDb);
         }
 
-        //Tests//
+        // Tests.
 
+        #region getFiles function.
         [TestMethod]
         public void TestUpdateProjectFile()
         {
@@ -202,9 +203,11 @@ namespace Codebucket.Tests.Services
             var result = _service.getAllProjectFilesByProjectId(id);
 
             // Assert:
-            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(2, result.Count);
         }
+        #endregion
 
+        #region getFilesFromNonExistantProject function.
         [TestMethod]
         public void TestGetFilesFromNonExistantProject()
         {
@@ -217,5 +220,6 @@ namespace Codebucket.Tests.Services
             // Assert:
             Assert.AreEqual(0, result.Count);
         }
+        #endregion
     }
 }

@@ -21,6 +21,7 @@ namespace Codebucket.Tests.Services
         {
             var mockDb = new MockDataContext();
 
+            #region Initialize projects.
             var p1 = new Project
             {
               
@@ -99,10 +100,14 @@ namespace Codebucket.Tests.Services
                 //_applicationUserProjects ""
             };
             mockDb.UserViewModel.Add(p9);
+            #endregion
 
             _service = new ProjectService(mockDb);
         }
 
+        // Test.
+
+        #region projectExists function.
         [TestMethod]
         public void TestProjectExist()
         {
@@ -115,6 +120,6 @@ namespace Codebucket.Tests.Services
             // Assert:
             Assert.IsTrue(result);
         }
-
+        #endregion
     }
 }
