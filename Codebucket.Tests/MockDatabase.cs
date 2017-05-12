@@ -30,8 +30,6 @@ namespace Codebucket.Tests
         public IDbSet<ExceptionLogger> _exceptions     { get; set; }
         public IDbSet<ContactLog> _contacts            { get; set; }
         public IDbSet<ApplicationUser> Users           { get; set; }
-        // TODO: bætið við fleiri færslum hér
-        // eftir því sem þeim fjölgar í AppDataContext klasanum ykkar!
 
         public int SaveChanges()
         {
