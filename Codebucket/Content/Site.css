@@ -134,6 +134,15 @@ textarea {
     line-height:200%;
 }
 
+.validation-summary-errors {
+    line-height: 50%;
+    color:red;
+    display:block;
+    padding-left:80px;
+    margin:0;
+    font-size:medium;
+}
+
 .validate {
     font-size: medium;
 }
@@ -429,6 +438,7 @@ input[type="text"]{
 /* About site.*/
 .background-aboutSite{
     background-color: #E0E0E0 !important;
+    background-repeat: repeat-x;
     margin-top: 5px;
 }
 
@@ -522,6 +532,7 @@ input[type="text"]{
 .validation-field {
     color:red;
     font-size:15px;
+    
 }
 
 .confirmCrePro{
@@ -577,8 +588,14 @@ input[type="text"]{
 
 .Login{
     margin-top: 180px;
+    
+}
+
+.loginFontSize{
+    font-size:150%;
 }
 
 .Register{
     margin-top: 180px;
+    
 }
