@@ -341,8 +341,8 @@ input[type="text"]{
     font-size: 16px;
     color: rgb(38,166,154);
     margin-bottom: -18px;
-    margin-right: -45px;
-    margin-left: -9px;
+    margin-right: -76px;
+    margin-left: -30px;
 }
 
 .addedByIco{
@@ -623,7 +623,6 @@ input[type="text"]{
 
 .Login{
     margin-top: 180px;
-    
 }
 
 .loginFontSize{
@@ -632,5 +631,13 @@ input[type="text"]{
 
 .Register{
     margin-top: 180px;
-    
+}
+
+#OverviewTableParticipating table tbody tr td a{
+    padding-left: 30px;
+    margin-right: -150px;
+}
+
+#OverviewTableOwned table tbody tr td .collection-item {
+    padding-left: 35px;
 }

@@ -68,18 +68,18 @@ namespace Codebucket.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [StringLength(42, MinimumLength = 6, ErrorMessage ="Valid Username length (6-42)")]
+        [Required(ErrorMessage = "Username is required")]
+        [StringLength(42, MinimumLength = 6, ErrorMessage = "Valid Username length (6-42)")]
         [RegularExpression(@"^[a-zA-Z0-9]*$", ErrorMessage = "Must only contain letters or digits")]
         [Display(Name = "Username")]
         public string UserName { get; set; }
-        
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "The minimum length is {2}.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

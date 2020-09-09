@@ -25,10 +25,11 @@
 <div class="row movies-list">
     <h1 id="header-projectOverview">Project overview</h1>
     <h2>My projects</h2>
-    <table class="highlight bordered">
-        <tbody>
-            @{int numberOfOwnedProjects = 0;}
-            @foreach (ProjectViewModel item in Model)
+    <div id="OverviewTableOwned">
+        <table class="highlight bordered">
+            <tbody>
+                @{int numberOfOwnedProjects = 0;} 
+                @foreach (ProjectViewModel item in Model)
             {
                 if (item._isProjectOwner)
                 {
@@ -36,7 +37,7 @@
                 }
             }
 
-            @foreach (ProjectViewModel item in Model)
+                @foreach (ProjectViewModel item in Model)
             {
                 if (item._isProjectOwner)
                 {
@@ -47,7 +48,7 @@
                                 </figure>
                             </td>
                             <td>
-                                &nbsp &nbsp &nbsp @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
+                                @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
                             </td>
                             <td>
                                 @if (numberOfOwnedProjects > 1)
@@ -62,8 +63,9 @@
                         </tr>
                     }
                 }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
     <div id="OverviewTableParticipating">
         <h2>Participating</h2>
         <table class="highlight bordered">
@@ -79,7 +81,7 @@
                                 </figure>
                             </td>
                             <td>
-                                &nbsp &nbsp &nbsp &nbsp @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
+                                @Html.ActionLink(item._projectName, "DisplayProjectRoute", new { id = item._id }, new { @class = "collection-item" })
                             </td>
                             <td>
                                 <p class="addedBy">Added by <b>@item._projectOwnerName</b></p>

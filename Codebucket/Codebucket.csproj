@@ -655,6 +655,9 @@
     <Content Include="Handlers\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Handlers\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Handlers\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="ClassDiagram2.cd" />
+    <Content Include="ClassDiagram3.cd" />
+    <Content Include="ClassDiagram4.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
